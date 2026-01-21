@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My Tech Knowledge Notes</title>
+    <link>https://ankurs2494.github.io/techVeda/</link>
+    <description>Recent content on My Tech Knowledge Notes</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ankurs2494.github.io/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Phase 3 : TCP/IP and ports</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
+      <description>&lt;p&gt;This phase is where networking becomes practical and real. We focus on how data actually moves between devices.&lt;/p&gt;
+&lt;p&gt;You’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-why-tcpip-exists&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;1️⃣ Why TCP/IP Exists&lt;/font&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;IP (Layer 3)&lt;/strong&gt; can only do one thing:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deliver packets from one IP to another IP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Problems with IP alone:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;No guarantee of delivery&lt;/li&gt;
+&lt;li&gt;No ordering of packets&lt;/li&gt;
+&lt;li&gt;No error recovery&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Because of these limitations, we need &lt;strong&gt;Transport Layer protocols&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Phase 4 – DNS (Domain Name System)</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</link>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
+      <description>&lt;!-- ### What This Phase Covers --&gt;
+&lt;p&gt;DNS is one of the most critical systems on the internet.&lt;/p&gt;
+&lt;p&gt;If DNS fails, &lt;strong&gt;everything appears broken&lt;/strong&gt; — even when the network is perfectly fine.&lt;/p&gt;
+&lt;p&gt;In this phase, we focus on DNS — the quiet system that makes the internet usable for humans.&lt;/p&gt;
+&lt;p&gt;You’ll learn how domain names are translated into IP addresses, what actually happens when you type a website into your browser, and how DNS queries move across multiple servers behind the scenes.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Phase 5 : Routing, Gateway and NAT</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
+      <description>&lt;p&gt;Phase 5 focuses on how networks communicate.&lt;/p&gt;
+&lt;p&gt;It covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-what-is-routing&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;1️⃣ What Is Routing?&lt;/font&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;definition&#34;&gt;Definition:&lt;/h4&gt;
+&lt;p&gt;Routing is the process of deciding where to send a packet next.&lt;/p&gt;
+&lt;h4 id=&#34;every-packet-asks&#34;&gt;Every packet asks:&lt;/h4&gt;
+&lt;p&gt;“How do I reach this destination IP?”&lt;/p&gt;
+&lt;p&gt;&lt;font color=&#34;green&#34;&gt;The answer comes from a routing table.&lt;/font&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Phase 2 : IP and Subnetting</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
+      <description>&lt;p&gt;In this phase, we explore IP addresses and subnetting — the part of networking that explains how devices are identified and grouped together.&lt;/p&gt;
+&lt;p&gt;You’ll understand what IP addresses represent, why networks are divided into subnets, and how this structure makes large networks possible and manageable.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;ip-addresses-the-heart-of-networking&#34;&gt;&lt;font color=&#34;orange&#34;&gt;IP Addresses (The Heart of Networking)&lt;/font&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;what-is-an-ip-address&#34;&gt;&lt;font color=&#34;blue&#34;&gt;What Is an IP Address&lt;/font&gt;&lt;/h3&gt;
+&lt;p&gt;An IP address is a logical identifier that tells the network:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Who you are&lt;/li&gt;
+&lt;li&gt;Where you are&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt; 192.168.1.10&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Phase 1 : Core networking concepts</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
+      <pubDate>Mon, 19 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
+      <description>&lt;p&gt;In this phase, we build the foundation of networking by understanding what networks are and how devices communicate.&lt;/p&gt;
+&lt;p&gt;You’ll learn what hosts, IP addresses, clients, and servers really mean, and how simple request–response communication powers almost everything on the internet.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-what-is-a-network&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;1️⃣ What Is a Network?&lt;/font&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;simple-definition&#34;&gt;Simple definition:&lt;/h4&gt;
+&lt;p&gt;A network is a group of devices that can communicate with each other.&lt;/p&gt;
+&lt;h4 id=&#34;examples-of-devices&#34;&gt;Examples of devices:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Laptop&lt;/li&gt;
+&lt;li&gt;Phone&lt;/li&gt;
+&lt;li&gt;Server&lt;/li&gt;
+&lt;li&gt;Printer&lt;/li&gt;
+&lt;li&gt;Router&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;If devices can send and receive data, they are on a network.&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</link>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</guid>
+      <description>A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;amp;A.</description>
+    </item>
+    <item>
+      <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</link>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
+      <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
+    </item>
+    <item>
+      <title>Browser Caching</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</link>
+      <pubDate>Sat, 03 Jan 2026 21:32:16 +0100</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</guid>
+      <description>&lt;h2 id=&#34;what-is-browser-caching&#34;&gt;What is browser caching?&lt;/h2&gt;
+&lt;p&gt;Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user&amp;rsquo;s device so that the website loads faster on future visits.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;use-case&#34;&gt;Use Case&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Faster page loads&lt;/li&gt;
+&lt;li&gt;Reduced bandwith&lt;/li&gt;
+&lt;li&gt;Lower serve load&lt;/li&gt;
+&lt;li&gt;Better user experience&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;how-browser-caching-works&#34;&gt;How browser caching works?&lt;/h2&gt;
+&lt;p&gt;Browser follow rules sent by the server using HTTP headers that tell them:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What to cache&lt;/li&gt;
+&lt;li&gt;How long to cache&lt;/li&gt;
+&lt;li&gt;Whether to re-check the server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;cache-control-headers&#34;&gt;Cache control headers&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Cache-Control: max-age  -&amp;gt; Cache for X seconds&lt;/li&gt;
+&lt;li&gt;Cache-Control: no-cache -&amp;gt; Re-check with server before use&lt;/li&gt;
+&lt;li&gt;Cache-Control: no-store -&amp;gt; Don&amp;rsquo;t store anything&lt;/li&gt;
+&lt;li&gt;Expires                 -&amp;gt; Absolute expiration date&lt;/li&gt;
+&lt;li&gt;ETag                    -&amp;gt; Version identifier&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;cahing-flow-simple&#34;&gt;Cahing Flow (Simple)&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Brwoser -&amp;gt; Server: &amp;ldquo;Give me the Page&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Server -&amp;gt; Browser: Page + Cache rules&lt;/li&gt;
+&lt;li&gt;Browser: Saves files locally&lt;/li&gt;
+&lt;li&gt;Next visit:
+&lt;ul&gt;
+&lt;li&gt;If fresh -&amp;gt; load from cache&lt;/li&gt;
+&lt;li&gt;If expired -&amp;gt; Ask server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-final-memory-trick&#34;&gt;💡 Final memory trick&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Cache = Speed&lt;/li&gt;
+&lt;li&gt;No-cache = Freshness&lt;/li&gt;
+&lt;li&gt;No-store = Security&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;clearing-cache&#34;&gt;Clearing cache&lt;/h2&gt;
+&lt;p&gt;Deletes stored files -&amp;gt; forces browser to download fresh content.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Cache invalidation</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</link>
+      <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</guid>
+      <description>&lt;h2 id=&#34;what-is-cache-invalidation&#34;&gt;What is Cache Invalidation?&lt;/h2&gt;
+&lt;p&gt;Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Always serve fresh and correct data, not stale cached copies.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;why-is-it-hard&#34;&gt;Why Is It Hard?&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;In distributed systems, the same data can be cached in many places (servers, CDNs, browsers).&lt;/li&gt;
+&lt;li&gt;Making sure every copy is updated at the right time is complex.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“There are only two hard things in Computer Science: cache invalidation and naming things.”&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

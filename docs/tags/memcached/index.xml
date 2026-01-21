@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Memcached on My Tech Knowledge Notes</title>
+    <link>https://ankurs2494.github.io/techVeda/tags/memcached/</link>
+    <description>Recent content in Memcached on My Tech Knowledge Notes</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ankurs2494.github.io/techVeda/tags/memcached/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</link>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
+      <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
+    </item>
+  </channel>
+</rss>

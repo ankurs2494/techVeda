@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons | My Tech Knowledge Notes</title>
+<meta name="keywords" content="redis, memcached, caching, system-design, interview">
+<meta name="description" content="A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/">
+<link crossorigin="anonymous" href="../../../techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Redis vs Memcached: Short Explanation, Use Cases, Pros & Cons">
+  <meta property="og:description" content="A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-04T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-04T00:00:00+00:00">
+    <meta property="article:tag" content="Redis">
+    <meta property="article:tag" content="Memcached">
+    <meta property="article:tag" content="Caching">
+    <meta property="article:tag" content="System-Design">
+    <meta property="article:tag" content="Interview">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons">
+<meta name="twitter:description" content="A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "System design concept",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Redis vs Memcached: Short Explanation, Use Cases, Pros \u0026 Cons",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Redis vs Memcached: Short Explanation, Use Cases, Pros \u0026 Cons",
+  "name": "Redis vs Memcached: Short Explanation, Use Cases, Pros \u0026 Cons",
+  "description": "A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.",
+  "keywords": [
+    "redis", "memcached", "caching", "system-design", "interview"
+  ],
+  "articleBody": " Introduction Caching is a critical technique used to improve application performance and scalability. Two of the most popular in-memory caching systems are Redis and Memcached. While both are fast, they are designed for different use cases.\nThis post gives a short, clear explanation, followed by real-world scenarios, and ends with 20 interview questions and answers worth knowing.\nCache Flow Diagram Basic Cache-Aside Pattern (Used with Redis \u0026 Memcached) Client │ │ Request Data ▼ Application Server │ │ 1. Check Cache ▼ Cache (Redis / Memcached) │ │ Cache Miss ▼ Database │ │ Fetch Data ▼ Cache (Store Result with TTL) │ ▼ Application Server │ ▼ Client (Response) Explanation:\nApplication first checks cache On miss, data is fetched from DB Result is stored in cache for future requests What is Redis? Redis is an in-memory data store that can be used as a cache, database, or message broker. It supports multiple data structures and optional persistence.\nCommon Use Cases Session storage API response caching Rate limiting Real-time analytics Leaderboards Pub/Sub messaging Example SET user:123 \"{name: 'Alice'}\" EXPIRE user:123 3600 Pros Supports advanced data structures Optional persistence (RDB, AOF) Replication and high availability Atomic operations Pub/Sub support Cons Higher memory usage Slightly complex to manage Overkill for very simple caching Real-Life Scenarios E-commerce: inventory counters Social media: likes, followers, timelines Gaming: real-time leaderboards Authentication systems: sessions and tokens What is Memcached? Memcached is a lightweight, in-memory key-value store designed purely for caching.\nCommon Use Cases Page caching Database query caching Object caching Example set user_123 3600 0 15 Alice Pros Extremely fast Simple to use Low memory overhead Easy horizontal scaling Cons No persistence No replication Only string key-value storage Data lost on restart Real-Life Scenarios News websites: homepage caching Blogs: rendered HTML caching Read-heavy applications: database load reduction Redis vs Memcached Comparison Feature Redis Memcached Data Types Multiple Strings only Persistence Yes No Replication Yes No Pub/Sub Yes No Complexity Medium Simple Performance (simple cache) Fast Very fast When to Choose Which? Choose Redis if you need durability, complex data types, or real-time features. Choose Memcached if you want extremely fast, temporary caching with minimal setup. Interview Questions \u0026 Answers (20 Must-Know) 1. What is caching? Caching is storing frequently accessed data in memory to reduce latency and backend load. 2. Difference between Redis and Memcached? Redis supports persistence and data structures; Memcached is a simple key-value cache. 3. Is Redis only a cache? No. Redis can act as a cache, database, and message broker. 4. Why is Redis slower than Memcached in some cases? Redis has more features and metadata overhead. 5. Does Redis support persistence? Yes, via RDB snapshots and AOF logs. 6. What happens to Memcached data after restart? All data is lost. 7. What data structures does Redis support? Strings, hashes, lists, sets, sorted sets, streams, and more. 8. What is Redis Pub/Sub? A messaging pattern where publishers send messages to subscribers. 9. Can Memcached replicate data? No, replication is not supported. 10. What is cache eviction? Removing old data when cache memory is full. 11. What eviction policies does Redis support? LRU, LFU, TTL-based, and no-eviction. 12. Which is better for session storage? Redis, because it supports persistence and TTLs. 13. Can Redis be used for rate limiting? Yes, using atomic counters and expiration. 14. Is Memcached thread-safe? Yes, it supports multithreaded operations. 15. What is TTL? Time-To-Live defines how long cached data stays valid. 16. Can Redis scale horizontally? Yes, using Redis Cluster. 17. Why use Memcached over Redis? For very simple, high-speed, ephemeral caching. 18. Is Redis single-threaded? Mostly yes, but it uses I/O multiplexing and background threads. 19. What happens if cache fails? The system falls back to the database (cache miss). 20. Redis vs Memcached — one-line summary? Redis is feature-rich; Memcached is fast and minimal. Conclusion Redis and Memcached both solve caching problems but target different needs. Understanding their strengths helps you design scalable, high-performance systems — and ace system design interviews.\n",
+  "wordCount" : "664",
+  "inLanguage": "en",
+  "datePublished": "2026-01-04T00:00:00Z",
+  "dateModified": "2026-01-04T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/notes/systemdesign/" title="System design">
+                    <span>System design</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/">System design concept</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons
+    </h1>
+    <div class="post-description">
+      A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.
+    </div>
+    <div class="post-meta"><span title='2026-01-04 00:00:00 +0000 UTC'>January 4, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><hr>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>Caching is a critical technique used to improve application performance and scalability. Two of the most popular in-memory caching systems are <strong>Redis</strong> and <strong>Memcached</strong>. While both are fast, they are designed for different use cases.</p>
+<p>This post gives a <strong>short, clear explanation</strong>, followed by <strong>real-world scenarios</strong>, and ends with <strong>20 interview questions and answers</strong> worth knowing.</p>
+<hr>
+<h2 id="cache-flow-diagram">Cache Flow Diagram<a hidden class="anchor" aria-hidden="true" href="#cache-flow-diagram">#</a></h2>
+<h3 id="basic-cache-aside-pattern-used-with-redis--memcached">Basic Cache-Aside Pattern (Used with Redis &amp; Memcached)<a hidden class="anchor" aria-hidden="true" href="#basic-cache-aside-pattern-used-with-redis--memcached">#</a></h3>
+<pre tabindex="0"><code>Client
+  │
+  │ Request Data
+  ▼
+Application Server
+  │
+  │ 1. Check Cache
+  ▼
+Cache (Redis / Memcached)
+  │
+  │ Cache Miss
+  ▼
+Database
+  │
+  │ Fetch Data
+  ▼
+Cache (Store Result with TTL)
+  │
+  ▼
+Application Server
+  │
+  ▼
+Client (Response)
+</code></pre><p><strong>Explanation:</strong></p>
+<ul>
+<li>Application first checks cache</li>
+<li>On miss, data is fetched from DB</li>
+<li>Result is stored in cache for future requests</li>
+</ul>
+<hr>
+<h2 id="what-is-redis">What is Redis?<a hidden class="anchor" aria-hidden="true" href="#what-is-redis">#</a></h2>
+<p>Redis is an <strong>in-memory data store</strong> that can be used as a <strong>cache, database, or message broker</strong>. It supports multiple data structures and optional persistence.</p>
+<h3 id="common-use-cases">Common Use Cases<a hidden class="anchor" aria-hidden="true" href="#common-use-cases">#</a></h3>
+<ul>
+<li>Session storage</li>
+<li>API response caching</li>
+<li>Rate limiting</li>
+<li>Real-time analytics</li>
+<li>Leaderboards</li>
+<li>Pub/Sub messaging</li>
+</ul>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SET user:123 <span style="color:#e6db74">&#34;{name: &#39;Alice&#39;}&#34;</span>
+</span></span><span style="display:flex;"><span>EXPIRE user:123 <span style="color:#ae81ff">3600</span>
+</span></span></code></pre></div><h3 id="pros">Pros<a hidden class="anchor" aria-hidden="true" href="#pros">#</a></h3>
+<ul>
+<li>Supports advanced data structures</li>
+<li>Optional persistence (RDB, AOF)</li>
+<li>Replication and high availability</li>
+<li>Atomic operations</li>
+<li>Pub/Sub support</li>
+</ul>
+<h3 id="cons">Cons<a hidden class="anchor" aria-hidden="true" href="#cons">#</a></h3>
+<ul>
+<li>Higher memory usage</li>
+<li>Slightly complex to manage</li>
+<li>Overkill for very simple caching</li>
+</ul>
+<h3 id="real-life-scenarios">Real-Life Scenarios<a hidden class="anchor" aria-hidden="true" href="#real-life-scenarios">#</a></h3>
+<ul>
+<li><strong>E-commerce</strong>: inventory counters</li>
+<li><strong>Social media</strong>: likes, followers, timelines</li>
+<li><strong>Gaming</strong>: real-time leaderboards</li>
+<li><strong>Authentication systems</strong>: sessions and tokens</li>
+</ul>
+<hr>
+<h2 id="what-is-memcached">What is Memcached?<a hidden class="anchor" aria-hidden="true" href="#what-is-memcached">#</a></h2>
+<p>Memcached is a <strong>lightweight, in-memory key-value store</strong> designed purely for caching.</p>
+<h3 id="common-use-cases-1">Common Use Cases<a hidden class="anchor" aria-hidden="true" href="#common-use-cases-1">#</a></h3>
+<ul>
+<li>Page caching</li>
+<li>Database query caching</li>
+<li>Object caching</li>
+</ul>
+<h3 id="example-1">Example<a hidden class="anchor" aria-hidden="true" href="#example-1">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>set user_123 <span style="color:#ae81ff">3600</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span>Alice
+</span></span></code></pre></div><h3 id="pros-1">Pros<a hidden class="anchor" aria-hidden="true" href="#pros-1">#</a></h3>
+<ul>
+<li>Extremely fast</li>
+<li>Simple to use</li>
+<li>Low memory overhead</li>
+<li>Easy horizontal scaling</li>
+</ul>
+<h3 id="cons-1">Cons<a hidden class="anchor" aria-hidden="true" href="#cons-1">#</a></h3>
+<ul>
+<li>No persistence</li>
+<li>No replication</li>
+<li>Only string key-value storage</li>
+<li>Data lost on restart</li>
+</ul>
+<h3 id="real-life-scenarios-1">Real-Life Scenarios<a hidden class="anchor" aria-hidden="true" href="#real-life-scenarios-1">#</a></h3>
+<ul>
+<li><strong>News websites</strong>: homepage caching</li>
+<li><strong>Blogs</strong>: rendered HTML caching</li>
+<li><strong>Read-heavy applications</strong>: database load reduction</li>
+</ul>
+<hr>
+<h2 id="redis-vs-memcached-comparison">Redis vs Memcached Comparison<a hidden class="anchor" aria-hidden="true" href="#redis-vs-memcached-comparison">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>Redis</th>
+          <th>Memcached</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Data Types</td>
+          <td>Multiple</td>
+          <td>Strings only</td>
+      </tr>
+      <tr>
+          <td>Persistence</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Replication</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Pub/Sub</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Complexity</td>
+          <td>Medium</td>
+          <td>Simple</td>
+      </tr>
+      <tr>
+          <td>Performance (simple cache)</td>
+          <td>Fast</td>
+          <td>Very fast</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="when-to-choose-which">When to Choose Which?<a hidden class="anchor" aria-hidden="true" href="#when-to-choose-which">#</a></h2>
+<ul>
+<li>Choose <strong>Redis</strong> if you need durability, complex data types, or real-time features.</li>
+<li>Choose <strong>Memcached</strong> if you want extremely fast, temporary caching with minimal setup.</li>
+</ul>
+<hr>
+<h2 id="interview-questions--answers-20-must-know">Interview Questions &amp; Answers (20 Must-Know)<a hidden class="anchor" aria-hidden="true" href="#interview-questions--answers-20-must-know">#</a></h2>
+<details>
+<summary><strong>1. What is caching?</strong></summary>
+Caching is storing frequently accessed data in memory to reduce latency and backend load.
+</details>
+<details>
+<summary><strong>2. Difference between Redis and Memcached?</strong></summary>
+Redis supports persistence and data structures; Memcached is a simple key-value cache.
+</details>
+<details>
+<summary><strong>3. Is Redis only a cache?</strong></summary>
+No. Redis can act as a cache, database, and message broker.
+</details>
+<details>
+<summary><strong>4. Why is Redis slower than Memcached in some cases?</strong></summary>
+Redis has more features and metadata overhead.
+</details>
+<details>
+<summary><strong>5. Does Redis support persistence?</strong></summary>
+Yes, via RDB snapshots and AOF logs.
+</details>
+<details>
+<summary><strong>6. What happens to Memcached data after restart?</strong></summary>
+All data is lost.
+</details>
+<details>
+<summary><strong>7. What data structures does Redis support?</strong></summary>
+Strings, hashes, lists, sets, sorted sets, streams, and more.
+</details>
+<details>
+<summary><strong>8. What is Redis Pub/Sub?</strong></summary>
+A messaging pattern where publishers send messages to subscribers.
+</details>
+<details>
+<summary><strong>9. Can Memcached replicate data?</strong></summary>
+No, replication is not supported.
+</details>
+<details>
+<summary><strong>10. What is cache eviction?</strong></summary>
+Removing old data when cache memory is full.
+</details>
+<details>
+<summary><strong>11. What eviction policies does Redis support?</strong></summary>
+LRU, LFU, TTL-based, and no-eviction.
+</details>
+<details>
+<summary><strong>12. Which is better for session storage?</strong></summary>
+Redis, because it supports persistence and TTLs.
+</details>
+<details>
+<summary><strong>13. Can Redis be used for rate limiting?</strong></summary>
+Yes, using atomic counters and expiration.
+</details>
+<details>
+<summary><strong>14. Is Memcached thread-safe?</strong></summary>
+Yes, it supports multithreaded operations.
+</details>
+<details>
+<summary><strong>15. What is TTL?</strong></summary>
+Time-To-Live defines how long cached data stays valid.
+</details>
+<details>
+<summary><strong>16. Can Redis scale horizontally?</strong></summary>
+Yes, using Redis Cluster.
+</details>
+<details>
+<summary><strong>17. Why use Memcached over Redis?</strong></summary>
+For very simple, high-speed, ephemeral caching.
+</details>
+<details>
+<summary><strong>18. Is Redis single-threaded?</strong></summary>
+Mostly yes, but it uses I/O multiplexing and background threads.
+</details>
+<details>
+<summary><strong>19. What happens if cache fails?</strong></summary>
+The system falls back to the database (cache miss).
+</details>
+<details>
+<summary><strong>20. Redis vs Memcached — one-line summary?</strong></summary>
+Redis is feature-rich; Memcached is fast and minimal.
+</details>
+<hr>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>Redis and Memcached both solve caching problems but target different needs. Understanding their strengths helps you design scalable, high-performance systems — and ace system design interviews.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/redis/">Redis</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/memcached/">Memcached</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/caching/">Caching</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/system-design/">System-Design</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/interview/">Interview</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
