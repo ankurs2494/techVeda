@@ -33,7 +33,7 @@ publishDir = "docs"
 # Networking topic
 [[menu.main]]
 name = "Networking"
-url = "/notes/networking/"
+url = "notes/networking/"
 identifier = "networking"
 weight = 10
 
