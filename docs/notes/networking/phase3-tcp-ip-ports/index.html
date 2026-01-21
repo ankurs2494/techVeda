@@ -152,8 +152,8 @@ Because of these limitations, we need Transport Layer protocols.">
   "keywords": [
     
   ],
-  "articleBody": "This phase is where networking becomes practical and real. We focus on how data actually moves between devices.\nYou’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.\n1️⃣ Why TCP/IP Exists IP (Layer 3) can only do one thing:\nDeliver packets from one IP to another IP Problems with IP alone:\nNo guarantee of delivery No ordering of packets No error recovery Because of these limitations, we need Transport Layer protocols.\nThat’s where TCP and UDP (Layer 4) come in.\n2️⃣ What Is a Port? (Very Important) Definition: A port identifies which application or service on a host should receive the data.\nThink of it like this:\nIP = apartment building Port = apartment number Example:\n192.168.1.10:80 Means:\nHost: 192.168.1.10 Service: Web server (HTTP) 3️⃣ Why Ports Are Needed One single IP address can run multiple services at the same time: Web server SSH server Database Mail server Ports allow multiple services to coexist on one IP address.\n4️⃣ Well-Known Ports (Memorize These) Port Service 80 HTTP 443 HTTPS 22 SSH 21 FTP 25 SMTP 53 DNS 5️⃣ TCP (Transmission Control Protocol) What TCP Guarantees Reliable delivery Ordered packets Error detection Flow control TCP Handshake (Conceptual) Client → SYN Server → SYN-ACK Client → ACK After this: Connection is established Data flows reliably TCP Use Cases Web (HTTP/HTTPS) SSH Databases APIs When accuracy matters, use TCP.\n6️⃣ UDP (User Datagram Protocol) What UDP Does NOT Guarantee No delivery guarantee No packet order No retransmission Why Use UDP? Faster Lower overhead Real-time communication UDP Use Cases DNS Video streaming Online gaming VoIP When speed matters more than accuracy, use UDP.\n7️⃣ TCP vs UDP (Simple Table) Feature TCP UDP Reliability Yes No Ordering Yes No Speed Slower Faster Connection Stateful Stateless Use Case Accuracy Real-time 8️⃣ Socket = IP + Port + Protocol A socket uniquely identifies a network connection:\nIP + Port + Protocol Example:\nTCP 192.168.1.10:443 9️⃣ Client–Server Communication (Real Flow) When you open a website: Browser chooses a random client port (e.g. 52134) Server listens on a well-known port (e.g. 443) TCP connection is established Data is exchanged Connection is closed Example:\nClient: 10.0.0.5:52134 Server: 142.250.72.14:443 🔟 Why Firewalls Use Ports Firewalls decide: Which IPs can talk On which ports Using which protocol Example rule:\nAllow TCP 443 Deny all others Mental Model (Lock This In) IP → Finds the host Port → Finds the service TCP/UDP → Defines how data is sent Check Your Understanding You should be able to answer: Why are ports needed? What is the difference between TCP and UDP? What is a socket? Why does DNS use UDP? Why does HTTP use TCP? ",
-  "wordCount" : "457",
+  "articleBody": "This phase is where networking becomes practical and real. We focus on how data actually moves between devices.\nYou’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.\n1️⃣ Why TCP/IP Exists IP (Layer 3) can only do one thing:\nDeliver packets from one IP to another IP Problems with IP alone:\nNo guarantee of delivery No ordering of packets No error recovery Because of these limitations, we need Transport Layer protocols.\nThat’s where TCP and UDP (Layer 4) come in.\n2️⃣ What Is a Port? (Very Important) Definition: A port identifies which application or service on a host should receive the data.\nThink of it like this:\nIP = apartment building Port = apartment number Example:\n192.168.1.10:80 Means:\nHost: 192.168.1.10 Service: Web server (HTTP) 3️⃣ Why Ports Are Needed One single IP address can run multiple services at the same time: Web server SSH server Database Mail server Ports allow multiple services to coexist on one IP address.\n4️⃣ Well-Known Ports (Memorize These) Port Service 80 HTTP 443 HTTPS 22 SSH 21 FTP 25 SMTP 53 DNS 3306 MySQL 5️⃣ TCP (Transmission Control Protocol) What TCP Guarantees Reliable delivery Ordered packets Error detection Flow control TCP Handshake (Conceptual) Client → SYN Server → SYN-ACK Client → ACK After this: Connection is established Data flows reliably TCP Use Cases Web (HTTP/HTTPS) SSH Databases APIs Note: When accuracy matters, use TCP.\n6️⃣ UDP (User Datagram Protocol) What UDP Does NOT Guarantee No delivery guarantee No packet order No retransmission Why Use UDP? Faster Lower overhead Real-time communication UDP Use Cases DNS Video streaming Online gaming VoIP When speed matters more than accuracy, use UDP.\n7️⃣ TCP vs UDP (Simple Table) Feature TCP UDP Reliability Yes No Ordering Yes No Speed Slower Faster Connection Stateful Stateless Use Case Accuracy Real-time TCP/UDP Port Ranges Ports are divided into three main ranges, each serving a different purpose.\nWell-Known Ports (0–1023) Reserved for core system services Typically require administrator/root privileges Standardized and universally recognized Examples:\n80 → HTTP 443 → HTTPS 22 → SSH Registered Ports (1024–49151) Assigned to specific applications or services Do not require administrator privileges Commonly used by user-level servers and databases Examples:\n3000 → Node.js development server 5432 → PostgreSQL Ephemeral (Dynamic / Private) Ports (49152–65535) Automatically assigned by the operating system Used for outgoing client connections Temporary and released after the connection ends Ephemeral Port Example When you visit https://google.com:\n1. Browser: “I need a port for my outgoing connection.”\n2. Operating System: “Use port 52847 (randomly chosen from the ephemeral range).”\n3. Connection is established: Your-IP:52847 → Google-IP:443\n4. After the connection closes: - Port 52847 is released\n- It becomes available for reuse\nSummary Table Port Range Name Usage 0–1023 Well-Known Core system services 1024–49151 Registered Application-specific services 49152–65535 Ephemeral Temporary outgoing connections 8️⃣ Socket = IP + Port + Protocol A socket uniquely identifies a network connection:\nIP + Port + Protocol Example:\nTCP 192.168.1.10:443 9️⃣ Client–Server Communication (Real Flow) When you open a website: Browser chooses a random client port (e.g. 52134) Server listens on a well-known port (e.g. 443) TCP connection is established Data is exchanged Connection is closed Example:\nClient: 10.0.0.5:52134 Server: 142.250.72.14:443 🔟 Why Firewalls Use Ports Firewalls decide: Which IPs can talk On which ports Using which protocol Example rule:\nAllow TCP 443 Deny all others Mental Model (Lock This In) IP → Finds the host Port → Finds the service TCP/UDP → Defines how data is sent Check Your Understanding You should be able to answer: Why are ports needed? What is the difference between TCP and UDP? What is a socket? Why does DNS use UDP? Why does HTTP use TCP? ",
+  "wordCount" : "627",
   "inLanguage": "en",
   "datePublished": "2026-01-21T00:00:00Z",
   "dateModified": "2026-01-21T00:00:00Z",
@@ -308,6 +308,10 @@ A port identifies which application or service on a host should receive the data
           <td>53</td>
           <td>DNS</td>
       </tr>
+      <tr>
+          <td>3306</td>
+          <td>MySQL</td>
+      </tr>
   </tbody>
 </table>
 <hr>
@@ -336,7 +340,7 @@ Client → ACK
 <li>APIs</li>
 </ul>
 <blockquote>
-<p><font color="red">When accuracy matters, use TCP.</font></p>
+<p><strong>Note:</strong> <font color="red">When accuracy matters, use TCP.</font></p>
 </blockquote>
 <hr>
 <h3 id="6-udp-user-datagram-protocol"><font color="BlueViolet">6️⃣ UDP (User Datagram Protocol)</font><a hidden class="anchor" aria-hidden="true" href="#6-udp-user-datagram-protocol">#</a></h3>
@@ -397,6 +401,86 @@ Client → ACK
           <td>Use Case</td>
           <td>Accuracy</td>
           <td>Real-time</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="tcpudp-port-ranges"><font color="BlueViolet">TCP/UDP Port Ranges</font><a hidden class="anchor" aria-hidden="true" href="#tcpudp-port-ranges">#</a></h3>
+<p>Ports are divided into three main ranges, each serving a different purpose.</p>
+<ol>
+<li><font color="teal"><strong>Well-Known Ports (0–1023)</strong></font></li>
+</ol>
+<ul>
+<li>Reserved for core system services</li>
+<li>Typically require <strong>administrator/root privileges</strong></li>
+<li>Standardized and universally recognized</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>80</strong> → HTTP</li>
+<li><strong>443</strong> → HTTPS</li>
+<li><strong>22</strong> → SSH</li>
+</ul>
+<hr>
+<ol start="2">
+<li><font color="teal"><strong>Registered Ports (1024–49151)</strong></font></li>
+</ol>
+<ul>
+<li>Assigned to specific applications or services</li>
+<li>Do <strong>not</strong> require administrator privileges</li>
+<li>Commonly used by user-level servers and databases</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>3000</strong> → Node.js development server</li>
+<li><strong>5432</strong> → PostgreSQL</li>
+</ul>
+<hr>
+<ol start="3">
+<li><font color="teal"><strong>Ephemeral (Dynamic / Private) Ports (49152–65535)</strong></font></li>
+</ol>
+<ul>
+<li>Automatically assigned by the operating system</li>
+<li>Used for <strong>outgoing client connections</strong></li>
+<li>Temporary and released after the connection ends</li>
+</ul>
+<hr>
+<h3 id="ephemeral-port-example">Ephemeral Port Example<a hidden class="anchor" aria-hidden="true" href="#ephemeral-port-example">#</a></h3>
+<p>When you visit <code>https://google.com</code>:</p>
+<h4 id="1-browser">1. Browser:<a hidden class="anchor" aria-hidden="true" href="#1-browser">#</a></h4>
+<p>     “I need a port for my outgoing connection.”</p>
+<h4 id="2-operating-system">2. Operating System:<a hidden class="anchor" aria-hidden="true" href="#2-operating-system">#</a></h4>
+<p>     “Use port <code>52847</code> (randomly chosen from the ephemeral range).”</p>
+<h4 id="3-connection-is-established">3. Connection is established:<a hidden class="anchor" aria-hidden="true" href="#3-connection-is-established">#</a></h4>
+<p>     Your-IP:52847 → Google-IP:443</p>
+<h4 id="4-after-the-connection-closes">4. After the connection closes:<a hidden class="anchor" aria-hidden="true" href="#4-after-the-connection-closes">#</a></h4>
+<p>     - Port <code>52847</code> is released<br>
+     - It becomes available for reuse</p>
+<hr>
+<h3 id="summary-table"><font color="BlueViolet">Summary Table</font><a hidden class="anchor" aria-hidden="true" href="#summary-table">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Port Range</th>
+          <th>Name</th>
+          <th>Usage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0–1023</td>
+          <td>Well-Known</td>
+          <td>Core system services</td>
+      </tr>
+      <tr>
+          <td>1024–49151</td>
+          <td>Registered</td>
+          <td>Application-specific services</td>
+      </tr>
+      <tr>
+          <td>49152–65535</td>
+          <td>Ephemeral</td>
+          <td>Temporary outgoing connections</td>
       </tr>
   </tbody>
 </table>

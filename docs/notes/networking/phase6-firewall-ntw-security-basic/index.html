@@ -5,9 +5,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>My Tech Knowledge Notes</title>
+<title>Phase 6 : Firewall and Network Security Basics | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
-<meta name="description" content=" - My Tech Knowledge Notes">
+<meta name="description" content="Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.
+This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.
+It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.
+
+1️⃣ What Is a Firewall?
+Simple definition:
+A firewall is a traffic filter.
+
+It decides:
+
+Who can talk
+To whom
+On which port
+Using which protocol
+
+Nothing more, nothing less.">
 <meta name="author" content="Ankur Singh">
 <link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
@@ -72,13 +87,34 @@
 
 </script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/">
   <meta property="og:site_name" content="My Tech Knowledge Notes">
-  <meta property="og:title" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Phase 6 : Firewall and Network Security Basics">
+  <meta property="og:description" content="Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.
+This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.
+It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.
+1️⃣ What Is a Firewall? Simple definition: A firewall is a traffic filter. It decides: Who can talk To whom On which port Using which protocol Nothing more, nothing less.">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-21T00:00:00+00:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="">
+<meta name="twitter:title" content="Phase 6 : Firewall and Network Security Basics">
+<meta name="twitter:description" content="Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.
+This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.
+It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.
+
+1️⃣ What Is a Firewall?
+Simple definition:
+A firewall is a traffic filter.
+
+It decides:
+
+Who can talk
+To whom
+On which port
+Using which protocol
+
+Nothing more, nothing less.">
 
 
 <script type="application/ld+json">
@@ -101,7 +137,7 @@
     {
       "@type": "ListItem",
       "position":  3 ,
-      "name": "",
+      "name": "Phase 6 : Firewall and Network Security Basics",
       "item": "https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/"
     }
   ]
@@ -111,17 +147,17 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
-  "description": "",
+  "headline": "Phase 6 : Firewall and Network Security Basics",
+  "name": "Phase 6 : Firewall and Network Security Basics",
+  "description": "Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.\nThis phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.\nIt explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.\n1️⃣ What Is a Firewall? Simple definition: A firewall is a traffic filter. It decides: Who can talk To whom On which port Using which protocol Nothing more, nothing less.\n",
   "keywords": [
     
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.\nThis phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.\nIt explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.\n1️⃣ What Is a Firewall? Simple definition: A firewall is a traffic filter. It decides: Who can talk To whom On which port Using which protocol Nothing more, nothing less.\n2️⃣ Where Firewalls Exist (Very Important) Tip: Traffic must pass all firewalls in the path.\n3️⃣ Firewall Rules (Core Concepts) 4️⃣ Inbound vs Outbound (Critical) Inbound rules\nControl: Who can reach your service\nExample: Allow TCP 443 from 0.0.0.0/0\nOutbound rules\nControl: Where your host can connect\nExample: Allow TCP 443 to Internet\n5️⃣ Default Firewall Behavior Most firewalls: ❌ Deny inbound by default.\n✔ Allow outbound by default.\nZero-Trust flips this.\n6️⃣ Firewalls Work at Layer 3 \u0026 4 Firewalls typically check: - IP addresses (Layer 3).\n- Ports \u0026 protocols (Layer 4).\nThey do NOT care: - What app you run.\n- What data you send.\n7️⃣ Why Ping Works but Apps Don’t (Again) Because: ICMP allowed\nTCP/UDP blocked\nPing = Reachability Ping ≠ service availability.\n8️⃣ Stateful vs Stateless Firewalls → Stateless\n- Each packet checked individually.\n- No memory.\n→ Stateful (Most modern firewalls)\n- Track connections.\n- Allow response traffic automatically.\n9️⃣ Common Firewall Scenarios Scenario 1: Web Server Not Reachable Symptoms: - Service running.\n- Port listening.\n- Still unreachable.\nCause: - Inbound rule missing\nFix: - Allow TCP 80/443\nScenario 2: No Internet Access Symptoms: - Cannot reach external sites\nCause: - Outbound blocked\nFix: - Allow outbound traffic\nScenario 3: Works Locally, Not Remotely Cause: - Firewall allows localhost.\n- Blocks external IPs.\n🔐 Network Security Basics Principle of Least Privilege\nAllow only what is required\nBad: Allow all ports from 0.0.0.0/0 Good: Allow TCP 443 from trusted CIDR Defense in Depth\nMultiple layers:\n- Host firewall.\n- Cloud firewall.\n- App-level auth.\nMental Model (Lock This In) Packet ↓ Cloud Firewall ↓ Network Route ↓ Host Firewall ↓ Service Blocked anywhere = fail.\nInterview Gold Statements “Firewalls operate at Layer 3 and 4.” “Ping success doesn’t guarantee port access.” “Inbound is denied by default.” “Zero-Trust minimizes allowed paths.” Check Your Understanding You should confidently answer: • Difference between inbound and outbound rules • Why stateful firewalls matter • Why security groups don’t need return rules • Why localhost access bypasses firewall\n",
+  "wordCount" : "420",
   "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
+  "datePublished": "2026-01-21T00:00:00Z",
+  "dateModified": "2026-01-21T00:00:00Z",
   "author":{
     "@type": "Person",
     "name": "Ankur Singh"
@@ -189,12 +225,141 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/networking/">Networking Index</a></div>
     <h1 class="post-title entry-hint-parent">
-      
+      Phase 6 : Firewall and Network Security Basics
     </h1>
-    <div class="post-meta"><span>Ankur Singh</span>
+    <div class="post-meta"><span title='2026-01-21 00:00:00 +0000 UTC'>January 21, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
 
 </div>
   </header> 
+  <div class="post-content"><p>Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.</p>
+<p>This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.</p>
+<p>It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.</p>
+<hr>
+<h3 id="1-what-is-a-firewall"><font color="BlueViolet">1️⃣ What Is a Firewall?</font><a hidden class="anchor" aria-hidden="true" href="#1-what-is-a-firewall">#</a></h3>
+<h4 id="simple-definition">Simple definition:<a hidden class="anchor" aria-hidden="true" href="#simple-definition">#</a></h4>
+<pre><code>A firewall is a traffic filter.
+</code></pre>
+<h4 id="it-decides">It decides:<a hidden class="anchor" aria-hidden="true" href="#it-decides">#</a></h4>
+<ul>
+<li>Who can talk</li>
+<li>To whom</li>
+<li>On which port</li>
+<li>Using which protocol</li>
+</ul>
+<p>Nothing more, nothing less.</p>
+<hr>
+<h3 id="2-where-firewalls-exist-very-important"><font color="BlueViolet">2️⃣ Where Firewalls Exist</font> <font color="red">(Very Important)</font><a hidden class="anchor" aria-hidden="true" href="#2-where-firewalls-exist-very-important">#</a></h3>
+<blockquote>
+<p><strong>Tip:</strong> Traffic must pass all firewalls in the path.</p>
+</blockquote>
+<hr>
+<h3 id="3-firewall-rules-core-concepts"><font color="BlueViolet">3️⃣ Firewall Rules (Core Concepts)</font><a hidden class="anchor" aria-hidden="true" href="#3-firewall-rules-core-concepts">#</a></h3>
+<hr>
+<h3 id="4-inbound-vs-outbound-critical"><font color="BlueViolet">4️⃣ Inbound vs Outbound (Critical)</font><a hidden class="anchor" aria-hidden="true" href="#4-inbound-vs-outbound-critical">#</a></h3>
+<p><font color="teal"><strong>Inbound rules</strong></font></p>
+<h4 id="control">     Control:<a hidden class="anchor" aria-hidden="true" href="#control">#</a></h4>
+<p>     Who can reach your service</p>
+<h4 id="example">     Example:<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h4>
+<p>     Allow TCP 443 from 0.0.0.0/0</p>
+<p><font color="teal"><strong>Outbound rules</strong></font></p>
+<h4 id="control-1">     Control:<a hidden class="anchor" aria-hidden="true" href="#control-1">#</a></h4>
+<p>     Where your host can connect</p>
+<h4 id="example-1">     Example:<a hidden class="anchor" aria-hidden="true" href="#example-1">#</a></h4>
+<p>     Allow TCP 443 to Internet</p>
+<hr>
+<h3 id="5-default-firewall-behavior"><font color="BlueViolet">5️⃣ Default Firewall Behavior</font><a hidden class="anchor" aria-hidden="true" href="#5-default-firewall-behavior">#</a></h3>
+<h4 id="most-firewalls">Most firewalls:<a hidden class="anchor" aria-hidden="true" href="#most-firewalls">#</a></h4>
+<p>     ❌ Deny inbound by default.<br>
+    ✔ Allow outbound by default.</p>
+<blockquote>
+<p>Zero-Trust flips this.</p>
+</blockquote>
+<hr>
+<h3 id="6-firewalls-work-at-layer-3--4"><font color="BlueViolet">6️⃣ Firewalls Work at Layer 3 &amp; 4</font><a hidden class="anchor" aria-hidden="true" href="#6-firewalls-work-at-layer-3--4">#</a></h3>
+<h4 id="firewalls-typically-check">Firewalls typically check:<a hidden class="anchor" aria-hidden="true" href="#firewalls-typically-check">#</a></h4>
+<p>     - IP addresses (Layer 3).<br>
+     - Ports &amp; protocols (Layer 4).</p>
+<h4 id="they-do-not-care">They do NOT care:<a hidden class="anchor" aria-hidden="true" href="#they-do-not-care">#</a></h4>
+<p>     - What app you run.<br>
+     - What data you send.</p>
+<hr>
+<h3 id="7-why-ping-works-but-apps-dont-again"><font color="BlueViolet">7️⃣ Why Ping Works but Apps Don’t (Again)</font><a hidden class="anchor" aria-hidden="true" href="#7-why-ping-works-but-apps-dont-again">#</a></h3>
+<h4 id="because">Because:<a hidden class="anchor" aria-hidden="true" href="#because">#</a></h4>
+<ul>
+<li>
+<p>ICMP allowed</p>
+</li>
+<li>
+<p>TCP/UDP blocked</p>
+<p>Ping = Reachability
+Ping ≠ service availability.</p>
+</li>
+</ul>
+<hr>
+<h3 id="8-stateful-vs-stateless-firewalls"><font color="BlueViolet">8️⃣ Stateful vs Stateless Firewalls</font><a hidden class="anchor" aria-hidden="true" href="#8-stateful-vs-stateless-firewalls">#</a></h3>
+<p><font color="teal">→ Stateless</font></p>
+<p>    - Each packet checked individually.<br>
+    - No memory.</p>
+<p><font color="teal">→ Stateful (Most modern firewalls)</font></p>
+<p>    - Track connections.<br>
+    - Allow response traffic automatically.</p>
+<hr>
+<h3 id="9-common-firewall-scenarios"><font color="BlueViolet">9️⃣ Common Firewall Scenarios</font><a hidden class="anchor" aria-hidden="true" href="#9-common-firewall-scenarios">#</a></h3>
+<h4 id="scenario-1-web-server-not-reachable"><font color="teal"> Scenario 1: Web Server Not Reachable</font><a hidden class="anchor" aria-hidden="true" href="#scenario-1-web-server-not-reachable">#</a></h4>
+<h4 id="symptoms">     Symptoms:<a hidden class="anchor" aria-hidden="true" href="#symptoms">#</a></h4>
+<p>      - Service running.<br>
+      - Port listening.<br>
+      - Still unreachable.</p>
+<h4 id="cause">     Cause:<a hidden class="anchor" aria-hidden="true" href="#cause">#</a></h4>
+<p>      - Inbound rule missing</p>
+<h4 id="fix">     Fix:<a hidden class="anchor" aria-hidden="true" href="#fix">#</a></h4>
+<p>      - Allow TCP 80/443</p>
+<h4 id="scenario-2-no-internet-access"><font color="teal"> Scenario 2: No Internet Access</font><a hidden class="anchor" aria-hidden="true" href="#scenario-2-no-internet-access">#</a></h4>
+<h4 id="symptoms-1">     Symptoms:<a hidden class="anchor" aria-hidden="true" href="#symptoms-1">#</a></h4>
+<p>      - Cannot reach external sites</p>
+<h4 id="cause-1">     Cause:<a hidden class="anchor" aria-hidden="true" href="#cause-1">#</a></h4>
+<p>      - Outbound blocked</p>
+<h4 id="fix-1">     Fix:<a hidden class="anchor" aria-hidden="true" href="#fix-1">#</a></h4>
+<p>      - Allow outbound traffic</p>
+<h4 id="scenario-3-works-locally-not-remotely"><font color="teal"> Scenario 3: Works Locally, Not Remotely</font><a hidden class="anchor" aria-hidden="true" href="#scenario-3-works-locally-not-remotely">#</a></h4>
+<h4 id="cause-2">     Cause:<a hidden class="anchor" aria-hidden="true" href="#cause-2">#</a></h4>
+<p>      - Firewall allows localhost.<br>
+      - Blocks external IPs.</p>
+<hr>
+<h3 id="-network-security-basics"><font color="BlueViolet">🔐 Network Security Basics</font><a hidden class="anchor" aria-hidden="true" href="#-network-security-basics">#</a></h3>
+<p><strong>Principle of Least Privilege</strong></p>
+<p>Allow only what is required</p>
+<ul>
+<li>Bad: Allow all ports from 0.0.0.0/0</li>
+<li>Good: Allow TCP 443 from trusted CIDR</li>
+</ul>
+<p><strong>Defense in Depth</strong></p>
+<p>       Multiple layers:<br>
+      - Host firewall.<br>
+      - Cloud firewall.<br>
+      - App-level auth.</p>
+<hr>
+<h3 id="mental-model-lock-this-in"><font color="BlueViolet">Mental Model (Lock This In)</font><a hidden class="anchor" aria-hidden="true" href="#mental-model-lock-this-in">#</a></h3>
+<pre tabindex="0"><code>Packet
+ ↓
+Cloud Firewall ↓ Network Route ↓ Host Firewall ↓ Service
+</code></pre><blockquote>
+<p>Blocked anywhere = fail.</p>
+</blockquote>
+<hr>
+<h3 id="interview-gold-statements"><font color="BlueViolet">Interview Gold Statements</font><a hidden class="anchor" aria-hidden="true" href="#interview-gold-statements">#</a></h3>
+<ul>
+<li>“Firewalls operate at Layer 3 and 4.”</li>
+<li>“Ping success doesn’t guarantee port access.”</li>
+<li>“Inbound is denied by default.”</li>
+<li>“Zero-Trust minimizes allowed paths.”</li>
+</ul>
+<hr>
+<h3 id="check-your-understanding"><font color="BlueViolet">Check Your Understanding</font><a hidden class="anchor" aria-hidden="true" href="#check-your-understanding">#</a></h3>
+<p>You should confidently answer: • Difference between inbound and outbound rules • Why stateful firewalls matter • Why security groups don’t need return rules • Why localhost access bypasses firewall</p>
+
+
+  </div>
 
   <footer class="post-footer">
     <ul class="post-tags">

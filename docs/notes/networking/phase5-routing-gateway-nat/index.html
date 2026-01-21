@@ -140,8 +140,8 @@ The answer comes from a routing table.">
   "keywords": [
     
   ],
-  "articleBody": "Phase 5 focuses on how networks communicate.\nIt covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.\n1️⃣ What Is Routing? Definition: Routing is the process of deciding where to send a packet next.\nEvery packet asks: “How do I reach this destination IP?”\nThe answer comes from a routing table.\n2️⃣ Routing Table (Concept) A routing table is just a list of rules: The most important rule: 0.0.0.0/0 → default gateway\nThis means: “If I don’t know where to send traffic, send it here.”\n3️⃣ What Is a Gateway? Definition: A gateway is a router that connects one network to another.\nYour host says: “This IP is not in my subnet” “Send it to the gateway” Without a gateway: ❌ You can only talk inside your subnet ❌ No internet access 4️⃣ Simple Example Host: IP: 192.168.1.10/24\nGateway: 192.168.1.1\nTo 192.168.1.20 → direct To 8.8.8.8 → gateway 5️⃣ Routing Across the Internet When sending traffic to the internet: a. Your host → local gateway b. Gateway → ISP router c. ISP → backbone routers d. Reaches destination network e. Response follows route back\nEach router only knows: “Where to send this packet next”\nNo router knows the whole internet.\n6️⃣ What Is NAT? Definition: NAT (Network Address Translation) changes IP addresses in packets.\nWhy NAT exists: IPv4 address shortage Private IPs not internet-routable 7️⃣ Types of NAT (Conceptual) Source NAT (SNAT) Used for outbound internet access Private IP → Public IP Destination NAT (DNAT) Used for inbound access Public IP → Private IP 8️⃣ NAT in Real Life Without NAT (Fails): 192.168.1.10 → Internet ❌ With NAT (Works): 192.168.1.10 ↓ NAT Router (Public IP) ↓ Internet\nNAT keeps a mapping table: Private IP:Port ↔ Public IP:Port\n9️⃣ Cloud Example (Very Important) Private subnet: Has private IPs only ❌ No internet by default Add NAT Gateway: Outbound internet works Inbound still blocked Public subnet: Has route to Internet Gateway Can receive inbound traffic Same networking rules, cloud names.\n🔟 Routing vs NAT (Key Difference) Routing NAT Decides where packets go Changes IP addresses Exists everywhere Used at boundaries Layer 3 Layer 3/4 Mental Model (Lock This In) Host → Routing table → Gateway → NAT → Internet Common Beginner Mistakes ❌ Thinking NAT = routing ❌ Forgetting default gateway ❌ Assuming private IPs are internet reachable ❌ Debugging firewall before routing Check Your Understanding You should confidently answer:\nWhat is routing? What is a default gateway? Why NAT is required? Difference between SNAT and DNAT? Why private subnets need NAT gateways? ",
-  "wordCount" : "443",
+  "articleBody": "Phase 5 focuses on how networks communicate.\nIt covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.\n1️⃣ What Is Routing? Definition: Routing is the process of deciding where to send a packet next.\nEvery packet asks: “How do I reach this destination IP?”\nThe answer comes from a routing table.\n2️⃣ Routing Table (Concept) A routing table is just a list of rules: Destination Next Hop local subnet Send directly Other networks Send to gateway The most important rule:\n0.0.0.0/0 → default gateway. This means: “If I don’t know where to send traffic, send it here.”\n3️⃣ What Is a Gateway? Definition: A gateway is a router that connects one network to another.\nYour host says: “This IP is not in my subnet”. “Send it to the gateway”. Without a gateway: ❌ You can only talk inside your subnet.\n❌ No internet access.\n4️⃣ Simple Example Host: IP: 192.168.1.10/24\nGateway: 192.168.1.1\nTo 192.168.1.20 → direct To 8.8.8.8 → gateway 5️⃣ Routing Across the Internet When sending traffic to the internet: a. Your host → local gateway.\nb. Gateway → ISP router.\nc. ISP → backbone routers.\nd. Reaches destination network.\ne. Response follows route back.\nEach router only knows: “Where to send this packet next”.\nNo router knows the whole internet.\n6️⃣ What Is NAT? Definition: NAT (Network Address Translation) changes IP addresses in packets.\nWhy NAT exists: IPv4 address shortage Private IPs not internet-routable 7️⃣ Types of NAT (Conceptual) Source NAT (SNAT) Used for outbound internet access Private IP → Public IP Destination NAT (DNAT) Used for inbound access Public IP → Private IP 8️⃣ NAT in Real Life Without NAT (Fails): 192.168.1.10 → Internet ❌ With NAT (Works): 192.168.1.10 ↓ NAT Router (Public IP) ↓ Internet\nNAT keeps a mapping table: Private IP:Port ↔ Public IP:Port\n9️⃣ Cloud Example (Very Important) Private subnet: Has private IPs only No internet by default Add NAT Gateway: Outbound internet works Inbound still blocked Public subnet: Has route to Internet Gateway Can receive inbound traffic Same networking rules, cloud names.\n🔟 Routing vs NAT (Key Difference) Routing NAT Decides where packets go Changes IP addresses Exists everywhere Used at boundaries Layer 3 Layer 3/4 Mental Model (Lock This In) Host → Routing table → Gateway → NAT → Internet Common Beginner Mistakes ❌ Thinking NAT = routing.\n❌ Forgetting default gateway.\n❌ Assuming private IPs are internet reachable.\n❌ Debugging firewall before routing.\nCheck Your Understanding You should confidently answer:\nWhat is routing? What is a default gateway? Why NAT is required? Difference between SNAT and DNAT? Why private subnets need NAT gateways? ",
+  "wordCount" : "454",
   "inLanguage": "en",
   "datePublished": "2026-01-21T00:00:00Z",
   "dateModified": "2026-01-21T00:00:00Z",
@@ -230,8 +230,26 @@ The answer comes from a routing table.">
 <hr>
 <h3 id="2-routing-table-concept"><font color="BlueViolet">2️⃣ Routing Table (Concept)</font><a hidden class="anchor" aria-hidden="true" href="#2-routing-table-concept">#</a></h3>
 <h4 id="a-routing-table-is-just-a-list-of-rules">A routing table is just a list of rules:<a hidden class="anchor" aria-hidden="true" href="#a-routing-table-is-just-a-list-of-rules">#</a></h4>
-<p>The most important rule:
-0.0.0.0/0 → default gateway</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Destination</th>
+          <th style="text-align: center">Next Hop</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">local subnet</td>
+          <td style="text-align: center">Send directly</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Other networks</td>
+          <td style="text-align: center">Send to gateway</td>
+      </tr>
+  </tbody>
+</table>
+<p><font color="BlredueViolet">The most important rule:</font><br>
+<code>0.0.0.0/0 → default gateway.  </code></p>
 <h4 id="this-means">This means:<a hidden class="anchor" aria-hidden="true" href="#this-means">#</a></h4>
 <p>“If I don’t know where to send traffic, send it here.”</p>
 <hr>
@@ -240,14 +258,12 @@ The answer comes from a routing table.">
 <p>A gateway is a router that connects one network to another.</p>
 <h4 id="your-host-says">Your host says:<a hidden class="anchor" aria-hidden="true" href="#your-host-says">#</a></h4>
 <ul>
-<li>“This IP is not in my subnet”</li>
-<li>“Send it to the gateway”</li>
+<li>“This IP is not in my subnet”.</li>
+<li>“Send it to the gateway”.</li>
 </ul>
 <h4 id="without-a-gateway">Without a gateway:<a hidden class="anchor" aria-hidden="true" href="#without-a-gateway">#</a></h4>
-<ul>
-<li>❌ You can only talk inside your subnet</li>
-<li>❌ No internet access</li>
-</ul>
+<p>❌ You can only talk inside your subnet.<br>
+❌ No internet access.</p>
 <hr>
 <h3 id="4-simple-example"><font color="BlueViolet">4️⃣ Simple Example</font><a hidden class="anchor" aria-hidden="true" href="#4-simple-example">#</a></h3>
 <h4 id="host">Host:<a hidden class="anchor" aria-hidden="true" href="#host">#</a></h4>
@@ -257,16 +273,16 @@ Gateway: 192.168.1.1</p>
 <li>To 192.168.1.20 → direct</li>
 <li>To 8.8.8.8 → gateway</li>
 </ul>
-<h3 id="5-routing-across-the-internet"><font color="BlueViolet">5️⃣ Routing Across the Internet</font><a hidden class="anchor" aria-hidden="true" href="#5-routing-across-the-internet">#</a></h3>
 <hr>
+<h3 id="5-routing-across-the-internet"><font color="BlueViolet">5️⃣ Routing Across the Internet</font><a hidden class="anchor" aria-hidden="true" href="#5-routing-across-the-internet">#</a></h3>
 <h4 id="when-sending-traffic-to-the-internet">When sending traffic to the internet:<a hidden class="anchor" aria-hidden="true" href="#when-sending-traffic-to-the-internet">#</a></h4>
-<p>a. Your host → local gateway
-b. Gateway → ISP router
-c. ISP → backbone routers
-d. Reaches destination network
-e. Response follows route back</p>
+<p>a. Your host → local gateway.<br>
+b. Gateway → ISP router.<br>
+c. ISP → backbone routers.<br>
+d. Reaches destination network.<br>
+e. Response follows route back.</p>
 <h4 id="each-router-only-knows">Each router only knows:<a hidden class="anchor" aria-hidden="true" href="#each-router-only-knows">#</a></h4>
-<p>“Where to send this packet next”</p>
+<p>“Where to send this packet next”.</p>
 <blockquote>
 <p>No router knows the whole internet.</p>
 </blockquote>
@@ -309,7 +325,7 @@ e. Response follows route back</p>
 <h4 id="private-subnet">Private subnet:<a hidden class="anchor" aria-hidden="true" href="#private-subnet">#</a></h4>
 <ul>
 <li>Has private IPs only</li>
-<li>❌ No internet by default</li>
+<li>No internet by default</li>
 </ul>
 <h4 id="add-nat-gateway">Add NAT Gateway:<a hidden class="anchor" aria-hidden="true" href="#add-nat-gateway">#</a></h4>
 <ul>
@@ -329,22 +345,22 @@ e. Response follows route back</p>
 <table>
   <thead>
       <tr>
-          <th>Routing</th>
-          <th>NAT</th>
+          <th style="text-align: left">Routing</th>
+          <th style="text-align: center">NAT</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td>Decides where packets go</td>
-          <td>Changes IP addresses</td>
+          <td style="text-align: left">Decides where packets go</td>
+          <td style="text-align: center">Changes IP addresses</td>
       </tr>
       <tr>
-          <td>Exists everywhere</td>
-          <td>Used at boundaries</td>
+          <td style="text-align: left">Exists everywhere</td>
+          <td style="text-align: center">Used at boundaries</td>
       </tr>
       <tr>
-          <td>Layer 3</td>
-          <td>Layer 3/4</td>
+          <td style="text-align: left">Layer 3</td>
+          <td style="text-align: center">Layer 3/4</td>
       </tr>
   </tbody>
 </table>
@@ -354,12 +370,10 @@ e. Response follows route back</p>
 </code></pre>
 <hr>
 <h3 id="common-beginner-mistakes"><font color="teal"> Common Beginner Mistakes</font><a hidden class="anchor" aria-hidden="true" href="#common-beginner-mistakes">#</a></h3>
-<ul>
-<li>❌ Thinking NAT = routing</li>
-<li>❌ Forgetting default gateway</li>
-<li>❌ Assuming private IPs are internet reachable</li>
-<li>❌ Debugging firewall before routing</li>
-</ul>
+<p>❌ Thinking NAT = routing.<br>
+❌ Forgetting default gateway.<br>
+❌ Assuming private IPs are internet reachable.<br>
+❌ Debugging firewall before routing.</p>
 <hr>
 <h3 id="check-your-understanding"><font color="teal"> Check Your Understanding</font><a hidden class="anchor" aria-hidden="true" href="#check-your-understanding">#</a></h3>
 <p>You should confidently answer:</p>

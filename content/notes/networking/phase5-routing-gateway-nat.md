@@ -12,11 +12,11 @@ It covers routing, which directs traffic between networks; gateways, which conne
 
 ### <font color="BlueViolet">1️⃣ What Is Routing?</font>
 
-#### Definition:
-Routing is the process of deciding where to send a packet next.
+####  Definition:   
+  Routing is the process of deciding where to send a packet next.
 
-#### Every packet asks:
-“How do I reach this destination IP?”
+#### Every packet asks:   
+  “How do I reach this destination IP?”   
 
 <font color="green">The answer comes from a routing table.</font>
 
@@ -24,13 +24,21 @@ Routing is the process of deciding where to send a packet next.
 
 ### <font color="BlueViolet">2️⃣ Routing Table (Concept)</font>
 
-#### A routing table is just a list of rules:
+#### A routing table is just a list of rules:   
 
-The most important rule:
-    0.0.0.0/0 → default gateway
+| Destination | Next Hop |
+|:------------|:---------:|
+| local subnet | Send directly|
+| Other networks | Send to gateway|
 
-#### This means:
-“If I don’t know where to send traffic, send it here.”
+
+<font color="BlredueViolet">The most important rule:</font>  
+`
+    0.0.0.0/0 → default gateway.  
+`
+
+#### This means:   
+  “If I don’t know where to send traffic, send it here.”   
 
 --- 
 
@@ -40,12 +48,12 @@ The most important rule:
 A gateway is a router that connects one network to another.
 
 #### Your host says:
--  “This IP is not in my subnet”
--  “Send it to the gateway”
+  - “This IP is not in my subnet”.  
+  - “Send it to the gateway”.  
 
 #### Without a gateway:
-- ❌ You can only talk inside your subnet
-- ❌ No internet access
+ ❌ You can only talk inside your subnet.  
+ ❌ No internet access.  
 
 --- 
 
@@ -58,20 +66,21 @@ Gateway: 192.168.1.1
 -  To 192.168.1.20 → direct
 -  To 8.8.8.8 → gateway
 
+--- 
+
 ### <font color="BlueViolet">5️⃣ Routing Across the Internet</font>
 
---- 
 
 #### When sending traffic to the internet:
 
-a. Your host → local gateway
-b. Gateway → ISP router
-c. ISP → backbone routers
-d. Reaches destination network
-e. Response follows route back
+a. Your host → local gateway.  
+b. Gateway → ISP router.  
+c. ISP → backbone routers.  
+d. Reaches destination network.  
+e. Response follows route back.  
 
 #### Each router only knows:
-“Where to send this packet next”
+“Where to send this packet next”.  
 
 > No router knows the whole internet.
 
@@ -118,7 +127,7 @@ Private IP:Port ↔ Public IP:Port
 
 #### Private subnet:
 - Has private IPs only
-- ❌ No internet by default
+- No internet by default
 
 #### Add NAT Gateway:
 - Outbound internet works
@@ -134,7 +143,7 @@ Private IP:Port ↔ Public IP:Port
 
 ### <font color="BlueViolet">🔟 Routing vs NAT (Key Difference)</font>
 | Routing                | NAT                  |
-|------------------------|--------------------|
+|:-----------------------|:--------------------:|
 | Decides where packets go | Changes IP addresses |
 | Exists everywhere       | Used at boundaries  |
 | Layer 3                 | Layer 3/4           |
@@ -148,10 +157,10 @@ Private IP:Port ↔ Public IP:Port
 --- 
 
 ### <font color="teal"> Common Beginner Mistakes</font>
-- ❌ Thinking NAT = routing
-- ❌ Forgetting default gateway
-- ❌ Assuming private IPs are internet reachable
-- ❌ Debugging firewall before routing
+❌ Thinking NAT = routing.  
+❌ Forgetting default gateway.  
+❌ Assuming private IPs are internet reachable.  
+❌ Debugging firewall before routing.  
 
 --- 
 

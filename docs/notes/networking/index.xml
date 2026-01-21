@@ -56,6 +56,55 @@
 &lt;p&gt;&lt;font color=&#34;green&#34;&gt;The answer comes from a routing table.&lt;/font&gt;&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Phase 6 : Firewall and Network Security Basics</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
+      <description>&lt;p&gt;Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.&lt;/p&gt;
+&lt;p&gt;This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.&lt;/p&gt;
+&lt;p&gt;It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-what-is-a-firewall&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;1️⃣ What Is a Firewall?&lt;/font&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;simple-definition&#34;&gt;Simple definition:&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;A firewall is a traffic filter.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;it-decides&#34;&gt;It decides:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Who can talk&lt;/li&gt;
+&lt;li&gt;To whom&lt;/li&gt;
+&lt;li&gt;On which port&lt;/li&gt;
+&lt;li&gt;Using which protocol&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nothing more, nothing less.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Phase 7 : End-to-End Troubleshooting Mental Model</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
+      <description>&lt;p&gt;This phase builds a structured way of thinking for diagnosing network issues.&lt;/p&gt;
+&lt;p&gt;It emphasizes tracing problems step-by-step from source to destination, helping you quickly isolate, analyze, and resolve real-world connectivity issues.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-the-one-mental-model-memorize-this&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;1️⃣ The One Mental Model (Memorize This)&lt;/font&gt;&lt;/h3&gt;
+&lt;p&gt;Networking problems are always caused by a break in the path.&lt;/p&gt;
+&lt;p&gt;Your job is to find where the path breaks.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-the-end-to-end-path-always-think-like-this&#34;&gt;&lt;font color=&#34;BlueViolet&#34;&gt;2️⃣ The End-to-End Path (Always Think Like This)&lt;/font&gt;&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;     Client
+       ↓
+     DNS
+       ↓
+     Routing
+       ↓
+     Firewall
+       ↓
+     Host Interface
+       ↓
+     Service (Port)
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;If it fails anywhere → connection fails.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Phase 2 : IP and Subnetting</title>
       <link>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
@@ -93,20 +142,6 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;If devices can send and receive data, they are on a network.&amp;rdquo;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
-      <description></description>
     </item>
   </channel>
 </rss>

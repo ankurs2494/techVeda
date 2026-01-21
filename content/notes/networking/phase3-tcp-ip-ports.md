@@ -74,6 +74,7 @@ A port identifies which application or service on a host should receive the data
 | 21   | FTP     |
 | 25   | SMTP    |
 | 53   | DNS     |
+| 3306   | MySQL |
 
 ---
 
@@ -106,7 +107,7 @@ Client → ACK
 * Databases
 * APIs
 
-> <font color="red">When accuracy matters, use TCP.</font>
+>  **Note:** <font color="red">When accuracy matters, use TCP.</font>
 
 ---
 
@@ -144,6 +145,71 @@ Client → ACK
 | Speed       | Slower   | Faster    |
 | Connection  | Stateful | Stateless |
 | Use Case    | Accuracy | Real-time |
+
+---
+
+### <font color="BlueViolet">TCP/UDP Port Ranges</font>
+
+Ports are divided into three main ranges, each serving a different purpose.
+
+1. <font color="teal">**Well-Known Ports (0–1023)**</font>
+- Reserved for core system services
+- Typically require **administrator/root privileges**
+- Standardized and universally recognized
+
+**Examples:**
+- **80** → HTTP  
+- **443** → HTTPS  
+- **22** → SSH  
+
+---
+
+2. <font color="teal">**Registered Ports (1024–49151)**</font>
+- Assigned to specific applications or services
+- Do **not** require administrator privileges
+- Commonly used by user-level servers and databases
+
+**Examples:**
+- **3000** → Node.js development server  
+- **5432** → PostgreSQL  
+
+---
+
+3. <font color="teal">**Ephemeral (Dynamic / Private) Ports (49152–65535)**</font>
+- Automatically assigned by the operating system
+- Used for **outgoing client connections**
+- Temporary and released after the connection ends
+
+---
+
+### Ephemeral Port Example
+
+When you visit `https://google.com`:
+
+#### 1. Browser:    
+&nbsp;&nbsp;&nbsp;&nbsp; “I need a port for my outgoing connection.”
+
+#### 2. Operating System:  
+&nbsp;&nbsp;&nbsp;&nbsp; “Use port `52847` (randomly chosen from the ephemeral range).”
+
+#### 3. Connection is established:   
+&nbsp;&nbsp;&nbsp;&nbsp; Your-IP:52847 → Google-IP:443
+
+
+#### 4. After the connection closes:  
+&nbsp;&nbsp;&nbsp;&nbsp; - Port `52847` is released  
+&nbsp;&nbsp;&nbsp;&nbsp; - It becomes available for reuse
+
+---
+
+### <font color="BlueViolet">Summary Table</font>
+
+| Port Range       | Name            | Usage                                |
+|------------------|-----------------|--------------------------------------|
+| 0–1023           | Well-Known      | Core system services                 |
+| 1024–49151       | Registered      | Application-specific services        |
+| 49152–65535      | Ephemeral       | Temporary outgoing connections       |
+
 
 ---
 

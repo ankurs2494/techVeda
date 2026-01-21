@@ -20,16 +20,16 @@ By the end of this phase, DNS should feel practical and intuitive, not mysteriou
 
 ### <font color="BlueViolet">1️⃣ Why DNS Exists</font>
 
-#### The Problem
+**The Problem**
 
 * Humans prefer names: `google.com`
 * Computers require numbers: `142.250.72.14`
 
-#### The Solution
+**The Solution**
 
-**DNS translates names → IP addresses**
+DNS translates names → IP addresses
 
-Without DNS:
+**Without DNS:**
 
 * You would need to memorize IP addresses
 * The internet would be effectively unusable
@@ -57,7 +57,7 @@ DNS is a **hierarchical system**, not a single machine.
 * TLD servers (`.com`, `.org`, `.net`)
 * Authoritative servers (domain owners)
 
-There is **no single point of failure** in DNS.
+<font color="blue">There is **no single point of failure** in DNS.</font>
 
 #### DNS Hierarchy (ASCII Diagram)
 
@@ -179,10 +179,14 @@ TTL = 300 seconds
 
 ### <font color="BlueViolet">9️⃣ Common DNS Problems (Real World)</font>
 
-* Wrong DNS record
-* Cached stale records (TTL issues)
-* DNS server unreachable
-* Misconfigured CNAME chains
+| Symptom                      | Likely Cause(s)                                                             |
+|-----------------------------|-----------------------------------------------------------------------------|
+| Site not found              | Wrong DNS record                                                            |
+| Works by IP but not name    | Wrong DNS record, DNS server unreachable                                    |
+| Old IP returned             | Cached stale records, TTL not expired                                       |
+| Works in one network only   | Split DNS, misconfigured CNAME chains                                       |
+
+
 
 > Most "network outages" are actually **DNS issues**.
 

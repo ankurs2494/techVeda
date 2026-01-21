@@ -14,3 +14,5 @@ type: page
 - [Phase 3 : TCP/IP and ports](phase3-tcp-ip-ports/)
 - [Phase 4 : DNS and Name Resolution](phase4-dns-name-resolution/)
 - [Phase 5 : Routing, Gateway and NAT](phase5-routing-gateway-nat/)
+- [Phase 6 : Firewall and Network Security Basics](phase6-firewall-ntw-security-basic/)
+- [Phase 7 : End-to-End Troubleshooting Mental Model](phase7-end-end-troubleshotting-mental-model/)
