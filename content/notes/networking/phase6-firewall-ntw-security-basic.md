@@ -194,4 +194,8 @@ Cloud Firewall ↓ Network Route ↓ Host Firewall ↓ Service
 
 ### <font color="BlueViolet">Check Your Understanding</font>
 
-You should confidently answer: • Difference between inbound and outbound rules • Why stateful firewalls matter • Why security groups don’t need return rules • Why localhost access bypasses firewall
+You should confidently answer:  
+- Difference between inbound and outbound rules
+- Why stateful firewalls matter
+- Why security groups don’t need return rules
+- Why localhost access bypasses firewall
