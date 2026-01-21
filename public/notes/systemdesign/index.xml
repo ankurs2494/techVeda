@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>System design concept on My Tech Knowledge Notes</title>
-    <link>https://example.org/notes/systemdesign/</link>
+    <link>http://localhost:1313/notes/systemdesign/</link>
     <description>Recent content in System design concept on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 04 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/notes/systemdesign/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/notes/systemdesign/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide</title>
-      <link>https://example.org/notes/systemdesign/cdn/</link>
+      <link>http://localhost:1313/notes/systemdesign/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/notes/systemdesign/cdn/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/cdn/</guid>
       <description>A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;amp;A.</description>
     </item>
     <item>
       <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
-      <link>https://example.org/notes/systemdesign/redis-vs-memcached/</link>
+      <link>http://localhost:1313/notes/systemdesign/redis-vs-memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/notes/systemdesign/redis-vs-memcached/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/redis-vs-memcached/</guid>
       <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
     </item>
     <item>
       <title>Browser Caching</title>
-      <link>https://example.org/notes/systemdesign/browser-caching/</link>
+      <link>http://localhost:1313/notes/systemdesign/browser-caching/</link>
       <pubDate>Sat, 03 Jan 2026 21:32:16 +0100</pubDate>
-      <guid>https://example.org/notes/systemdesign/browser-caching/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/browser-caching/</guid>
       <description>&lt;h2 id=&#34;what-is-browser-caching&#34;&gt;What is browser caching?&lt;/h2&gt;
 &lt;p&gt;Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user&amp;rsquo;s device so that the website loads faster on future visits.&lt;/p&gt;
 &lt;hr&gt;
@@ -80,9 +80,9 @@
     </item>
     <item>
       <title>Cache invalidation</title>
-      <link>https://example.org/notes/systemdesign/cache-invalidation/</link>
+      <link>http://localhost:1313/notes/systemdesign/cache-invalidation/</link>
       <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/notes/systemdesign/cache-invalidation/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/cache-invalidation/</guid>
       <description>&lt;h2 id=&#34;what-is-cache-invalidation&#34;&gt;What is Cache Invalidation?&lt;/h2&gt;
 &lt;p&gt;Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Always serve fresh and correct data, not stale cached copies.&lt;/p&gt;

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Browser Caching | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
 <meta name="description" content="What is browser caching?
@@ -58,16 +58,16 @@ No-store = Security
 Clearing cache
 Deletes stored files -&gt; forces browser to download fresh content.">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="https://example.org/notes/systemdesign/browser-caching/">
+<link rel="canonical" href="http://localhost:1313/notes/systemdesign/browser-caching/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://example.org/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://example.org/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://example.org/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://example.org/apple-touch-icon.png">
-<link rel="mask-icon" href="https://example.org/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://example.org/notes/systemdesign/browser-caching/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/notes/systemdesign/browser-caching/">
 <noscript>
     <style>
         #theme-toggle,
@@ -119,136 +119,13 @@ Deletes stored files -&gt; forces browser to download fresh content.">
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://example.org/notes/systemdesign/browser-caching/">
-  <meta property="og:site_name" content="My Tech Knowledge Notes">
-  <meta property="og:title" content="Browser Caching">
-  <meta property="og:description" content="What is browser caching? Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user’s device so that the website loads faster on future visits.
-Use Case Faster page loads Reduced bandwith Lower serve load Better user experience How browser caching works? Browser follow rules sent by the server using HTTP headers that tell them:
-What to cache How long to cache Whether to re-check the server Cache control headers Cache-Control: max-age -&gt; Cache for X seconds Cache-Control: no-cache -&gt; Re-check with server before use Cache-Control: no-store -&gt; Don’t store anything Expires -&gt; Absolute expiration date ETag -&gt; Version identifier Cahing Flow (Simple) Brwoser -&gt; Server: “Give me the Page” Server -&gt; Browser: Page &#43; Cache rules Browser: Saves files locally Next visit: If fresh -&gt; load from cache If expired -&gt; Ask server 💡 Final memory trick Cache = Speed No-cache = Freshness No-store = Security Clearing cache Deletes stored files -&gt; forces browser to download fresh content.">
-  <meta property="og:locale" content="en-us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="notes">
-    <meta property="article:published_time" content="2026-01-03T21:32:16+01:00">
-    <meta property="article:modified_time" content="2026-01-03T21:32:16+01:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Browser Caching">
-<meta name="twitter:description" content="What is browser caching?
-Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user&rsquo;s device so that the website loads faster on future visits.
-
-Use Case
-
-Faster page loads
-Reduced bandwith
-Lower serve load
-Better user experience
-
-
-How browser caching works?
-Browser follow rules sent by the server using HTTP headers that tell them:
-
-What to cache
-How long to cache
-Whether to re-check the server
-
-
-Cache control headers
-
-Cache-Control: max-age  -&gt; Cache for X seconds
-Cache-Control: no-cache -&gt; Re-check with server before use
-Cache-Control: no-store -&gt; Don&rsquo;t store anything
-Expires                 -&gt; Absolute expiration date
-ETag                    -&gt; Version identifier
-
-
-Cahing Flow (Simple)
-
-Brwoser -&gt; Server: &ldquo;Give me the Page&rdquo;
-Server -&gt; Browser: Page &#43; Cache rules
-Browser: Saves files locally
-Next visit:
-
-If fresh -&gt; load from cache
-If expired -&gt; Ask server
-
-
-
-
-💡 Final memory trick
-
-Cache = Speed
-No-cache = Freshness
-No-store = Security
-
-
-Clearing cache
-Deletes stored files -&gt; forces browser to download fresh content.">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Notes",
-      "item": "https://example.org/notes/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "System design concept",
-      "item": "https://example.org/notes/systemdesign/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "Browser Caching",
-      "item": "https://example.org/notes/systemdesign/browser-caching/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Browser Caching",
-  "name": "Browser Caching",
-  "description": "What is browser caching? Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user\u0026rsquo;s device so that the website loads faster on future visits.\nUse Case Faster page loads Reduced bandwith Lower serve load Better user experience How browser caching works? Browser follow rules sent by the server using HTTP headers that tell them:\nWhat to cache How long to cache Whether to re-check the server Cache control headers Cache-Control: max-age -\u0026gt; Cache for X seconds Cache-Control: no-cache -\u0026gt; Re-check with server before use Cache-Control: no-store -\u0026gt; Don\u0026rsquo;t store anything Expires -\u0026gt; Absolute expiration date ETag -\u0026gt; Version identifier Cahing Flow (Simple) Brwoser -\u0026gt; Server: \u0026ldquo;Give me the Page\u0026rdquo; Server -\u0026gt; Browser: Page + Cache rules Browser: Saves files locally Next visit: If fresh -\u0026gt; load from cache If expired -\u0026gt; Ask server 💡 Final memory trick Cache = Speed No-cache = Freshness No-store = Security Clearing cache Deletes stored files -\u0026gt; forces browser to download fresh content.\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "What is browser caching? Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user’s device so that the website loads faster on future visits.\nUse Case Faster page loads Reduced bandwith Lower serve load Better user experience How browser caching works? Browser follow rules sent by the server using HTTP headers that tell them:\nWhat to cache How long to cache Whether to re-check the server Cache control headers Cache-Control: max-age -\u003e Cache for X seconds Cache-Control: no-cache -\u003e Re-check with server before use Cache-Control: no-store -\u003e Don’t store anything Expires -\u003e Absolute expiration date ETag -\u003e Version identifier Cahing Flow (Simple) Brwoser -\u003e Server: “Give me the Page” Server -\u003e Browser: Page + Cache rules Browser: Saves files locally Next visit: If fresh -\u003e load from cache If expired -\u003e Ask server 💡 Final memory trick Cache = Speed No-cache = Freshness No-store = Security Clearing cache Deletes stored files -\u003e forces browser to download fresh content.\nFinal one line summary Browser caching improves website performance by storing static files locally in the browser and reusing them on future visits, reducing load time, bandwidth usage, and server load - while HTTP headers control what gets cached and for how long.\n",
-  "wordCount" : "214",
-  "inLanguage": "en",
-  "datePublished": "2026-01-03T21:32:16+01:00",
-  "dateModified": "2026-01-03T21:32:16+01:00",
-  "author":{
-    "@type": "Person",
-    "name": "Ankur Singh"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://example.org/notes/systemdesign/browser-caching/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "My Tech Knowledge Notes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://example.org/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://example.org/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <a href="http://localhost:1313/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -274,12 +151,12 @@ Deletes stored files -&gt; forces browser to download fresh content.">
         </div>
         <ul id="menu">
             <li>
-                <a href="https://example.org/notes/networking/" title="Networking">
+                <a href="http://localhost:1313/notes/networking/" title="Networking">
                     <span>Networking</span>
                 </a>
             </li>
             <li>
-                <a href="https://example.org/notes/systemdesign/" title="System design">
+                <a href="http://localhost:1313/notes/systemdesign/" title="System design">
                     <span>System design</span>
                 </a>
             </li>
@@ -290,7 +167,7 @@ Deletes stored files -&gt; forces browser to download fresh content.">
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://example.org/">Home</a>&nbsp;»&nbsp;<a href="https://example.org/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://example.org/notes/systemdesign/">System design concept</a></div>
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/notes/systemdesign/">System design concept</a></div>
     <h1 class="post-title entry-hint-parent">
       Browser Caching
     </h1>
@@ -363,7 +240,7 @@ Deletes stored files -&gt; forces browser to download fresh content.">
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://example.org/">My Tech Knowledge Notes</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/">My Tech Knowledge Notes</a></span> · 
 
     <span>
         Powered by

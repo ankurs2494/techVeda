@@ -2,76 +2,76 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.org/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/</loc>
+    <loc>http://localhost:1313/notes/networking/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/</loc>
+    <loc>http://localhost:1313/notes/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase3-tcp-ip-ports/</loc>
+    <loc>http://localhost:1313/notes/networking/phase3-tcp-ip-ports/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase4-dns-name-resolution/</loc>
+    <loc>http://localhost:1313/notes/networking/phase4-dns-name-resolution/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase5-routing-gateway-nat/</loc>
+    <loc>http://localhost:1313/notes/networking/phase5-routing-gateway-nat/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase2-ip-and-subnetting/</loc>
+    <loc>http://localhost:1313/notes/networking/phase2-ip-and-subnetting/</loc>
     <lastmod>2026-01-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase1-core-ntw-concepts/</loc>
+    <loc>http://localhost:1313/notes/networking/phase1-core-ntw-concepts/</loc>
     <lastmod>2026-01-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/caching/</loc>
+    <loc>http://localhost:1313/tags/caching/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/cdn/</loc>
+    <loc>http://localhost:1313/tags/cdn/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/systemdesign/cdn/</loc>
+    <loc>http://localhost:1313/notes/systemdesign/cdn/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/interview/</loc>
+    <loc>http://localhost:1313/tags/interview/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/memcached/</loc>
+    <loc>http://localhost:1313/tags/memcached/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/redis/</loc>
+    <loc>http://localhost:1313/tags/redis/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/systemdesign/redis-vs-memcached/</loc>
+    <loc>http://localhost:1313/notes/systemdesign/redis-vs-memcached/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/sre/</loc>
+    <loc>http://localhost:1313/tags/sre/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/systemdesign/</loc>
+    <loc>http://localhost:1313/notes/systemdesign/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/system-design/</loc>
+    <loc>http://localhost:1313/tags/system-design/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/tags/web-performance/</loc>
+    <loc>http://localhost:1313/tags/web-performance/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/systemdesign/browser-caching/</loc>
+    <loc>http://localhost:1313/notes/systemdesign/browser-caching/</loc>
     <lastmod>2026-01-03T21:32:16+01:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/systemdesign/cache-invalidation/</loc>
+    <loc>http://localhost:1313/notes/systemdesign/cache-invalidation/</loc>
     <lastmod>2026-01-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.org/notes/networking/phase6-firewall-ntw-security-basic/</loc>
+    <loc>http://localhost:1313/notes/networking/phase6-firewall-ntw-security-basic/</loc>
   </url><url>
-    <loc>https://example.org/notes/networking/phase7-end-end-troubleshotting-mental-model/</loc>
+    <loc>http://localhost:1313/notes/networking/phase7-end-end-troubleshotting-mental-model/</loc>
   </url><url>
-    <loc>https://example.org/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

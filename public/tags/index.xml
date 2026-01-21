@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on My Tech Knowledge Notes</title>
-    <link>https://example.org/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 04 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Caching</title>
-      <link>https://example.org/tags/caching/</link>
+      <link>http://localhost:1313/tags/caching/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/caching/</guid>
+      <guid>http://localhost:1313/tags/caching/</guid>
       <description></description>
     </item>
     <item>
       <title>Cdn</title>
-      <link>https://example.org/tags/cdn/</link>
+      <link>http://localhost:1313/tags/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/cdn/</guid>
+      <guid>http://localhost:1313/tags/cdn/</guid>
       <description></description>
     </item>
     <item>
       <title>Interview</title>
-      <link>https://example.org/tags/interview/</link>
+      <link>http://localhost:1313/tags/interview/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/interview/</guid>
+      <guid>http://localhost:1313/tags/interview/</guid>
       <description></description>
     </item>
     <item>
       <title>Memcached</title>
-      <link>https://example.org/tags/memcached/</link>
+      <link>http://localhost:1313/tags/memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/memcached/</guid>
+      <guid>http://localhost:1313/tags/memcached/</guid>
       <description></description>
     </item>
     <item>
       <title>Redis</title>
-      <link>https://example.org/tags/redis/</link>
+      <link>http://localhost:1313/tags/redis/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/redis/</guid>
+      <guid>http://localhost:1313/tags/redis/</guid>
       <description></description>
     </item>
     <item>
       <title>Sre</title>
-      <link>https://example.org/tags/sre/</link>
+      <link>http://localhost:1313/tags/sre/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/sre/</guid>
+      <guid>http://localhost:1313/tags/sre/</guid>
       <description></description>
     </item>
     <item>
       <title>System-Design</title>
-      <link>https://example.org/tags/system-design/</link>
+      <link>http://localhost:1313/tags/system-design/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/system-design/</guid>
+      <guid>http://localhost:1313/tags/system-design/</guid>
       <description></description>
     </item>
     <item>
       <title>Web-Performance</title>
-      <link>https://example.org/tags/web-performance/</link>
+      <link>http://localhost:1313/tags/web-performance/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/tags/web-performance/</guid>
+      <guid>http://localhost:1313/tags/web-performance/</guid>
       <description></description>
     </item>
   </channel>

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>System-Design on My Tech Knowledge Notes</title>
-    <link>https://example.org/tags/system-design/</link>
+    <link>http://localhost:1313/tags/system-design/</link>
     <description>Recent content in System-Design on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 04 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.org/tags/system-design/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/system-design/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide</title>
-      <link>https://example.org/notes/systemdesign/cdn/</link>
+      <link>http://localhost:1313/notes/systemdesign/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/notes/systemdesign/cdn/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/cdn/</guid>
       <description>A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;amp;A.</description>
     </item>
     <item>
       <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
-      <link>https://example.org/notes/systemdesign/redis-vs-memcached/</link>
+      <link>http://localhost:1313/notes/systemdesign/redis-vs-memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://example.org/notes/systemdesign/redis-vs-memcached/</guid>
+      <guid>http://localhost:1313/notes/systemdesign/redis-vs-memcached/</guid>
       <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
     </item>
   </channel>
