@@ -40,7 +40,7 @@ weight = 10
 # Subtopics under Networking
 [[menu.main]]
 name = "Learn Networks"
-url = "techVeda/notes/networking/learning_networks/"
+url = "notes/networking/learning_networks/"
 parent = "networking"
 weight = 1
 
@@ -54,7 +54,7 @@ weight = 10
 # Subtopics under System Design
 [[menu.main]]
 name = "Redis vs Memcached"
-url = "techVeda/notes/systemdesign/redis-vs-memcached/"
+url = "notes/systemdesign/redis-vs-memcached/"
 parent = "systemdesign"
 weight = 1
 
