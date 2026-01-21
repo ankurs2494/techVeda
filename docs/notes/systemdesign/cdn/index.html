@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide | My Tech Knowledge Notes</title>
+<meta name="keywords" content="cdn, caching, sre, system-design, interview, web-performance">
+<meta name="description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
+<link crossorigin="anonymous" href="https://ankurs2494.github.io/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide">
+  <meta property="og:description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-04T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-04T00:00:00+00:00">
+    <meta property="article:tag" content="Cdn">
+    <meta property="article:tag" content="Caching">
+    <meta property="article:tag" content="Sre">
+    <meta property="article:tag" content="System-Design">
+    <meta property="article:tag" content="Interview">
+    <meta property="article:tag" content="Web-Performance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide">
+<meta name="twitter:description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "System design concept",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
+  "name": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
+  "description": "A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q\u0026A.",
+  "keywords": [
+    "cdn", "caching", "sre", "system-design", "interview", "web-performance"
+  ],
+  "articleBody": " Introduction A Content Delivery Network (CDN) is a core building block of modern, scalable, and reliable web systems. From simple websites to global-scale platforms like Netflix and Cloudflare, CDNs are essential for performance, availability, and security.\nThis guide starts from absolute basics and progresses to advanced SRE-level concepts, including cache strategies, failure handling, and real-world operations.\nWhat is a CDN? (Beginner Level) A CDN is a globally distributed network of servers that deliver content to users from the nearest geographical location.\nInstead of every user hitting your origin server, content is served from edge locations, reducing latency and load.\nSimple Example User in India requests image.png Image is served from Mumbai edge instead of US origin Basic CDN Flow Diagram User │ Request Content ▼ Nearest CDN Edge │ Cache Hit? ├── Yes → Serve Content └── No ▼ Origin Server │ Fetch Content ▼ CDN Edge (Cache) │ ▼ User What Does a CDN Cache? Static assets (JS, CSS, images, videos) HTML pages API responses (with rules) Media streams Key Benefits of CDN Performance Reduced latency Faster page load times Scalability Handles traffic spikes Offloads origin servers Reliability Origin protection Failover and redundancy Security DDoS protection WAF integration TLS termination CDN Use Cases Beginner / Common Website static asset delivery Image \u0026 video hosting Intermediate API acceleration Mobile app backend caching Advanced / SRE-Level Global SaaS platforms Live streaming Zero-downtime deployments Edge computing Real-Life CDN Examples Netflix: Video streaming from edge locations Amazon CloudFront: E-commerce asset delivery Cloudflare: CDN + security platform YouTube: Adaptive video delivery CDN Caching Strategies (Intermediate) Cache-Control headers TTL-based caching Cache busting (versioned URLs) Purge / Invalidation Example Header Cache-Control: public, max-age=3600 Advanced CDN Concepts (SRE Level) Edge Computing Run logic at CDN edge (Cloudflare Workers, Fastly Compute) Origin Shield Single mid-tier cache to protect origin Cache Hierarchy Edge → Regional → Origin Failover \u0026 Multi-CDN Traffic switching on failure Vendor lock-in avoidance Advanced CDN Architecture Diagram Users (Global) │ ▼ CDN Edge Locations │ ▼ Regional Cache / Origin Shield │ ▼ Origin Infrastructure (Load Balancer + Services + DB) CDN vs Traditional Cache (Redis/Memcached) Aspect CDN Redis/Memcached Location Edge (Global) Application Layer Data Type HTTP Content Application Data Latency Internet Edge In-Process / VPC Security Built-in App-managed Common CDN Pitfalls Incorrect cache headers Serving stale content Cache poisoning Over-aggressive caching Interview Questions \u0026 Answers (20 Must-Know) 1. What is a CDN? A CDN is a distributed network that serves content from locations closest to users. 2. Why do we use CDNs? To reduce latency, improve availability, and protect origin servers. 3. What is an edge location? A CDN server that delivers content close to users. 4. What is an origin server? The main backend server where original content resides. 5. What is cache hit and miss? Hit means content served from cache; miss means fetched from origin. 6. What headers control CDN caching? Cache-Control, Expires, ETag, Last-Modified. 7. What is cache invalidation? Removing cached content before TTL expires. 8. CDN vs Load Balancer? CDN serves cached content; load balancer distributes traffic to backends. 9. Can CDNs cache dynamic content? Yes, with rules, headers, and edge logic. 10. What is edge computing? Executing code closer to users at CDN edge locations. 11. What is Origin Shield? A centralized cache layer protecting origin servers. 12. How do CDNs help with DDoS? By absorbing and filtering traffic at the edge. 13. What is multi-CDN? Using multiple CDN providers for resilience and performance. 14. What is cache poisoning? Injecting malicious content into CDN cache. 15. What is stale-while-revalidate? Serving stale content while fetching fresh data in background. 16. How does CDN failover work? Traffic is rerouted to healthy edges or another CDN. 17. What metrics do SREs monitor for CDN? Cache hit ratio, latency, error rate, origin load. 18. CDN vs Reverse Proxy? CDN is globally distributed; reverse proxy is usually local. 19. What happens if CDN is down? Traffic can fall back to origin or another CDN. 20. One-line CDN summary? CDNs bring content closer to users for speed, scale, and security. Conclusion For SREs, CDNs are not just about speed—they are critical infrastructure for reliability, scalability, and security. Mastering CDN internals is essential for operating global systems.\n",
+  "wordCount" : "702",
+  "inLanguage": "en",
+  "datePublished": "2026-01-04T00:00:00Z",
+  "dateModified": "2026-01-04T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="System design">
+                    <span>System design</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/">System design concept</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide
+    </h1>
+    <div class="post-description">
+      A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.
+    </div>
+    <div class="post-meta"><span title='2026-01-04 00:00:00 +0000 UTC'>January 4, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><hr>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>A <strong>Content Delivery Network (CDN)</strong> is a core building block of modern, scalable, and reliable web systems. From simple websites to global-scale platforms like Netflix and Cloudflare, CDNs are essential for <strong>performance, availability, and security</strong>.</p>
+<p>This guide starts from <strong>absolute basics</strong> and progresses to <strong>advanced SRE-level concepts</strong>, including cache strategies, failure handling, and real-world operations.</p>
+<hr>
+<h2 id="what-is-a-cdn-beginner-level">What is a CDN? (Beginner Level)<a hidden class="anchor" aria-hidden="true" href="#what-is-a-cdn-beginner-level">#</a></h2>
+<p>A CDN is a <strong>globally distributed network of servers</strong> that deliver content to users from the <strong>nearest geographical location</strong>.</p>
+<p>Instead of every user hitting your origin server, content is served from <strong>edge locations</strong>, reducing latency and load.</p>
+<h3 id="simple-example">Simple Example<a hidden class="anchor" aria-hidden="true" href="#simple-example">#</a></h3>
+<ul>
+<li>User in India requests <code>image.png</code></li>
+<li>Image is served from Mumbai edge instead of US origin</li>
+</ul>
+<hr>
+<h2 id="basic-cdn-flow-diagram">Basic CDN Flow Diagram<a hidden class="anchor" aria-hidden="true" href="#basic-cdn-flow-diagram">#</a></h2>
+<pre tabindex="0"><code>User
+ │ Request Content
+ ▼
+Nearest CDN Edge
+ │ Cache Hit?
+ ├── Yes → Serve Content
+ └── No
+        ▼
+     Origin Server
+        │ Fetch Content
+        ▼
+     CDN Edge (Cache)
+        │
+        ▼
+       User
+</code></pre><hr>
+<h2 id="what-does-a-cdn-cache">What Does a CDN Cache?<a hidden class="anchor" aria-hidden="true" href="#what-does-a-cdn-cache">#</a></h2>
+<ul>
+<li>Static assets (JS, CSS, images, videos)</li>
+<li>HTML pages</li>
+<li>API responses (with rules)</li>
+<li>Media streams</li>
+</ul>
+<hr>
+<h2 id="key-benefits-of-cdn">Key Benefits of CDN<a hidden class="anchor" aria-hidden="true" href="#key-benefits-of-cdn">#</a></h2>
+<h3 id="performance">Performance<a hidden class="anchor" aria-hidden="true" href="#performance">#</a></h3>
+<ul>
+<li>Reduced latency</li>
+<li>Faster page load times</li>
+</ul>
+<h3 id="scalability">Scalability<a hidden class="anchor" aria-hidden="true" href="#scalability">#</a></h3>
+<ul>
+<li>Handles traffic spikes</li>
+<li>Offloads origin servers</li>
+</ul>
+<h3 id="reliability">Reliability<a hidden class="anchor" aria-hidden="true" href="#reliability">#</a></h3>
+<ul>
+<li>Origin protection</li>
+<li>Failover and redundancy</li>
+</ul>
+<h3 id="security">Security<a hidden class="anchor" aria-hidden="true" href="#security">#</a></h3>
+<ul>
+<li>DDoS protection</li>
+<li>WAF integration</li>
+<li>TLS termination</li>
+</ul>
+<hr>
+<h2 id="cdn-use-cases">CDN Use Cases<a hidden class="anchor" aria-hidden="true" href="#cdn-use-cases">#</a></h2>
+<h3 id="beginner--common">Beginner / Common<a hidden class="anchor" aria-hidden="true" href="#beginner--common">#</a></h3>
+<ul>
+<li>Website static asset delivery</li>
+<li>Image &amp; video hosting</li>
+</ul>
+<h3 id="intermediate">Intermediate<a hidden class="anchor" aria-hidden="true" href="#intermediate">#</a></h3>
+<ul>
+<li>API acceleration</li>
+<li>Mobile app backend caching</li>
+</ul>
+<h3 id="advanced--sre-level">Advanced / SRE-Level<a hidden class="anchor" aria-hidden="true" href="#advanced--sre-level">#</a></h3>
+<ul>
+<li>Global SaaS platforms</li>
+<li>Live streaming</li>
+<li>Zero-downtime deployments</li>
+<li>Edge computing</li>
+</ul>
+<hr>
+<h2 id="real-life-cdn-examples">Real-Life CDN Examples<a hidden class="anchor" aria-hidden="true" href="#real-life-cdn-examples">#</a></h2>
+<ul>
+<li><strong>Netflix</strong>: Video streaming from edge locations</li>
+<li><strong>Amazon CloudFront</strong>: E-commerce asset delivery</li>
+<li><strong>Cloudflare</strong>: CDN + security platform</li>
+<li><strong>YouTube</strong>: Adaptive video delivery</li>
+</ul>
+<hr>
+<h2 id="cdn-caching-strategies-intermediate">CDN Caching Strategies (Intermediate)<a hidden class="anchor" aria-hidden="true" href="#cdn-caching-strategies-intermediate">#</a></h2>
+<ul>
+<li>Cache-Control headers</li>
+<li>TTL-based caching</li>
+<li>Cache busting (versioned URLs)</li>
+<li>Purge / Invalidation</li>
+</ul>
+<h3 id="example-header">Example Header<a hidden class="anchor" aria-hidden="true" href="#example-header">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Cache-Control: public, max-age=3600
+</span></span></span></code></pre></div><hr>
+<h2 id="advanced-cdn-concepts-sre-level">Advanced CDN Concepts (SRE Level)<a hidden class="anchor" aria-hidden="true" href="#advanced-cdn-concepts-sre-level">#</a></h2>
+<h3 id="edge-computing">Edge Computing<a hidden class="anchor" aria-hidden="true" href="#edge-computing">#</a></h3>
+<ul>
+<li>Run logic at CDN edge (Cloudflare Workers, Fastly Compute)</li>
+</ul>
+<h3 id="origin-shield">Origin Shield<a hidden class="anchor" aria-hidden="true" href="#origin-shield">#</a></h3>
+<ul>
+<li>Single mid-tier cache to protect origin</li>
+</ul>
+<h3 id="cache-hierarchy">Cache Hierarchy<a hidden class="anchor" aria-hidden="true" href="#cache-hierarchy">#</a></h3>
+<ul>
+<li>Edge → Regional → Origin</li>
+</ul>
+<h3 id="failover--multi-cdn">Failover &amp; Multi-CDN<a hidden class="anchor" aria-hidden="true" href="#failover--multi-cdn">#</a></h3>
+<ul>
+<li>Traffic switching on failure</li>
+<li>Vendor lock-in avoidance</li>
+</ul>
+<hr>
+<h2 id="advanced-cdn-architecture-diagram">Advanced CDN Architecture Diagram<a hidden class="anchor" aria-hidden="true" href="#advanced-cdn-architecture-diagram">#</a></h2>
+<pre tabindex="0"><code>Users (Global)
+      │
+      ▼
+ CDN Edge Locations
+      │
+      ▼
+ Regional Cache / Origin Shield
+      │
+      ▼
+ Origin Infrastructure
+ (Load Balancer + Services + DB)
+</code></pre><hr>
+<h2 id="cdn-vs-traditional-cache-redismemcached">CDN vs Traditional Cache (Redis/Memcached)<a hidden class="anchor" aria-hidden="true" href="#cdn-vs-traditional-cache-redismemcached">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Aspect</th>
+          <th>CDN</th>
+          <th>Redis/Memcached</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Location</td>
+          <td>Edge (Global)</td>
+          <td>Application Layer</td>
+      </tr>
+      <tr>
+          <td>Data Type</td>
+          <td>HTTP Content</td>
+          <td>Application Data</td>
+      </tr>
+      <tr>
+          <td>Latency</td>
+          <td>Internet Edge</td>
+          <td>In-Process / VPC</td>
+      </tr>
+      <tr>
+          <td>Security</td>
+          <td>Built-in</td>
+          <td>App-managed</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="common-cdn-pitfalls">Common CDN Pitfalls<a hidden class="anchor" aria-hidden="true" href="#common-cdn-pitfalls">#</a></h2>
+<ul>
+<li>Incorrect cache headers</li>
+<li>Serving stale content</li>
+<li>Cache poisoning</li>
+<li>Over-aggressive caching</li>
+</ul>
+<hr>
+<h2 id="interview-questions--answers-20-must-know">Interview Questions &amp; Answers (20 Must-Know)<a hidden class="anchor" aria-hidden="true" href="#interview-questions--answers-20-must-know">#</a></h2>
+<details>
+<summary><strong>1. What is a CDN?</strong></summary>
+A CDN is a distributed network that serves content from locations closest to users.
+</details>
+<details>
+<summary><strong>2. Why do we use CDNs?</strong></summary>
+To reduce latency, improve availability, and protect origin servers.
+</details>
+<details>
+<summary><strong>3. What is an edge location?</strong></summary>
+A CDN server that delivers content close to users.
+</details>
+<details>
+<summary><strong>4. What is an origin server?</strong></summary>
+The main backend server where original content resides.
+</details>
+<details>
+<summary><strong>5. What is cache hit and miss?</strong></summary>
+Hit means content served from cache; miss means fetched from origin.
+</details>
+<details>
+<summary><strong>6. What headers control CDN caching?</strong></summary>
+Cache-Control, Expires, ETag, Last-Modified.
+</details>
+<details>
+<summary><strong>7. What is cache invalidation?</strong></summary>
+Removing cached content before TTL expires.
+</details>
+<details>
+<summary><strong>8. CDN vs Load Balancer?</strong></summary>
+CDN serves cached content; load balancer distributes traffic to backends.
+</details>
+<details>
+<summary><strong>9. Can CDNs cache dynamic content?</strong></summary>
+Yes, with rules, headers, and edge logic.
+</details>
+<details>
+<summary><strong>10. What is edge computing?</strong></summary>
+Executing code closer to users at CDN edge locations.
+</details>
+<details>
+<summary><strong>11. What is Origin Shield?</strong></summary>
+A centralized cache layer protecting origin servers.
+</details>
+<details>
+<summary><strong>12. How do CDNs help with DDoS?</strong></summary>
+By absorbing and filtering traffic at the edge.
+</details>
+<details>
+<summary><strong>13. What is multi-CDN?</strong></summary>
+Using multiple CDN providers for resilience and performance.
+</details>
+<details>
+<summary><strong>14. What is cache poisoning?</strong></summary>
+Injecting malicious content into CDN cache.
+</details>
+<details>
+<summary><strong>15. What is stale-while-revalidate?</strong></summary>
+Serving stale content while fetching fresh data in background.
+</details>
+<details>
+<summary><strong>16. How does CDN failover work?</strong></summary>
+Traffic is rerouted to healthy edges or another CDN.
+</details>
+<details>
+<summary><strong>17. What metrics do SREs monitor for CDN?</strong></summary>
+Cache hit ratio, latency, error rate, origin load.
+</details>
+<details>
+<summary><strong>18. CDN vs Reverse Proxy?</strong></summary>
+CDN is globally distributed; reverse proxy is usually local.
+</details>
+<details>
+<summary><strong>19. What happens if CDN is down?</strong></summary>
+Traffic can fall back to origin or another CDN.
+</details>
+<details>
+<summary><strong>20. One-line CDN summary?</strong></summary>
+CDNs bring content closer to users for speed, scale, and security.
+</details>
+<hr>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>For SREs, CDNs are not just about speed—they are critical infrastructure for <strong>reliability, scalability, and security</strong>. Mastering CDN internals is essential for operating global systems.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/cdn/">Cdn</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/caching/">Caching</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/sre/">Sre</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/system-design/">System-Design</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/interview/">Interview</a></li>
+      <li><a href="https://ankurs2494.github.io/techVeda/tags/web-performance/">Web-Performance</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

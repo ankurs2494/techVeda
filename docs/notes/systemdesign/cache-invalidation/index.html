@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Cache invalidation | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="What is Cache Invalidation?
+Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.
+Goal: Always serve fresh and correct data, not stale cached copies.
+
+Why Is It Hard?
+
+In distributed systems, the same data can be cached in many places (servers, CDNs, browsers).
+Making sure every copy is updated at the right time is complex.
+
+
+“There are only two hard things in Computer Science: cache invalidation and naming things.”">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/">
+<link crossorigin="anonymous" href="https://ankurs2494.github.io/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Cache invalidation">
+  <meta property="og:description" content="What is Cache Invalidation? Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.
+Goal: Always serve fresh and correct data, not stale cached copies.
+Why Is It Hard? In distributed systems, the same data can be cached in many places (servers, CDNs, browsers). Making sure every copy is updated at the right time is complex. “There are only two hard things in Computer Science: cache invalidation and naming things.”">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-03T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cache invalidation">
+<meta name="twitter:description" content="What is Cache Invalidation?
+Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.
+Goal: Always serve fresh and correct data, not stale cached copies.
+
+Why Is It Hard?
+
+In distributed systems, the same data can be cached in many places (servers, CDNs, browsers).
+Making sure every copy is updated at the right time is complex.
+
+
+“There are only two hard things in Computer Science: cache invalidation and naming things.”">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "System design concept",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Cache invalidation",
+      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cache invalidation",
+  "name": "Cache invalidation",
+  "description": "What is Cache Invalidation? Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.\nGoal: Always serve fresh and correct data, not stale cached copies.\nWhy Is It Hard? In distributed systems, the same data can be cached in many places (servers, CDNs, browsers). Making sure every copy is updated at the right time is complex. “There are only two hard things in Computer Science: cache invalidation and naming things.”\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "What is Cache Invalidation? Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.\nGoal: Always serve fresh and correct data, not stale cached copies.\nWhy Is It Hard? In distributed systems, the same data can be cached in many places (servers, CDNs, browsers). Making sure every copy is updated at the right time is complex. “There are only two hard things in Computer Science: cache invalidation and naming things.”\nCommon Cache Invalidation Strategies Strategy How It Works Example Use Case TTL Cache expires after a fixed time Weather updates Write-Through Update cache + DB together Banking balances Write-Around Write only to DB Logging systems Pub/Sub Events notify caches Microservices, CDNs 1. Time-To-Live (TTL) Cache auto-expires after a set time.\nExample:\nProduct price cached for 5 minutes → after expiry, fetch fresh price.\n✅ Simple\n❌ May be briefly stale\n2. Write-Through Update cache and database together.\n✅ Always fresh\n❌ Slower writes\n3. Write-Around Write to DB only, cache updated later on read.\n✅ Efficient for heavy writes\n❌ First read is slow\n4. Publish / Subscribe Services notify others when data changes.\n✅ Best for distributed systems\n❌ More complex\nChallenges Problem Explanation Multiple caches Same data everywhere Network delays Invalidation lag Partial failures Missed updates CDN complexity Hard to sync globally Use Cases System Strategy News sites TTL Banking Write-Through Logging Write-Around Microservices Pub/Sub CDNs TTL + API One-Line Summary Cache invalidation keeps cached data fresh by refreshing or removing stale entries using strategies like TTL, write-through, and event-based updates.\n💡 Memory Tips TTL = Time-based Write-Through = Always fresh Write-Around = Fast writes Pub/Sub = Distributed sync ",
+  "wordCount" : "289",
+  "inLanguage": "en",
+  "datePublished": "2026-01-03T00:00:00Z",
+  "dateModified": "2026-01-03T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="System design">
+                    <span>System design</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/">System design concept</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Cache invalidation
+    </h1>
+    <div class="post-meta"><span title='2026-01-03 00:00:00 +0000 UTC'>January 3, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="what-is-cache-invalidation">What is Cache Invalidation?<a hidden class="anchor" aria-hidden="true" href="#what-is-cache-invalidation">#</a></h2>
+<p>Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.</p>
+<p><strong>Goal:</strong> Always serve fresh and correct data, not stale cached copies.</p>
+<hr>
+<h2 id="why-is-it-hard">Why Is It Hard?<a hidden class="anchor" aria-hidden="true" href="#why-is-it-hard">#</a></h2>
+<ul>
+<li>In distributed systems, the same data can be cached in many places (servers, CDNs, browsers).</li>
+<li>Making sure every copy is updated at the right time is complex.</li>
+</ul>
+<blockquote>
+<p>“There are only two hard things in Computer Science: cache invalidation and naming things.”</p>
+</blockquote>
+<hr>
+<h2 id="common-cache-invalidation-strategies">Common Cache Invalidation Strategies<a hidden class="anchor" aria-hidden="true" href="#common-cache-invalidation-strategies">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Strategy</th>
+          <th>How It Works</th>
+          <th>Example Use Case</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>TTL</td>
+          <td>Cache expires after a fixed time</td>
+          <td>Weather updates</td>
+      </tr>
+      <tr>
+          <td>Write-Through</td>
+          <td>Update cache + DB together</td>
+          <td>Banking balances</td>
+      </tr>
+      <tr>
+          <td>Write-Around</td>
+          <td>Write only to DB</td>
+          <td>Logging systems</td>
+      </tr>
+      <tr>
+          <td>Pub/Sub</td>
+          <td>Events notify caches</td>
+          <td>Microservices, CDNs</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="1-time-to-live-ttl">1. Time-To-Live (TTL)<a hidden class="anchor" aria-hidden="true" href="#1-time-to-live-ttl">#</a></h2>
+<p>Cache auto-expires after a set time.</p>
+<p><strong>Example:</strong><br>
+Product price cached for 5 minutes → after expiry, fetch fresh price.</p>
+<p>✅ Simple<br>
+❌ May be briefly stale</p>
+<hr>
+<h2 id="2-write-through">2. Write-Through<a hidden class="anchor" aria-hidden="true" href="#2-write-through">#</a></h2>
+<p>Update cache and database together.</p>
+<p>✅ Always fresh<br>
+❌ Slower writes</p>
+<hr>
+<h2 id="3-write-around">3. Write-Around<a hidden class="anchor" aria-hidden="true" href="#3-write-around">#</a></h2>
+<p>Write to DB only, cache updated later on read.</p>
+<p>✅ Efficient for heavy writes<br>
+❌ First read is slow</p>
+<hr>
+<h2 id="4-publish--subscribe">4. Publish / Subscribe<a hidden class="anchor" aria-hidden="true" href="#4-publish--subscribe">#</a></h2>
+<p>Services notify others when data changes.</p>
+<p>✅ Best for distributed systems<br>
+❌ More complex</p>
+<hr>
+<h2 id="challenges">Challenges<a hidden class="anchor" aria-hidden="true" href="#challenges">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Problem</th>
+          <th>Explanation</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Multiple caches</td>
+          <td>Same data everywhere</td>
+      </tr>
+      <tr>
+          <td>Network delays</td>
+          <td>Invalidation lag</td>
+      </tr>
+      <tr>
+          <td>Partial failures</td>
+          <td>Missed updates</td>
+      </tr>
+      <tr>
+          <td>CDN complexity</td>
+          <td>Hard to sync globally</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="use-cases">Use Cases<a hidden class="anchor" aria-hidden="true" href="#use-cases">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>System</th>
+          <th>Strategy</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>News sites</td>
+          <td>TTL</td>
+      </tr>
+      <tr>
+          <td>Banking</td>
+          <td>Write-Through</td>
+      </tr>
+      <tr>
+          <td>Logging</td>
+          <td>Write-Around</td>
+      </tr>
+      <tr>
+          <td>Microservices</td>
+          <td>Pub/Sub</td>
+      </tr>
+      <tr>
+          <td>CDNs</td>
+          <td>TTL + API</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="one-line-summary">One-Line Summary<a hidden class="anchor" aria-hidden="true" href="#one-line-summary">#</a></h2>
+<p>Cache invalidation keeps cached data fresh by refreshing or removing stale entries using strategies like TTL, write-through, and event-based updates.</p>
+<hr>
+<h2 id="-memory-tips">💡 Memory Tips<a hidden class="anchor" aria-hidden="true" href="#-memory-tips">#</a></h2>
+<ul>
+<li>TTL = Time-based</li>
+<li>Write-Through = Always fresh</li>
+<li>Write-Around = Fast writes</li>
+<li>Pub/Sub = Distributed sync</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
