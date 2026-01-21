@@ -9,11 +9,11 @@ description: "A quick review notes and explanations for system design"
 <!-- Below is a curated list of all topics covered related to system design. -->
 
 #### 1. Caching Fundamentals
-- [Browser Caching](notes/systemdesign/browser-caching/)
-- [Cache Invalidation](notes/systemdesign/cache-invalidation/)
+- [Browser Caching](browser-caching/)
+- [Cache Invalidation](cache-invalidation/)
 
 #### 2. In-Memory Caching
-- [Redis vs Memcached](notes/systemdesign/redis-vs-memcached/)
+- [Redis vs Memcached](redis-vs-memcached/)
 
 #### 3. Distributed Systems
-- [Content Delivery Network (CDN)](notes/systemdesign/cdn/)
+- [Content Delivery Network (CDN)](cdn/)

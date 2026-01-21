@@ -11,6 +11,6 @@ type: page
 #### Networking Fundamentals
 - [Phase 1 : Core networking concepts](phase1-core-ntw-concepts/)
 - [Phase 2 : IP and Subnetting](phase2-ip-and-subnetting/)
-- [Phase 3 : TCP/IP and ports](notes/networking/phase3-tcp-ip-ports/)
-- [Phase 4 : DNS and Name Resolution](notes/networking/phase4-dns-name-resolution/)
-- [Phase 5 : Routing, Gateway and NAT](notes/networking/phase5-routing-gateway-nat/)
+- [Phase 3 : TCP/IP and ports](phase3-tcp-ip-ports/)
+- [Phase 4 : DNS and Name Resolution](phase4-dns-name-resolution/)
+- [Phase 5 : Routing, Gateway and NAT](phase5-routing-gateway-nat/)
