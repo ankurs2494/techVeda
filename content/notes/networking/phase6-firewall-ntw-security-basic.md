@@ -36,6 +36,17 @@ Nothing more, nothing less.
 
 ### <font color="BlueViolet">3️⃣ Firewall Rules (Core Concepts)</font>
 
+Every firewall rule has:
+
+| Field | Meaning  |
+|-----------|---------|
+| Direction | Inbound/Outbound |
+| Source | Who is sending |
+| Destination | Who is receiving |
+| Port | Service  |
+| Protocol | TCP/UDP |
+| Action | Allow/Deny |
+
 ---
 
 ### <font color="BlueViolet">4️⃣ Inbound vs Outbound (Critical)</font>
