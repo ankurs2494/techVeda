@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'My Tech Knowledge Notes'
 theme = "PaperMod"
 publishDir = "docs"
+relativeURLs = true
+canonifyURLs = true
 
 [params]
   author = "Ankur Singh"
