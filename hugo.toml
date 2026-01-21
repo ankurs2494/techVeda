@@ -1,7 +1,8 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://ankurs2494.github.io/techVeda/'
 languageCode = 'en-us'
 title = 'My Tech Knowledge Notes'
 theme = "PaperMod"
+publishDir = "docs"
 
 [params]
   author = "Ankur Singh"
