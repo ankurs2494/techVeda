@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on My Tech Knowledge Notes</title>
-    <link>https://ankurs2494.github.io/techVeda/tags/</link>
+    <link>https://ankurs2494.github.io/tags/</link>
     <description>Recent content in Tags on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 04 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ankurs2494.github.io/techVeda/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ankurs2494.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Caching</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/caching/</link>
+      <link>https://ankurs2494.github.io/tags/caching/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/caching/</guid>
+      <guid>https://ankurs2494.github.io/tags/caching/</guid>
       <description></description>
     </item>
     <item>
       <title>Cdn</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/cdn/</link>
+      <link>https://ankurs2494.github.io/tags/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/cdn/</guid>
+      <guid>https://ankurs2494.github.io/tags/cdn/</guid>
       <description></description>
     </item>
     <item>
       <title>Interview</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/interview/</link>
+      <link>https://ankurs2494.github.io/tags/interview/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/interview/</guid>
+      <guid>https://ankurs2494.github.io/tags/interview/</guid>
       <description></description>
     </item>
     <item>
       <title>Memcached</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/memcached/</link>
+      <link>https://ankurs2494.github.io/tags/memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/memcached/</guid>
+      <guid>https://ankurs2494.github.io/tags/memcached/</guid>
       <description></description>
     </item>
     <item>
       <title>Redis</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/redis/</link>
+      <link>https://ankurs2494.github.io/tags/redis/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/redis/</guid>
+      <guid>https://ankurs2494.github.io/tags/redis/</guid>
       <description></description>
     </item>
     <item>
       <title>Sre</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/sre/</link>
+      <link>https://ankurs2494.github.io/tags/sre/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/sre/</guid>
+      <guid>https://ankurs2494.github.io/tags/sre/</guid>
       <description></description>
     </item>
     <item>
       <title>System-Design</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/system-design/</link>
+      <link>https://ankurs2494.github.io/tags/system-design/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/system-design/</guid>
+      <guid>https://ankurs2494.github.io/tags/system-design/</guid>
       <description></description>
     </item>
     <item>
       <title>Web-Performance</title>
-      <link>https://ankurs2494.github.io/techVeda/tags/web-performance/</link>
+      <link>https://ankurs2494.github.io/tags/web-performance/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/tags/web-performance/</guid>
+      <guid>https://ankurs2494.github.io/tags/web-performance/</guid>
       <description></description>
     </item>
   </channel>
