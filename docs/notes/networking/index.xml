@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Networking Index on My Tech Knowledge Notes</title>
-    <link>https://ankurs2494.github.io/notes/networking/</link>
+    <link>https://ankurs2494.github.io/techVeda/notes/networking/</link>
     <description>Recent content in Networking Index on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 21 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ankurs2494.github.io/notes/networking/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ankurs2494.github.io/techVeda/notes/networking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Phase 3 : TCP/IP and ports</title>
-      <link>https://ankurs2494.github.io/notes/networking/phase3-tcp-ip-ports/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase3-tcp-ip-ports/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
       <description>&lt;p&gt;This phase is where networking becomes practical and real. We focus on how data actually moves between devices.&lt;/p&gt;
 &lt;p&gt;You’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.&lt;/p&gt;
 &lt;hr&gt;
@@ -31,9 +31,9 @@
     </item>
     <item>
       <title>Phase 4 – DNS (Domain Name System)</title>
-      <link>https://ankurs2494.github.io/notes/networking/phase4-dns-name-resolution/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase4-dns-name-resolution/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
       <description>&lt;!-- ### What This Phase Covers --&gt;
 &lt;p&gt;DNS is one of the most critical systems on the internet.&lt;/p&gt;
 &lt;p&gt;If DNS fails, &lt;strong&gt;everything appears broken&lt;/strong&gt; — even when the network is perfectly fine.&lt;/p&gt;
@@ -42,9 +42,9 @@
     </item>
     <item>
       <title>Phase 5 : Routing, Gateway and NAT</title>
-      <link>https://ankurs2494.github.io/notes/networking/phase5-routing-gateway-nat/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase5-routing-gateway-nat/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
       <description>&lt;p&gt;Phase 5 focuses on how networks communicate.&lt;/p&gt;
 &lt;p&gt;It covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.&lt;/p&gt;
 &lt;hr&gt;
@@ -57,9 +57,9 @@
     </item>
     <item>
       <title>Phase 2 : IP and Subnetting</title>
-      <link>https://ankurs2494.github.io/notes/networking/phase2-ip-and-subnetting/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase2-ip-and-subnetting/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
       <description>&lt;p&gt;In this phase, we explore IP addresses and subnetting — the part of networking that explains how devices are identified and grouped together.&lt;/p&gt;
 &lt;p&gt;You’ll understand what IP addresses represent, why networks are divided into subnets, and how this structure makes large networks possible and manageable.&lt;/p&gt;
 &lt;hr&gt;
@@ -74,9 +74,9 @@
     </item>
     <item>
       <title>Phase 1 : Core networking concepts</title>
-      <link>https://ankurs2494.github.io/notes/networking/phase1-core-ntw-concepts/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
       <pubDate>Mon, 19 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase1-core-ntw-concepts/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
       <description>&lt;p&gt;In this phase, we build the foundation of networking by understanding what networks are and how devices communicate.&lt;/p&gt;
 &lt;p&gt;You’ll learn what hosts, IP addresses, clients, and servers really mean, and how simple request–response communication powers almost everything on the internet.&lt;/p&gt;
 &lt;hr&gt;
@@ -96,16 +96,16 @@
     </item>
     <item>
       <title></title>
-      <link>https://ankurs2494.github.io/notes/networking/phase6-firewall-ntw-security-basic/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase6-firewall-ntw-security-basic/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
       <description></description>
     </item>
     <item>
       <title></title>
-      <link>https://ankurs2494.github.io/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
       <description></description>
     </item>
   </channel>
