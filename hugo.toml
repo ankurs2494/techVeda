@@ -4,6 +4,7 @@ title = 'My Tech Knowledge Notes'
 theme = "PaperMod"
 publishDir = "docs"
 canonifyURLs = true
+relativeURLs = true
 
 [params]
   author = "Ankur Singh"
