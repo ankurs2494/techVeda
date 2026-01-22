@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/techVeda/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=techVeda/livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Cloud Networking &amp; Zero-Trust Interview Guide | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
 <meta name="description" content="A comprehensive deep-dive into the four pillars of modern cloud networking:
@@ -17,16 +17,16 @@ This guide provides a systematic framework for diagnosing failures where network
 1️⃣ Scenario:
 &quot;Ping works but application traffic fails.&quot;">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/techVeda/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/techVeda/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/techVeda/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/techVeda/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/techVeda/safari-pinned-tab.svg">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/">
 <noscript>
     <style>
         #theme-toggle,
@@ -78,13 +78,99 @@ This guide provides a systematic framework for diagnosing failures where network
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Cloud Networking & Zero-Trust Interview Guide">
+  <meta property="og:description" content="A comprehensive deep-dive into the four pillars of modern cloud networking:
+🟢 1. Protocol &amp; Layer Troubleshooting.
+🟡 2. Connectivity &amp; Routing.
+🔵 3. Cloud Security &amp; Zero-Trust.
+🔴 4. Identity &amp; Microservices.
+This guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.
+1️⃣ Scenario: &#34;Ping works but application traffic fails.&#34;">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-22T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cloud Networking &amp; Zero-Trust Interview Guide">
+<meta name="twitter:description" content="A comprehensive deep-dive into the four pillars of modern cloud networking:
+🟢 1. Protocol &amp; Layer Troubleshooting.
+🟡 2. Connectivity &amp; Routing.
+🔵 3. Cloud Security &amp; Zero-Trust.
+🔴 4. Identity &amp; Microservices.
+This guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.
+
+1️⃣ Scenario:
+&quot;Ping works but application traffic fails.&quot;">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Production Operations",
+      "item": "https://ankurs2494.github.io/techVeda/notes/operations/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Cloud Networking \u0026 Zero-Trust Interview Guide",
+      "item": "https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cloud Networking \u0026 Zero-Trust Interview Guide",
+  "name": "Cloud Networking \u0026 Zero-Trust Interview Guide",
+  "description": "A comprehensive deep-dive into the four pillars of modern cloud networking:\n🟢 1. Protocol \u0026amp; Layer Troubleshooting.\n🟡 2. Connectivity \u0026amp; Routing.\n🔵 3. Cloud Security \u0026amp; Zero-Trust.\n🔴 4. Identity \u0026amp; Microservices.\nThis guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.\n1️⃣ Scenario: \u0026quot;Ping works but application traffic fails.\u0026quot;\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "A comprehensive deep-dive into the four pillars of modern cloud networking:\n🟢 1. Protocol \u0026 Layer Troubleshooting.\n🟡 2. Connectivity \u0026 Routing.\n🔵 3. Cloud Security \u0026 Zero-Trust.\n🔴 4. Identity \u0026 Microservices.\nThis guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.\n1️⃣ Scenario: \"Ping works but application traffic fails.\"\nWhat interviewer is testing\nOSI layers Troubleshooting order Firewall vs service understanding Whiteboard Answer (Say This) “Ping validates Layer 3 reachability using ICMP. Application traffic uses TCP or UDP at Layer 4. If ping works but the app fails, I check whether the service is listening on the expected port and whether firewall rules allow that port.”\nDiagram\nto draw\nClient ─── ICMP (Layer 3) ───▶ Host ✅ (Reachable) Client ─── TCP:443 (Layer 4) ─▶ Host ❌ (Blocked/Down) 2️⃣ Scenario: \"Service works on localhost but not from another machine.\"\nWhat interviewer wants\nBind addresses Loopback understanding Whiteboard Answer “If localhost works but remote access fails, the service is likely bound to 127.0.0.1 or the inbound firewall blocks external traffic. I’d verify the listening address and firewall rules.”\nDiagram\n127.0.0.1:8080 ✅ (Local Only) 0.0.0.0:8080 ✅ (Listening on all interfaces) 3️⃣ Scenario: \"Private subnet has no internet access.\"\nWhat’s being tested\nNAT Routing Cloud networking basics Whiteboard Answer “Private subnets don’t have a route to the internet. Outbound access requires a NAT gateway and a default route to it. Without NAT, private IPs aren’t internet-routable.”\nDiagram\n[ Private Subnet ] ───▶ [ NAT Gateway ] ───▶ [ Internet ] (No IGW) (In Public) 4️⃣ Scenario: \"Application works via IP but not via DNS.\"\nWhat interviewer wants\nDNS understanding Not blaming the network blindly Name resolution vs. Network path. Whiteboard Answer “If IP works but DNS fails, the network path is fine. The issue is name resolution—likely incorrect DNS records, resolver configuration, or TTL caching.”\nDiagram\nNAME ───▶ [ DNS Server ] ───▶ ❌ (No Record/Timeout) IP ───▶ [ Service ] ───▶ ✅ (Success) 5️⃣ Scenario: \"Why is PrivateLink more secure than VPC peering?\"\nWhat they’re testing\nZero-Trust mindset Attack surface reduction Whiteboard Answer “VPC peering creates network-level trust across entire subnets. PrivateLink exposes only a specific service endpoint with no network transitivity. It shifts access from being network-based to identity-based.”\nDiagram\nPEERING: VPC-A \u003c───(Wide Trust)───\u003e VPC-B PRIVATELINK: Client ───▶ [Endpoint] ───▶ Service 6️⃣ Scenario: \"Explain Zero-Trust networking.\"\nThis is a make-or-break question\nConcept: Identity as the perimeter.\nWhiteboard Answer (Memorize) “Zero-Trust assumes the network is hostile. Access is never granted based on IP or location. Every request is authenticated and authorized using identity, often with IAM or mTLS.”\nDiagram\nNetwork ≠ Trust [ Identity ] + [ Context ] ───▶ [ Policy Engine ] ───▶ [ Access ] (Network is always assumed hostile) 7️⃣ Scenario: \"How does mTLS help in microservices?\"\nWhat they want\nService-to-service security Mutual Authentication. Whiteboard Answer “mTLS provides mutual authentication and encryption. Both client and server prove identity using certificates, which removes reliance on IP allowlists and passwords.”\n**Diagram **\nService A ↔ mTLS ↔ Service B (cert verified both sides) 8️⃣ Scenario: \"Traffic reaches the service but returns 403.\"\nTrick question (network vs identity)\nWhiteboard Answer “403 means the network path works. The failure is authorization—likely an IAM policy, token scope, or identity mismatch.”\nDiagram\nNetwork ✅ Identity ❌ 9️⃣ Scenario: \"Where do most production networking outages occur?\"\nSenior-level question\nWhiteboard Answer “Most outages occur at security boundaries—firewalls, security groups, route tables, or identity policies—not physical networking.”\n🔑 The One Diagram You Should Always Draw Client ↓ DNS (Name Res) ↓ Routing (Pathfinding) ↓ Firewall (Port/Protocol) ↓ Service (Availability) ↓ Identity / Policy (AuthZ/AuthN) If you can explain this Diagram clearly, you pass.\n🧠 Golden Interview Sentences (Use These) “Ping validates reachability, not service availability.” “Private connectivity does not imply authorization.” “Identity-based access scales better than IP-based trust.” “Most issues aren’t network failures but policy failures.” Final Advice (Important) Interviewers don’t want:\nCommands Tool names Vendor jargon They want:\nMental models. Clear reasoning. Calm troubleshooting flow. ",
+  "wordCount" : "681",
+  "inLanguage": "en",
+  "datePublished": "2026-01-22T00:00:00Z",
+  "dateModified": "2026-01-22T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -110,17 +196,17 @@ This guide provides a systematic framework for diagnosing failures where network
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/techVeda/notes/systemdesign/" title="Architecture">
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
                     <span>Architecture</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/networking/" title="Networking">
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
                     <span>Networking</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/operations/" title="Operations">
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
                     <span>Operations</span>
                 </a>
             </li>
@@ -131,7 +217,7 @@ This guide provides a systematic framework for diagnosing failures where network
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/techVeda/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/operations/">Production Operations</a></div>
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/operations/">Production Operations</a></div>
     <h1 class="post-title entry-hint-parent">
       Cloud Networking &amp; Zero-Trust Interview Guide
     </h1>
@@ -304,7 +390,7 @@ Identity ❌
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/techVeda/">My Tech Knowledge Notes</a></span> · 
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
 
     <span>
         Powered by

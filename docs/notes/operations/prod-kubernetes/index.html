@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/techVeda/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=techVeda/livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Kubernetes Production Issues | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
 <meta name="description" content="Kubernetes Production Issues (Most Common → Rare &amp; Critical)
@@ -36,16 +36,16 @@ Use initContainers for dependencies
 
 Interview Tip">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="http://localhost:1313/techVeda/notes/operations/prod-kubernetes/">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/techVeda/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/techVeda/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/techVeda/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/techVeda/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/techVeda/safari-pinned-tab.svg">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/techVeda/notes/operations/prod-kubernetes/">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/">
 <noscript>
     <style>
         #theme-toggle,
@@ -97,13 +97,117 @@ Interview Tip">
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Kubernetes Production Issues">
+  <meta property="og:description" content="Kubernetes Production Issues (Most Common → Rare &amp; Critical)
+1️⃣ Pods Stuck in CrashLoopBackOff (MOST COMMON) Symptoms
+Pod keeps restarting Application never becomes healthy Common Causes
+App crashes on startup Wrong environment variables Dependency unavailable (DB, API) Incorrect command/args Troubleshooting Steps
+kubectl get pods kubectl describe pod &lt;pod&gt; kubectl logs &lt;pod&gt; kubectl logs &lt;pod&gt; --previous Production Fix
+Fix application config Add readiness/liveness probes Add retries &amp; graceful error handling Use initContainers for dependencies Interview Tip">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-22T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes Production Issues">
+<meta name="twitter:description" content="Kubernetes Production Issues (Most Common → Rare &amp; Critical)
+
+1️⃣ Pods Stuck in CrashLoopBackOff (MOST COMMON)
+Symptoms
+
+Pod keeps restarting
+Application never becomes healthy
+
+Common Causes
+
+App crashes on startup
+Wrong environment variables
+Dependency unavailable (DB, API)
+Incorrect command/args
+
+Troubleshooting Steps
+kubectl get pods
+kubectl describe pod &lt;pod&gt;
+kubectl logs &lt;pod&gt;
+kubectl logs &lt;pod&gt; --previous
+Production Fix
+
+Fix application config
+Add readiness/liveness probes
+Add retries &amp; graceful error handling
+Use initContainers for dependencies
+
+Interview Tip">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Production Operations",
+      "item": "https://ankurs2494.github.io/techVeda/notes/operations/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Kubernetes Production Issues",
+      "item": "https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Kubernetes Production Issues",
+  "name": "Kubernetes Production Issues",
+  "description": "Kubernetes Production Issues (Most Common → Rare \u0026amp; Critical)\n1️⃣ Pods Stuck in CrashLoopBackOff (MOST COMMON) Symptoms\nPod keeps restarting Application never becomes healthy Common Causes\nApp crashes on startup Wrong environment variables Dependency unavailable (DB, API) Incorrect command/args Troubleshooting Steps\nkubectl get pods kubectl describe pod \u0026lt;pod\u0026gt; kubectl logs \u0026lt;pod\u0026gt; kubectl logs \u0026lt;pod\u0026gt; --previous Production Fix\nFix application config Add readiness/liveness probes Add retries \u0026amp; graceful error handling Use initContainers for dependencies Interview Tip\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Kubernetes Production Issues (Most Common → Rare \u0026 Critical)\n1️⃣ Pods Stuck in CrashLoopBackOff (MOST COMMON) Symptoms\nPod keeps restarting Application never becomes healthy Common Causes\nApp crashes on startup Wrong environment variables Dependency unavailable (DB, API) Incorrect command/args Troubleshooting Steps\nkubectl get pods kubectl describe pod kubectl logs kubectl logs --previous Production Fix\nFix application config Add readiness/liveness probes Add retries \u0026 graceful error handling Use initContainers for dependencies Interview Tip\n“CrashLoopBackOff is often an application issue, not Kubernetes.”\n2️⃣ Pods Stuck in Pending Symptoms\nPod never schedules No container starts Common Causes\nInsufficient CPU/memory Node selector / taints mismatch PVC not bound Troubleshooting Steps\nkubectl describe pod kubectl get nodes kubectl describe node Production Fix\nAdjust resource requests Add more nodes / autoscaling Fix node selectors \u0026 tolerations 3️⃣ Service Not Reachable Symptoms\nPod is running Service returns timeout / connection refused Common Causes\nWrong service selector App listening on different port NetworkPolicy blocking traffic Troubleshooting Steps\nkubectl get svc kubectl describe svc kubectl get endpoints kubectl exec -it -- curl : Production Fix\nFix selectors Ensure app binds to 0.0.0.0 Adjust NetworkPolicies 4️⃣ High Pod Restarts Due to OOMKilled Symptoms\nPods restart under load Status: OOMKilled Root Cause\nMemory limit too low Memory leak in app Troubleshooting Steps\nkubectl describe pod kubectl top pod Production Fix\nIncrease memory limits Add memory profiling Use Vertical Pod Autoscaler (VPA) 5️⃣ Node Goes NotReady Symptoms\nPods evicted Traffic disruption Causes\nDisk pressure Memory pressure Kubelet crash Network issues Troubleshooting Steps\nkubectl get nodes kubectl describe node journalctl -u kubelet Production Fix\nAdd monitoring \u0026 alerts Disk cleanup automation Node auto-replacement (ASG) 6️⃣ Rolling Deployment Causes Downtime Symptoms\nUsers see 5xx errors during deploy Root Cause\nBad readiness probe maxUnavailable misconfigured App not graceful on shutdown Troubleshooting Steps\nkubectl describe deployment Production Fix\nstrategy: rollingUpdate: maxUnavailable: 0 maxSurge: 1 Add readiness probes preStop hooks Graceful shutdown 7️⃣ DNS Resolution Fails Inside Cluster Symptoms\nServices can’t reach each other by name NXDOMAIN errors Root Cause\nCoreDNS crash Node network issue Excessive DNS load Troubleshooting Steps\nkubectl get pods -n kube-system kubectl logs -n kube-system coredns kubectl exec -it -- nslookup kubernetes.default Production Fix\nScale CoreDNS Add node-local DNS cache Limit DNS queries 8️⃣ HPA Not Scaling When Traffic Increases Symptoms\nHigh CPU usage No new pods created Root Cause\nMetrics server missing Wrong resource requests Custom metrics misconfigured Troubleshooting Steps\nkubectl get hpa kubectl describe hpa kubectl top pods Production Fix\nInstall metrics-server Correct CPU requests Validate custom metrics pipeline 9️⃣ Cluster Becomes Extremely Slow (RARE \u0026 CRITICAL) Symptoms\nkubectl commands lag Pods take minutes to start API server latency spikes Root Cause\netcd latency Disk I/O saturation Too many CRDs/events Troubleshooting Steps\nkubectl get --raw /metrics etcdctl endpoint health Production Fix\nMove etcd to SSD Limit event retention Reduce CRD size Regular etcd compaction 🔟 etcd Quorum Loss (VERY RARE) Symptoms\nCluster read-only Leader election failures Root Cause\nNetwork partition Loss of majority etcd members Troubleshooting Steps\netcdctl member list etcdctl endpoint status Production Fix\nRestore from snapshot Odd number of etcd nodes Automated backups 1️⃣1️⃣ NetworkPolicy Blocks Traffic Symptoms\nPartial connectivity Silent failures Troubleshooting Steps\nkubectl get networkpolicy kubectl describe networkpolicy Production Fix\nExplicit allow rules Test policies in staging 1️⃣2️⃣ Certificate Expiry Brings Down Cluster Symptoms\nAPI server unreachable kubelet auth failures Troubleshooting Steps\nkubeadm certs check-expiration Production Fix\nkubeadm certs renew all Calendar alerts Automated renewal Interview Answer Structure Symptom Impact Root cause Troubleshooting Fix Prevention ",
+  "wordCount" : "592",
+  "inLanguage": "en",
+  "datePublished": "2026-01-22T00:00:00Z",
+  "dateModified": "2026-01-22T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -129,17 +233,17 @@ Interview Tip">
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/techVeda/notes/systemdesign/" title="Architecture">
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
                     <span>Architecture</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/networking/" title="Networking">
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
                     <span>Networking</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/operations/" title="Operations">
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
                     <span>Operations</span>
                 </a>
             </li>
@@ -150,7 +254,7 @@ Interview Tip">
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/techVeda/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/operations/">Production Operations</a></div>
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/operations/">Production Operations</a></div>
     <h1 class="post-title entry-hint-parent">
       Kubernetes Production Issues
     </h1>
@@ -448,7 +552,7 @@ Interview Tip">
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/techVeda/">My Tech Knowledge Notes</a></span> · 
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
 
     <span>
         Powered by

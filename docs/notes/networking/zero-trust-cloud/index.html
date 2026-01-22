@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/techVeda/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=techVeda/livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Zero-Trust in Cloud: PrivateLink &#43; IAM | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
 <meta name="description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
@@ -24,16 +24,16 @@ Only identity &#43; policy grants access
 2️⃣ What Problem PrivateLink Solves
 Without PrivateLink  (Traditional)">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/techVeda/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/techVeda/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/techVeda/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/techVeda/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/techVeda/safari-pinned-tab.svg">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
 <noscript>
     <style>
         #theme-toggle,
@@ -85,13 +85,104 @@ Without PrivateLink  (Traditional)">
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Zero-Trust in Cloud: PrivateLink &#43; IAM">
+  <meta property="og:description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
+It shows why private network access alone is not sufficient and how identity and policy enforcement control access.
+PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.
+1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:
+Private IP does not mean trusted VPC peering does not mean trusted Only identity &#43; policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-22T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zero-Trust in Cloud: PrivateLink &#43; IAM">
+<meta name="twitter:description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
+It shows why private network access alone is not sufficient and how identity and policy enforcement control access.
+PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.
+
+1️⃣ The Core Zero-Trust Rule (Cloud Version)
+Network reachability ≠ access
+
+In Zero-Trust cloud:
+
+Private IP does not mean trusted
+VPC peering does not mean trusted
+Only identity &#43; policy grants access
+
+
+2️⃣ What Problem PrivateLink Solves
+Without PrivateLink  (Traditional)">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Networking Index",
+      "item": "https://ankurs2494.github.io/techVeda/notes/networking/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Zero-Trust in Cloud: PrivateLink + IAM",
+      "item": "https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Zero-Trust in Cloud: PrivateLink + IAM",
+  "name": "Zero-Trust in Cloud: PrivateLink \u002b IAM",
+  "description": "This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.\nIt shows why private network access alone is not sufficient and how identity and policy enforcement control access.\nPrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.\n1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:\nPrivate IP does not mean trusted VPC peering does not mean trusted Only identity + policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.\nIt shows why private network access alone is not sufficient and how identity and policy enforcement control access.\nPrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.\n1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:\nPrivate IP does not mean trusted VPC peering does not mean trusted Only identity + policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)\nbash Service → Public IP → Internet → Client Problems:\nPublic exposure IP allowlists Attack surface With PrivateLink (Zero-Trust Friendly)\nbash Client VPC → Private Endpoint → Service No public IP Traffic stays on provider backbone Network exposure minimized 3️⃣ What PrivateLink Actually Is (Mental Model) PrivateLink is a private entry point, not a trust mechanism.\nIt provides:\nPrivate connectivity Isolation No internet exposure It does NOT provide:\n❌ Authentication ❌ Authorization That’s where IAM comes in.\n4️⃣ IAM = Identity \u0026 Authorization Layer IAM answers:\nWho is calling? What are they allowed to do? IAM is:\nIdentity-based Policy-driven Independent of network 5️⃣ Zero-Trust Architecture (End-to-End) Client (Workload / User) ↓ IAM Identity (Role / Service Account) ↓ PrivateLink (Private Connectivity) ↓ Service Endpoint ↓ Policy Enforcement If identity ≠ allowed → DENY\n6️⃣ Concrete Example (Cloud-Agnostic) Let’s consider a scenario: App in VPC-A Database/API in VPC-B Zero-Trust requirement Step 1: PrivateLink Expose service via PrivateLink No public IP Only reachable via private endpoint Step 2: IAM Authentication Client uses: IAM role Service identity Requests are signed or token-based Step 3: Authorization Policy Example: Allow role:orders-service Action: ReadOrders Not allowed → rejected even though network path exists\n7️⃣ Why This Is Zero-Trust (Key Insight) Traditional: IP allowed → access granted\nZero-Trust: IP allowed → identity checked → policy evaluated → access granted\nPrivateLink = path IAM = permission 8️⃣ Common Cloud Patterns → Internal API\nPrivateLink endpoint IAM-authenticated requests No security group allowlists → SaaS Access\nSaaS exposes PrivateLink Customer accesses privately IAM controls tenant access → Cross-Account Access\nNo VPC peering No shared networks Identity-based access only 9️⃣ Failure Scenarios (Very Important) ❌ Can connect but get 403 Cause:\nIAM policy denies action ❌ Endpoint reachable but handshake fails Cause:\nWrong role Missing permission ❌ Works from one service, not another Cause:\nDifferent identities Policy mismatch 💡 These look like network issues, but they’re identity issues.\nInterview-Grade Explanation “PrivateLink provides private connectivity, reducing attack surface, while IAM enforces Zero-Trust by validating identity and authorization per request. Access is never granted based on network location alone.”\nFinal Mental Model (Memorize This) PrivateLink = How traffic reaches the service IAM = Whether traffic is allowed When to Use PrivateLink + IAM Use when:\nInternal APIs Cross-VPC / cross-account access SaaS integrations Zero-Trust architectures Avoid relying on: ❌ IP allowlists ❌ Flat VPC trust ",
+  "wordCount" : "483",
+  "inLanguage": "en",
+  "datePublished": "2026-01-22T00:00:00Z",
+  "dateModified": "2026-01-22T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -117,17 +208,17 @@ Without PrivateLink  (Traditional)">
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/techVeda/notes/systemdesign/" title="Architecture">
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
                     <span>Architecture</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/networking/" title="Networking">
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
                     <span>Networking</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/techVeda/notes/operations/" title="Operations">
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
                     <span>Operations</span>
                 </a>
             </li>
@@ -138,7 +229,7 @@ Without PrivateLink  (Traditional)">
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/techVeda/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/networking/">Networking Index</a></div>
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/networking/">Networking Index</a></div>
     <h1 class="post-title entry-hint-parent">
       Zero-Trust in Cloud: PrivateLink &#43; IAM
     </h1>
@@ -339,7 +430,7 @@ Cause:</p>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/techVeda/">My Tech Knowledge Notes</a></span> · 
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
 
     <span>
         Powered by
