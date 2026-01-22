@@ -2,17 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Production Operations on My Tech Knowledge Notes</title>
-    <link>https://ankurs2494.github.io/techVeda/notes/operations/</link>
+    <link>http://localhost:1313/techVeda/notes/operations/</link>
     <description>Recent content in Production Operations on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 22 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ankurs2494.github.io/techVeda/notes/operations/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/techVeda/notes/operations/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Networking &amp; Zero-Trust Interview Guide</title>
+      <link>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</link>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</guid>
+      <description>&lt;p&gt;A comprehensive deep-dive into the four pillars of modern cloud networking:&lt;/p&gt;
+&lt;p&gt;🟢 1. Protocol &amp;amp; Layer Troubleshooting.&lt;br&gt;
+🟡 2. Connectivity &amp;amp; Routing.&lt;br&gt;
+🔵 3. Cloud Security &amp;amp; Zero-Trust.&lt;br&gt;
+🔴 4. Identity &amp;amp; Microservices.&lt;/p&gt;
+&lt;p&gt;This guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-scenario&#34;&gt;1️⃣ Scenario:&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&amp;quot;&lt;font color=&#34;teal&#34;&gt;Ping works but application traffic fails.&amp;quot;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Kubernetes Production Issues</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</link>
+      <link>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</guid>
+      <guid>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</guid>
       <description>&lt;p&gt;Kubernetes Production Issues (Most Common → Rare &amp;amp; Critical)&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;1-pods-stuck-in-crashloopbackoff-most-common&#34;&gt;1️⃣ Pods Stuck in &lt;code&gt;CrashLoopBackOff&lt;/code&gt; (MOST COMMON)&lt;/h3&gt;

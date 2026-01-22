@@ -2,17 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>My Tech Knowledge Notes</title>
-    <link>https://ankurs2494.github.io/techVeda/</link>
+    <link>http://localhost:1313/techVeda/</link>
     <description>Recent content on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 22 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://ankurs2494.github.io/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Networking &amp; Zero-Trust Interview Guide</title>
+      <link>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</link>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</guid>
+      <description>&lt;p&gt;A comprehensive deep-dive into the four pillars of modern cloud networking:&lt;/p&gt;
+&lt;p&gt;🟢 1. Protocol &amp;amp; Layer Troubleshooting.&lt;br&gt;
+🟡 2. Connectivity &amp;amp; Routing.&lt;br&gt;
+🔵 3. Cloud Security &amp;amp; Zero-Trust.&lt;br&gt;
+🔴 4. Identity &amp;amp; Microservices.&lt;/p&gt;
+&lt;p&gt;This guide provides a systematic framework for diagnosing failures where networking ends and identity begins. Use these mental models and ASCII diagrams to master your next technical deep-dive or architectural review.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-scenario&#34;&gt;1️⃣ Scenario:&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;&amp;quot;&lt;font color=&#34;teal&#34;&gt;Ping works but application traffic fails.&amp;quot;&lt;/strong&gt;&lt;/font&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Kubernetes Production Issues</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</link>
+      <link>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</guid>
+      <guid>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</guid>
       <description>&lt;p&gt;Kubernetes Production Issues (Most Common → Rare &amp;amp; Critical)&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;1-pods-stuck-in-crashloopbackoff-most-common&#34;&gt;1️⃣ Pods Stuck in &lt;code&gt;CrashLoopBackOff&lt;/code&gt; (MOST COMMON)&lt;/h3&gt;
@@ -44,9 +59,9 @@
     </item>
     <item>
       <title>Zero-Trust in Cloud: PrivateLink &#43; IAM</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/</guid>
       <description>&lt;p&gt;This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.&lt;/p&gt;
 &lt;p&gt;It shows why private network access alone is not sufficient and how identity and policy enforcement control access.&lt;/p&gt;
 &lt;p&gt;PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.&lt;/p&gt;
@@ -66,9 +81,9 @@
     </item>
     <item>
       <title>Phase 3 : TCP/IP and ports</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
       <description>&lt;p&gt;This phase is where networking becomes practical and real. We focus on how data actually moves between devices.&lt;/p&gt;
 &lt;p&gt;You’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.&lt;/p&gt;
 &lt;hr&gt;
@@ -87,9 +102,9 @@
     </item>
     <item>
       <title>Phase 4 – DNS (Domain Name System)</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase4-dns-name-resolution/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
       <description>&lt;!-- ### What This Phase Covers --&gt;
 &lt;p&gt;DNS is one of the most critical systems on the internet.&lt;/p&gt;
 &lt;p&gt;If DNS fails, &lt;strong&gt;everything appears broken&lt;/strong&gt; — even when the network is perfectly fine.&lt;/p&gt;
@@ -98,9 +113,9 @@
     </item>
     <item>
       <title>Phase 5 : Routing, Gateway and NAT</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
       <description>&lt;p&gt;Phase 5 focuses on how networks communicate.&lt;/p&gt;
 &lt;p&gt;It covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.&lt;/p&gt;
 &lt;hr&gt;
@@ -113,9 +128,9 @@
     </item>
     <item>
       <title>Phase 6 : Firewall and Network Security Basics</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
       <description>&lt;p&gt;Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.&lt;/p&gt;
 &lt;p&gt;This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.&lt;/p&gt;
 &lt;p&gt;It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.&lt;/p&gt;
@@ -135,9 +150,9 @@
     </item>
     <item>
       <title>Phase 7 : End-to-End Troubleshooting Mental Model</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
       <description>&lt;p&gt;This phase builds a structured way of thinking for diagnosing network issues.&lt;/p&gt;
 &lt;p&gt;It emphasizes tracing problems step-by-step from source to destination, helping you quickly isolate, analyze, and resolve real-world connectivity issues.&lt;/p&gt;
 &lt;hr&gt;
@@ -162,9 +177,9 @@
     </item>
     <item>
       <title>Phase 2 : IP and Subnetting</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
       <description>&lt;p&gt;In this phase, we explore IP addresses and subnetting — the part of networking that explains how devices are identified and grouped together.&lt;/p&gt;
 &lt;p&gt;You’ll understand what IP addresses represent, why networks are divided into subnets, and how this structure makes large networks possible and manageable.&lt;/p&gt;
 &lt;hr&gt;
@@ -179,9 +194,9 @@
     </item>
     <item>
       <title>Phase 1 : Core networking concepts</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
+      <link>http://localhost:1313/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
       <pubDate>Mon, 19 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
+      <guid>http://localhost:1313/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
       <description>&lt;p&gt;In this phase, we build the foundation of networking by understanding what networks are and how devices communicate.&lt;/p&gt;
 &lt;p&gt;You’ll learn what hosts, IP addresses, clients, and servers really mean, and how simple request–response communication powers almost everything on the internet.&lt;/p&gt;
 &lt;hr&gt;
@@ -201,23 +216,23 @@
     </item>
     <item>
       <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</link>
+      <link>http://localhost:1313/techVeda/notes/systemdesign/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</guid>
+      <guid>http://localhost:1313/techVeda/notes/systemdesign/cdn/</guid>
       <description>A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;amp;A.</description>
     </item>
     <item>
       <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</link>
+      <link>http://localhost:1313/techVeda/notes/systemdesign/redis-vs-memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
+      <guid>http://localhost:1313/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
       <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
     </item>
     <item>
       <title>Browser Caching</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</link>
+      <link>http://localhost:1313/techVeda/notes/systemdesign/browser-caching/</link>
       <pubDate>Sat, 03 Jan 2026 21:32:16 +0100</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</guid>
+      <guid>http://localhost:1313/techVeda/notes/systemdesign/browser-caching/</guid>
       <description>&lt;h2 id=&#34;what-is-browser-caching&#34;&gt;What is browser caching?&lt;/h2&gt;
 &lt;p&gt;Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user&amp;rsquo;s device so that the website loads faster on future visits.&lt;/p&gt;
 &lt;hr&gt;
@@ -271,9 +286,9 @@
     </item>
     <item>
       <title>Cache invalidation</title>
-      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</link>
+      <link>http://localhost:1313/techVeda/notes/systemdesign/cache-invalidation/</link>
       <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</guid>
+      <guid>http://localhost:1313/techVeda/notes/systemdesign/cache-invalidation/</guid>
       <description>&lt;h2 id=&#34;what-is-cache-invalidation&#34;&gt;What is Cache Invalidation?&lt;/h2&gt;
 &lt;p&gt;Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Always serve fresh and correct data, not stale cached copies.&lt;/p&gt;

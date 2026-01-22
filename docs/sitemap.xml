@@ -2,87 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</loc>
+    <loc>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/</loc>
+    <loc>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/</loc>
+    <loc>http://localhost:1313/techVeda/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/operations/</loc>
+    <loc>http://localhost:1313/techVeda/notes/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</loc>
+    <loc>http://localhost:1313/techVeda/notes/operations/</loc>
     <lastmod>2026-01-22T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/</loc>
+    <lastmod>2026-01-22T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase3-tcp-ip-ports/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase4-dns-name-resolution/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase5-routing-gateway-nat/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</loc>
     <lastmod>2026-01-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase2-ip-and-subnetting/</loc>
     <lastmod>2026-01-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</loc>
+    <loc>http://localhost:1313/techVeda/notes/networking/phase1-core-ntw-concepts/</loc>
     <lastmod>2026-01-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/caching/</loc>
+    <loc>http://localhost:1313/techVeda/tags/caching/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/cdn/</loc>
+    <loc>http://localhost:1313/techVeda/tags/cdn/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</loc>
+    <loc>http://localhost:1313/techVeda/notes/systemdesign/cdn/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/interview/</loc>
+    <loc>http://localhost:1313/techVeda/tags/interview/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/memcached/</loc>
+    <loc>http://localhost:1313/techVeda/tags/memcached/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/redis/</loc>
+    <loc>http://localhost:1313/techVeda/tags/redis/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</loc>
+    <loc>http://localhost:1313/techVeda/notes/systemdesign/redis-vs-memcached/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/sre/</loc>
+    <loc>http://localhost:1313/techVeda/tags/sre/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/</loc>
+    <loc>http://localhost:1313/techVeda/notes/systemdesign/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/system-design/</loc>
+    <loc>http://localhost:1313/techVeda/tags/system-design/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/</loc>
+    <loc>http://localhost:1313/techVeda/tags/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/tags/web-performance/</loc>
+    <loc>http://localhost:1313/techVeda/tags/web-performance/</loc>
     <lastmod>2026-01-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</loc>
+    <loc>http://localhost:1313/techVeda/notes/systemdesign/browser-caching/</loc>
     <lastmod>2026-01-03T21:32:16+01:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</loc>
+    <loc>http://localhost:1313/techVeda/notes/systemdesign/cache-invalidation/</loc>
     <lastmod>2026-01-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/categories/</loc>
+    <loc>http://localhost:1313/techVeda/categories/</loc>
   </url>
 </urlset>

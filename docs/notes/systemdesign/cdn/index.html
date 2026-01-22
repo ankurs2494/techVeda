@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/techVeda/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=techVeda/livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide | My Tech Knowledge Notes</title>
 <meta name="keywords" content="cdn, caching, sre, system-design, interview, web-performance">
 <meta name="description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
+<link rel="canonical" href="http://localhost:1313/techVeda/notes/systemdesign/cdn/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
-<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/techVeda/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/techVeda/notes/systemdesign/cdn/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,91 +70,13 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/">
-  <meta property="og:site_name" content="My Tech Knowledge Notes">
-  <meta property="og:title" content="Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide">
-  <meta property="og:description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
-  <meta property="og:locale" content="en-us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="notes">
-    <meta property="article:published_time" content="2026-01-04T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-01-04T00:00:00+00:00">
-    <meta property="article:tag" content="Cdn">
-    <meta property="article:tag" content="Caching">
-    <meta property="article:tag" content="Sre">
-    <meta property="article:tag" content="System-Design">
-    <meta property="article:tag" content="Interview">
-    <meta property="article:tag" content="Web-Performance">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide">
-<meta name="twitter:description" content="A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;A.">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Notes",
-      "item": "https://ankurs2494.github.io/techVeda/notes/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "System design concept",
-      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
-      "item": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
-  "name": "Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide",
-  "description": "A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q\u0026A.",
-  "keywords": [
-    "cdn", "caching", "sre", "system-design", "interview", "web-performance"
-  ],
-  "articleBody": " Introduction A Content Delivery Network (CDN) is a core building block of modern, scalable, and reliable web systems. From simple websites to global-scale platforms like Netflix and Cloudflare, CDNs are essential for performance, availability, and security.\nThis guide starts from absolute basics and progresses to advanced SRE-level concepts, including cache strategies, failure handling, and real-world operations.\nWhat is a CDN? (Beginner Level) A CDN is a globally distributed network of servers that deliver content to users from the nearest geographical location.\nInstead of every user hitting your origin server, content is served from edge locations, reducing latency and load.\nSimple Example User in India requests image.png Image is served from Mumbai edge instead of US origin Basic CDN Flow Diagram User │ Request Content ▼ Nearest CDN Edge │ Cache Hit? ├── Yes → Serve Content └── No ▼ Origin Server │ Fetch Content ▼ CDN Edge (Cache) │ ▼ User What Does a CDN Cache? Static assets (JS, CSS, images, videos) HTML pages API responses (with rules) Media streams Key Benefits of CDN Performance Reduced latency Faster page load times Scalability Handles traffic spikes Offloads origin servers Reliability Origin protection Failover and redundancy Security DDoS protection WAF integration TLS termination CDN Use Cases Beginner / Common Website static asset delivery Image \u0026 video hosting Intermediate API acceleration Mobile app backend caching Advanced / SRE-Level Global SaaS platforms Live streaming Zero-downtime deployments Edge computing Real-Life CDN Examples Netflix: Video streaming from edge locations Amazon CloudFront: E-commerce asset delivery Cloudflare: CDN + security platform YouTube: Adaptive video delivery CDN Caching Strategies (Intermediate) Cache-Control headers TTL-based caching Cache busting (versioned URLs) Purge / Invalidation Example Header Cache-Control: public, max-age=3600 Advanced CDN Concepts (SRE Level) Edge Computing Run logic at CDN edge (Cloudflare Workers, Fastly Compute) Origin Shield Single mid-tier cache to protect origin Cache Hierarchy Edge → Regional → Origin Failover \u0026 Multi-CDN Traffic switching on failure Vendor lock-in avoidance Advanced CDN Architecture Diagram Users (Global) │ ▼ CDN Edge Locations │ ▼ Regional Cache / Origin Shield │ ▼ Origin Infrastructure (Load Balancer + Services + DB) CDN vs Traditional Cache (Redis/Memcached) Aspect CDN Redis/Memcached Location Edge (Global) Application Layer Data Type HTTP Content Application Data Latency Internet Edge In-Process / VPC Security Built-in App-managed Common CDN Pitfalls Incorrect cache headers Serving stale content Cache poisoning Over-aggressive caching Interview Questions \u0026 Answers (20 Must-Know) 1. What is a CDN? A CDN is a distributed network that serves content from locations closest to users. 2. Why do we use CDNs? To reduce latency, improve availability, and protect origin servers. 3. What is an edge location? A CDN server that delivers content close to users. 4. What is an origin server? The main backend server where original content resides. 5. What is cache hit and miss? Hit means content served from cache; miss means fetched from origin. 6. What headers control CDN caching? Cache-Control, Expires, ETag, Last-Modified. 7. What is cache invalidation? Removing cached content before TTL expires. 8. CDN vs Load Balancer? CDN serves cached content; load balancer distributes traffic to backends. 9. Can CDNs cache dynamic content? Yes, with rules, headers, and edge logic. 10. What is edge computing? Executing code closer to users at CDN edge locations. 11. What is Origin Shield? A centralized cache layer protecting origin servers. 12. How do CDNs help with DDoS? By absorbing and filtering traffic at the edge. 13. What is multi-CDN? Using multiple CDN providers for resilience and performance. 14. What is cache poisoning? Injecting malicious content into CDN cache. 15. What is stale-while-revalidate? Serving stale content while fetching fresh data in background. 16. How does CDN failover work? Traffic is rerouted to healthy edges or another CDN. 17. What metrics do SREs monitor for CDN? Cache hit ratio, latency, error rate, origin load. 18. CDN vs Reverse Proxy? CDN is globally distributed; reverse proxy is usually local. 19. What happens if CDN is down? Traffic can fall back to origin or another CDN. 20. One-line CDN summary? CDNs bring content closer to users for speed, scale, and security. Conclusion For SREs, CDNs are not just about speed—they are critical infrastructure for reliability, scalability, and security. Mastering CDN internals is essential for operating global systems.\n",
-  "wordCount" : "702",
-  "inLanguage": "en",
-  "datePublished": "2026-01-04T00:00:00Z",
-  "dateModified": "2026-01-04T00:00:00Z",
-  "author":{
-    "@type": "Person",
-    "name": "Ankur Singh"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "My Tech Knowledge Notes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <a href="http://localhost:1313/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -180,17 +102,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                <a href="http://localhost:1313/techVeda/notes/systemdesign/" title="Architecture">
                     <span>Architecture</span>
                 </a>
             </li>
             <li>
-                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                <a href="http://localhost:1313/techVeda/notes/networking/" title="Networking">
                     <span>Networking</span>
                 </a>
             </li>
             <li>
-                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                <a href="http://localhost:1313/techVeda/notes/operations/" title="Operations">
                     <span>Operations</span>
                 </a>
             </li>
@@ -201,7 +123,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/">System design concept</a></div>
+    <div class="breadcrumbs"><a href="http://localhost:1313/techVeda/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/systemdesign/">System design concept</a></div>
     <h1 class="post-title entry-hint-parent">
       Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide
     </h1>
@@ -474,19 +396,19 @@ CDNs bring content closer to users for speed, scale, and security.
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/cdn/">Cdn</a></li>
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/caching/">Caching</a></li>
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/sre/">Sre</a></li>
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/system-design/">System-Design</a></li>
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/interview/">Interview</a></li>
-      <li><a href="https://ankurs2494.github.io/techVeda/tags/web-performance/">Web-Performance</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/cdn/">Cdn</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/caching/">Caching</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/sre/">Sre</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/system-design/">System-Design</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/interview/">Interview</a></li>
+      <li><a href="http://localhost:1313/techVeda/tags/web-performance/">Web-Performance</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/techVeda/">My Tech Knowledge Notes</a></span> · 
 
     <span>
         Powered by
