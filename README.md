@@ -66,26 +66,47 @@ hugo version
 ### 🔧 Git Commands Used (Common Workflow)
 
 Initialize Repository  
+
+```
     git init
+```
 
 Add Remote Repository  
+
+```
     git remote add origin https://github.com/<your-username>/techVeda.git
+```
 
 Check Status  
+
+```
     git status
+```
 
 Add Files  
+
+```
     git add .
+```
 
 Commit Changes  
+
+```
     git commit -m "Initial commit: add DevOps notes"
+```
 
 Push to GitHub  
+
+```
     git branch -M main
     git push -u origin main
+```
 
 Pull Latest Changes  
+
+```
     git pull origin main
+```
 
 #### 🌐 Publishing (Optional)
 
