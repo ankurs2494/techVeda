@@ -6,8 +6,30 @@
     <description>Recent content in Networking Index on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ankurs2494.github.io/techVeda/notes/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zero-Trust in Cloud: PrivateLink &#43; IAM</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</link>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</guid>
+      <description>&lt;p&gt;This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.&lt;/p&gt;
+&lt;p&gt;It shows why private network access alone is not sufficient and how identity and policy enforcement control access.&lt;/p&gt;
+&lt;p&gt;PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-the-core-zero-trust-rule-cloud-version&#34;&gt;1️⃣ The Core Zero-Trust Rule (Cloud Version)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Network reachability ≠ access
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;In Zero-Trust cloud:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Private IP does not mean trusted&lt;/li&gt;
+&lt;li&gt;VPC peering does not mean trusted&lt;/li&gt;
+&lt;li&gt;Only identity + policy grants access&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-what-problem-privatelink-solves&#34;&gt;2️⃣ What Problem PrivateLink Solves&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Without PrivateLink&lt;/strong&gt;  (Traditional)&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Phase 3 : TCP/IP and ports</title>
       <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>

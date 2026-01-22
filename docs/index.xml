@@ -6,8 +6,64 @@
     <description>Recent content on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Jan 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ankurs2494.github.io/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Production Issues</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</link>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</guid>
+      <description>&lt;p&gt;Kubernetes Production Issues (Most Common → Rare &amp;amp; Critical)&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-pods-stuck-in-crashloopbackoff-most-common&#34;&gt;1️⃣ Pods Stuck in &lt;code&gt;CrashLoopBackOff&lt;/code&gt; (MOST COMMON)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Symptoms&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pod keeps restarting&lt;/li&gt;
+&lt;li&gt;Application never becomes healthy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Common Causes&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;App crashes on startup&lt;/li&gt;
+&lt;li&gt;Wrong environment variables&lt;/li&gt;
+&lt;li&gt;Dependency unavailable (DB, API)&lt;/li&gt;
+&lt;li&gt;Incorrect command/args&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Troubleshooting Steps&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl get pods
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl describe pod &amp;lt;pod&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl logs &amp;lt;pod&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;kubectl logs &amp;lt;pod&amp;gt; --previous
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Production Fix&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fix application config&lt;/li&gt;
+&lt;li&gt;Add readiness/liveness probes&lt;/li&gt;
+&lt;li&gt;Add retries &amp;amp; graceful error handling&lt;/li&gt;
+&lt;li&gt;Use initContainers for dependencies&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Interview Tip&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Zero-Trust in Cloud: PrivateLink &#43; IAM</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</link>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</guid>
+      <description>&lt;p&gt;This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.&lt;/p&gt;
+&lt;p&gt;It shows why private network access alone is not sufficient and how identity and policy enforcement control access.&lt;/p&gt;
+&lt;p&gt;PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-the-core-zero-trust-rule-cloud-version&#34;&gt;1️⃣ The Core Zero-Trust Rule (Cloud Version)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Network reachability ≠ access
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;In Zero-Trust cloud:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Private IP does not mean trusted&lt;/li&gt;
+&lt;li&gt;VPC peering does not mean trusted&lt;/li&gt;
+&lt;li&gt;Only identity + policy grants access&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-what-problem-privatelink-solves&#34;&gt;2️⃣ What Problem PrivateLink Solves&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Without PrivateLink&lt;/strong&gt;  (Traditional)&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Phase 3 : TCP/IP and ports</title>
       <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>

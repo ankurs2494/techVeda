@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>404 Page not found | My Tech Knowledge Notes</title>
+<title>Production Operations | My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
-<meta name="description" content="">
+<meta name="description" content="Real-world production operations, incidents, troubleshooting, and reliability practices.">
 <meta name="author" content="Ankur Singh">
-<link rel="canonical" href="https://ankurs2494.github.io/techVeda/404.html">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/operations/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
@@ -18,7 +18,8 @@
 <link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/404.html">
+<link rel="alternate" type="application/rss+xml" href="https://ankurs2494.github.io/techVeda/notes/operations/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/operations/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,15 +71,37 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/404.html">
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/operations/">
   <meta property="og:site_name" content="My Tech Knowledge Notes">
-  <meta property="og:title" content="404 Page not found">
+  <meta property="og:title" content="Production Operations">
+  <meta property="og:description" content="Real-world production operations, incidents, troubleshooting, and reliability practices.">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="404 Page not found">
-<meta name="twitter:description" content="">
+<meta name="twitter:title" content="Production Operations">
+<meta name="twitter:description" content="Real-world production operations, incidents, troubleshooting, and reliability practices.">
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Production Operations",
+      "item": "https://ankurs2494.github.io/techVeda/notes/operations/"
+    }
+  ]
+}
+</script>
 </head>
 <body class="list" id="top">
     <header class="header">
@@ -121,14 +144,48 @@
             </li>
             <li>
                 <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
-                    <span>Operations</span>
+                    <span class="active">Operations</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
-<main class="main">
-<div class="not-found">404</div>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a></div>
+  <h1>
+    Production Operations
+  </h1>
+  <div class="post-description">
+    Real-world production operations, incidents, troubleshooting, and reliability practices.
+  </div>
+</header>
+<div class="post-content"><h3 id="notes-index"><font color="Gray">Notes Index</font><a hidden class="anchor" aria-hidden="true" href="#notes-index">#</a></h3>
+<!-- Below is a curated list of all topics covered related to system design. -->
+<h4 id="kubernetes-and-docker">Kubernetes and Docker<a hidden class="anchor" aria-hidden="true" href="#kubernetes-and-docker">#</a></h4>
+<ul>
+<li><a href="prod-kubernetes/">Kubernetes Production Issues</a></li>
+</ul>
+
+
+</div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Kubernetes Production Issues
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Kubernetes Production Issues (Most Common → Rare &amp; Critical)
+1️⃣ Pods Stuck in CrashLoopBackOff (MOST COMMON) Symptoms
+Pod keeps restarting Application never becomes healthy Common Causes
+App crashes on startup Wrong environment variables Dependency unavailable (DB, API) Incorrect command/args Troubleshooting Steps
+kubectl get pods kubectl describe pod &lt;pod&gt; kubectl logs &lt;pod&gt; kubectl logs &lt;pod&gt; --previous Production Fix
+Fix application config Add readiness/liveness probes Add retries &amp; graceful error handling Use initContainers for dependencies Interview Tip
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-01-22 00:00:00 +0000 UTC'>January 22, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span></footer>
+  <a class="entry-link" aria-label="post link to Kubernetes Production Issues" href="https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/"></a>
+</article>
     </main>
     
 <footer class="footer">

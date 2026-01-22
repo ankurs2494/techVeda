@@ -16,3 +16,8 @@ type: page
 - [Phase 5 : Routing, Gateway and NAT](phase5-routing-gateway-nat/)
 - [Phase 6 : Firewall and Network Security Basics](phase6-firewall-ntw-security-basic/)
 - [Phase 7 : End-to-End Troubleshooting Mental Model](phase7-end-end-troubleshotting-mental-model/)
+
+#### Zero-trust
+- [Zero-Trust in Cloud: PrivateLink + IAM](zero-trust-cloud/)
+- [Zero-Trust Networking: mTLS]()
+- [Zero-Trust Core Principle ]()

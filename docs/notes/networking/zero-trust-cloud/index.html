@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Zero-Trust in Cloud: PrivateLink &#43; IAM | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
+It shows why private network access alone is not sufficient and how identity and policy enforcement control access.
+PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.
+
+1️⃣ The Core Zero-Trust Rule (Cloud Version)
+Network reachability ≠ access
+
+In Zero-Trust cloud:
+
+Private IP does not mean trusted
+VPC peering does not mean trusted
+Only identity &#43; policy grants access
+
+
+2️⃣ What Problem PrivateLink Solves
+Without PrivateLink  (Traditional)">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Zero-Trust in Cloud: PrivateLink &#43; IAM">
+  <meta property="og:description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
+It shows why private network access alone is not sufficient and how identity and policy enforcement control access.
+PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.
+1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:
+Private IP does not mean trusted VPC peering does not mean trusted Only identity &#43; policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-01-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-01-22T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Zero-Trust in Cloud: PrivateLink &#43; IAM">
+<meta name="twitter:description" content="This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.
+It shows why private network access alone is not sufficient and how identity and policy enforcement control access.
+PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.
+
+1️⃣ The Core Zero-Trust Rule (Cloud Version)
+Network reachability ≠ access
+
+In Zero-Trust cloud:
+
+Private IP does not mean trusted
+VPC peering does not mean trusted
+Only identity &#43; policy grants access
+
+
+2️⃣ What Problem PrivateLink Solves
+Without PrivateLink  (Traditional)">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Networking Index",
+      "item": "https://ankurs2494.github.io/techVeda/notes/networking/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Zero-Trust in Cloud: PrivateLink + IAM",
+      "item": "https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Zero-Trust in Cloud: PrivateLink + IAM",
+  "name": "Zero-Trust in Cloud: PrivateLink \u002b IAM",
+  "description": "This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.\nIt shows why private network access alone is not sufficient and how identity and policy enforcement control access.\nPrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.\n1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:\nPrivate IP does not mean trusted VPC peering does not mean trusted Only identity + policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.\nIt shows why private network access alone is not sufficient and how identity and policy enforcement control access.\nPrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.\n1️⃣ The Core Zero-Trust Rule (Cloud Version) Network reachability ≠ access In Zero-Trust cloud:\nPrivate IP does not mean trusted VPC peering does not mean trusted Only identity + policy grants access 2️⃣ What Problem PrivateLink Solves Without PrivateLink (Traditional)\nbash Service → Public IP → Internet → Client Problems:\nPublic exposure IP allowlists Attack surface With PrivateLink (Zero-Trust Friendly)\nbash Client VPC → Private Endpoint → Service No public IP Traffic stays on provider backbone Network exposure minimized 3️⃣ What PrivateLink Actually Is (Mental Model) PrivateLink is a private entry point, not a trust mechanism.\nIt provides:\nPrivate connectivity Isolation No internet exposure It does NOT provide:\n❌ Authentication ❌ Authorization That’s where IAM comes in.\n4️⃣ IAM = Identity \u0026 Authorization Layer IAM answers:\nWho is calling? What are they allowed to do? IAM is:\nIdentity-based Policy-driven Independent of network 5️⃣ Zero-Trust Architecture (End-to-End) Client (Workload / User) ↓ IAM Identity (Role / Service Account) ↓ PrivateLink (Private Connectivity) ↓ Service Endpoint ↓ Policy Enforcement If identity ≠ allowed → DENY\n6️⃣ Concrete Example (Cloud-Agnostic) Let’s consider a scenario: App in VPC-A Database/API in VPC-B Zero-Trust requirement Step 1: PrivateLink Expose service via PrivateLink No public IP Only reachable via private endpoint Step 2: IAM Authentication Client uses: IAM role Service identity Requests are signed or token-based Step 3: Authorization Policy Example: Allow role:orders-service Action: ReadOrders Not allowed → rejected even though network path exists\n7️⃣ Why This Is Zero-Trust (Key Insight) Traditional: IP allowed → access granted\nZero-Trust: IP allowed → identity checked → policy evaluated → access granted\nPrivateLink = path IAM = permission 8️⃣ Common Cloud Patterns → Internal API\nPrivateLink endpoint IAM-authenticated requests No security group allowlists → SaaS Access\nSaaS exposes PrivateLink Customer accesses privately IAM controls tenant access → Cross-Account Access\nNo VPC peering No shared networks Identity-based access only 9️⃣ Failure Scenarios (Very Important) ❌ Can connect but get 403 Cause:\nIAM policy denies action ❌ Endpoint reachable but handshake fails Cause:\nWrong role Missing permission ❌ Works from one service, not another Cause:\nDifferent identities Policy mismatch 💡 These look like network issues, but they’re identity issues.\nInterview-Grade Explanation “PrivateLink provides private connectivity, reducing attack surface, while IAM enforces Zero-Trust by validating identity and authorization per request. Access is never granted based on network location alone.”\nFinal Mental Model (Memorize This) PrivateLink = How traffic reaches the service IAM = Whether traffic is allowed When to Use PrivateLink + IAM Use when:\nInternal APIs Cross-VPC / cross-account access SaaS integrations Zero-Trust architectures Avoid relying on: ❌ IP allowlists ❌ Flat VPC trust ",
+  "wordCount" : "483",
+  "inLanguage": "en",
+  "datePublished": "2026-01-22T00:00:00Z",
+  "dateModified": "2026-01-22T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/networking/">Networking Index</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Zero-Trust in Cloud: PrivateLink &#43; IAM
+    </h1>
+    <div class="post-meta"><span title='2026-01-22 00:00:00 +0000 UTC'>January 22, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.</p>
+<p>It shows why private network access alone is not sufficient and how identity and policy enforcement control access.</p>
+<p>PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.</p>
+<hr>
+<h3 id="1-the-core-zero-trust-rule-cloud-version">1️⃣ The Core Zero-Trust Rule (Cloud Version)<a hidden class="anchor" aria-hidden="true" href="#1-the-core-zero-trust-rule-cloud-version">#</a></h3>
+<pre><code>Network reachability ≠ access
+</code></pre>
+<p><strong>In Zero-Trust cloud:</strong></p>
+<ul>
+<li>Private IP does not mean trusted</li>
+<li>VPC peering does not mean trusted</li>
+<li>Only identity + policy grants access</li>
+</ul>
+<hr>
+<h3 id="2-what-problem-privatelink-solves">2️⃣ What Problem PrivateLink Solves<a hidden class="anchor" aria-hidden="true" href="#2-what-problem-privatelink-solves">#</a></h3>
+<p><strong>Without PrivateLink</strong>  (Traditional)</p>
+<p><code>bash Service → Public IP → Internet → Client </code></p>
+<p><strong>Problems:</strong></p>
+<ul>
+<li>Public exposure</li>
+<li>IP allowlists</li>
+<li>Attack surface</li>
+</ul>
+<p><strong>With PrivateLink</strong>  (Zero-Trust Friendly)</p>
+<p><code>bash Client VPC → Private Endpoint → Service </code></p>
+<ul>
+<li>No public IP</li>
+<li>Traffic stays on provider backbone</li>
+<li>Network exposure minimized</li>
+</ul>
+<hr>
+<h3 id="3-what-privatelink-actually-is-mental-model">3️⃣ What PrivateLink Actually Is (Mental Model)<a hidden class="anchor" aria-hidden="true" href="#3-what-privatelink-actually-is-mental-model">#</a></h3>
+<p>PrivateLink is a private entry point, not a trust mechanism.</p>
+<p><strong>It provides:</strong></p>
+<ul>
+<li>Private connectivity</li>
+<li>Isolation</li>
+<li>No internet exposure</li>
+</ul>
+<p><strong>It does NOT provide:</strong></p>
+<ul>
+<li>❌ Authentication</li>
+<li>❌ Authorization</li>
+</ul>
+<p>That’s where IAM comes in.</p>
+<hr>
+<h3 id="4-iam--identity--authorization-layer">4️⃣ IAM = Identity &amp; Authorization Layer<a hidden class="anchor" aria-hidden="true" href="#4-iam--identity--authorization-layer">#</a></h3>
+<p><strong>IAM answers:</strong></p>
+<ul>
+<li>Who is calling?</li>
+<li>What are they allowed to do?</li>
+</ul>
+<p><strong>IAM is:</strong></p>
+<ul>
+<li>Identity-based</li>
+<li>Policy-driven</li>
+<li>Independent of network</li>
+</ul>
+<hr>
+<h3 id="5-zero-trust-architecture-end-to-end">5️⃣ Zero-Trust Architecture (End-to-End)<a hidden class="anchor" aria-hidden="true" href="#5-zero-trust-architecture-end-to-end">#</a></h3>
+<pre tabindex="0"><code>        Client (Workload / User)
+             ↓
+        IAM Identity (Role / Service Account) 
+             ↓ 
+        PrivateLink (Private Connectivity) 
+             ↓ 
+        Service Endpoint
+             ↓ 
+        Policy Enforcement
+</code></pre><blockquote>
+<p>If identity ≠ allowed → DENY</p>
+</blockquote>
+<hr>
+<h3 id="6-concrete-example-cloud-agnostic">6️⃣ Concrete Example (Cloud-Agnostic)<a hidden class="anchor" aria-hidden="true" href="#6-concrete-example-cloud-agnostic">#</a></h3>
+<h4 id="lets-consider-a-scenario">Let&rsquo;s consider a scenario:<a hidden class="anchor" aria-hidden="true" href="#lets-consider-a-scenario">#</a></h4>
+<ul>
+<li>App in VPC-A</li>
+<li>Database/API in VPC-B</li>
+<li>Zero-Trust requirement</li>
+</ul>
+<h4 id="step-1-privatelink">Step 1: PrivateLink<a hidden class="anchor" aria-hidden="true" href="#step-1-privatelink">#</a></h4>
+<ul>
+<li>Expose service via PrivateLink</li>
+<li>No public IP</li>
+<li>Only reachable via private endpoint</li>
+</ul>
+<h4 id="step-2-iam-authentication">Step 2: IAM Authentication<a hidden class="anchor" aria-hidden="true" href="#step-2-iam-authentication">#</a></h4>
+<ul>
+<li>Client uses:
+<ul>
+<li>IAM role</li>
+<li>Service identity</li>
+</ul>
+</li>
+<li>Requests are signed or token-based</li>
+</ul>
+<h4 id="step-3-authorization-policy">Step 3: Authorization Policy<a hidden class="anchor" aria-hidden="true" href="#step-3-authorization-policy">#</a></h4>
+<h4 id="example">Example:<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h4>
+<ul>
+<li>Allow role:orders-service</li>
+<li>Action: ReadOrders</li>
+</ul>
+<blockquote>
+<p>Not allowed → rejected even though network path exists</p>
+</blockquote>
+<hr>
+<h3 id="7-why-this-is-zero-trust-key-insight">7️⃣ Why This Is Zero-Trust (Key Insight)<a hidden class="anchor" aria-hidden="true" href="#7-why-this-is-zero-trust-key-insight">#</a></h3>
+<p><strong>Traditional:</strong>
+IP allowed → access granted</p>
+<p><strong>Zero-Trust:</strong>
+IP allowed → identity checked → policy evaluated → access granted</p>
+<ul>
+<li>PrivateLink = path</li>
+<li>IAM = permission</li>
+</ul>
+<hr>
+<h3 id="8-common-cloud-patterns">8️⃣ Common Cloud Patterns<a hidden class="anchor" aria-hidden="true" href="#8-common-cloud-patterns">#</a></h3>
+<p><strong>→ Internal API</strong></p>
+<ul>
+<li>PrivateLink endpoint</li>
+<li>IAM-authenticated requests</li>
+<li>No security group allowlists</li>
+</ul>
+<p><strong>→ SaaS Access</strong></p>
+<ul>
+<li>SaaS exposes PrivateLink</li>
+<li>Customer accesses privately</li>
+<li>IAM controls tenant access</li>
+</ul>
+<p><strong>→ Cross-Account Access</strong></p>
+<ul>
+<li>No VPC peering</li>
+<li>No shared networks</li>
+<li>Identity-based access only</li>
+</ul>
+<hr>
+<h3 id="9-failure-scenarios-very-important">9️⃣ Failure Scenarios (Very Important)<a hidden class="anchor" aria-hidden="true" href="#9-failure-scenarios-very-important">#</a></h3>
+<p>❌ Can connect but get 403
+Cause:</p>
+<ul>
+<li>IAM policy denies action</li>
+</ul>
+<p>❌ Endpoint reachable but handshake fails
+Cause:</p>
+<ul>
+<li>Wrong role</li>
+<li>Missing permission</li>
+</ul>
+<p>❌ Works from one service, not another
+Cause:</p>
+<ul>
+<li>Different identities</li>
+<li>Policy mismatch</li>
+</ul>
+<blockquote>
+<p>💡 These look like network issues, but they’re identity issues.</p>
+</blockquote>
+<hr>
+<h3 id="interview-grade-explanation">Interview-Grade Explanation<a hidden class="anchor" aria-hidden="true" href="#interview-grade-explanation">#</a></h3>
+<p>“PrivateLink provides private connectivity, reducing attack surface, while IAM enforces Zero-Trust by validating identity and authorization per request. Access is never granted based on network location alone.”</p>
+<hr>
+<h3 id="final-mental-model-memorize-this">Final Mental Model (Memorize This)<a hidden class="anchor" aria-hidden="true" href="#final-mental-model-memorize-this">#</a></h3>
+<ul>
+<li>PrivateLink = How traffic reaches the service</li>
+<li>IAM        = Whether traffic is allowed</li>
+</ul>
+<hr>
+<h3 id="when-to-use-privatelink--iam">When to Use PrivateLink + IAM<a hidden class="anchor" aria-hidden="true" href="#when-to-use-privatelink--iam">#</a></h3>
+<p>Use when:</p>
+<ul>
+<li>Internal APIs</li>
+<li>Cross-VPC / cross-account access</li>
+<li>SaaS integrations</li>
+<li>Zero-Trust architectures</li>
+</ul>
+<hr>
+<h3 id="avoid-relying-on">Avoid relying on:<a hidden class="anchor" aria-hidden="true" href="#avoid-relying-on">#</a></h3>
+<ul>
+<li>❌ IP allowlists</li>
+<li>❌ Flat VPC trust</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

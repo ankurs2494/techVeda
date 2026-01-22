@@ -6,22 +6,15 @@ publishDir = "docs"
 
 [params]
   author = "Ankur Singh"
-  ShowReadingTime = false
-  ShowShareButtons = false
-  ShowPostNavLinks = false
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowToc = false
-  ShowWordCount = false
   defaultTheme = "auto"
   ShowPostMeta = false
   disableSpecial1stPost = true
-  mainSections = ["notes"]
   showDate = false
   showAuthor = false
   showReadingTime = false
-  sidebarHideSections = false  # show section folders
-  sidebarHidePages = false     # show pages in sidebar
 
 [markup]
   [markup.goldmark]
@@ -37,41 +30,18 @@ url = "notes/networking/"
 identifier = "networking"
 weight = 10
 
-# Subtopics under Networking
-[[menu.main]]
-name = "Learn Networks"
-url = "notes/networking/learning_networks/"
-parent = "networking"
-weight = 1
 
 # System Design topic
 [[menu.main]]
-name = "System design"
+name = "Architecture"
 url = "notes/systemdesign/"
 identifier = "systemdesign"
 weight = 10
 
-# Subtopics under System Design
-[[menu.main]]
-name = "Redis vs Memcached"
-url = "notes/systemdesign/redis-vs-memcached/"
-parent = "systemdesign"
-weight = 1
 
+# Production use case
 [[menu.main]]
-name = "Content Delivery Network"
-url = "notes/systemdesign/cdn/"
-parent = "systemdesign"
-weight = 2
-
-[[menu.main]]
-name = "Browser caching"
-url = "notes/systemdesign/browser-caching/"
-parent = "systemdesign"
-weight = 3
-
-[[menu.main]]
-name = "Cache invalidation"
-url = "notes/systemdesign/cache-invalidation/"
-parent = "systemdesign"
-weight = 4
+name = "Operations"
+url = "notes/operations/"
+identifier = "operations"
+weight = 10
