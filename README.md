@@ -42,6 +42,11 @@ techVeda/
 ├── scripts/
 └── README.md
 ```
+### Website view:
+
+<img width="1021" height="592" alt="image" src="https://github.com/user-attachments/assets/f70ebaa3-d83c-421d-ba6b-81e43712fdba" />
+<img width="952" height="595" alt="image" src="https://github.com/user-attachments/assets/35668f47-ced1-4ea7-a5e2-60fbaa94dc7a" />
+<img width="949" height="589" alt="image" src="https://github.com/user-attachments/assets/0a600b62-be24-48fc-b181-30655c0f4243" />
 
 
 ### 🛠️ Tool Installation (macOS)
