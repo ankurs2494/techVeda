@@ -8,9 +8,9 @@ description: "Real-world production operations, incidents, troubleshooting, and 
 
 <!-- Below is a curated list of all topics covered related to system design. -->
 
-#### Kubernetes and Docker
+### Kubernetes and Docker
 - [Kubernetes Production Issues](prod-kubernetes/)
 
 
-#### Networking and Zero-trust
+### Networking and Zero-trust
 - [Cloud Networking & Zero-Trust Interview Guide](cloud-ntw-zero-test-scenarios/)

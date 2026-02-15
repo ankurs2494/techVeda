@@ -8,6 +8,6 @@ description: "A quick review notes and explanations for terraform"
 
 <!-- Below is a curated list of all topics covered related to terraform. -->
 
-#### 1. Terraform basic
+### 1. Terraform
 - [Terraform Basic](terraform_basic/)
 

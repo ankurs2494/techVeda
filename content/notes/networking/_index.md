@@ -8,7 +8,7 @@ type: page
 
 <!-- Below is a curated list of all topics covered for beginner level understanding. -->
 
-#### Networking Fundamentals
+### Networking Fundamentals
 - [Phase 1 : Core networking concepts](phase1-core-ntw-concepts/)
 - [Phase 2 : IP and Subnetting](phase2-ip-and-subnetting/)
 - [Phase 3 : TCP/IP and ports](phase3-tcp-ip-ports/)
@@ -17,7 +17,7 @@ type: page
 - [Phase 6 : Firewall and Network Security Basics](phase6-firewall-ntw-security-basic/)
 - [Phase 7 : End-to-End Troubleshooting Mental Model](phase7-end-end-troubleshotting-mental-model/)
 
-#### Zero-trust
+### Zero-trust
 - [Zero-Trust in Cloud: PrivateLink + IAM](zero-trust-cloud/)
 - [Zero-Trust Networking: mTLS]()
 - [Zero-Trust Core Principle ]()
