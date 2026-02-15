@@ -7,35 +7,30 @@
 <meta name="robots" content="index, follow">
 <title>My Tech Knowledge Notes</title>
 <meta name="keywords" content="">
-<meta name="description" content="Terraform Important Blocks &amp; Arguments (Simple Notes)
+<meta name="description" content="Terraform Blocks &amp; Arguments
 Terraform is an infrastructure tool created by HashiCorp.
 These notes explain key Terraform blocks in an easy and practical way.
 
-provider
-Definition:
-Tells Terraform which cloud or service to connect to.
-provider &#34;aws&#34; {
-  region = &#34;us-east-1&#34;
+1) terraform Block
+What it is:
+Main configuration block for Terraform settings like required version, providers, and backend.
+Why used:
+Controls Terraform behavior and dependencies.
+example:
+terraform {
+  required_version = &#34;&gt;= 1.5.0&#34;
+
+  required_providers {
+    aws = {
+      source  = &#34;hashicorp/aws&#34;
+      version = &#34;~&gt; 5.0&#34;
+    }
+  }
 }
 
-resource
-Definition:
-Creates or manages infrastructure like servers or networks.
-resource &#34;aws_instance&#34; &#34;my_server&#34; {
-  ami           = &#34;ami-123456&#34;
-  instance_type = &#34;t2.micro&#34;
-}
-
-data
-Definition:
-Fetches already existing resources.
-data &#34;aws_ami&#34; &#34;latest&#34; {
-  most_recent = true
-}
-
-variable
-Definition:
-Stores input values.">
+2) provider
+What it is:
+Tells Terraform which cloud/service to talk to and how.">
 <meta name="author" content="Ankur Singh">
 <link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/">
 <link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
@@ -101,50 +96,44 @@ Stores input values.">
 </script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/">
   <meta property="og:site_name" content="My Tech Knowledge Notes">
   <meta property="og:title" content="My Tech Knowledge Notes">
-  <meta property="og:description" content="Terraform Important Blocks &amp; Arguments (Simple Notes) Terraform is an infrastructure tool created by HashiCorp.
+  <meta property="og:description" content="Terraform Blocks &amp; Arguments Terraform is an infrastructure tool created by HashiCorp.
 These notes explain key Terraform blocks in an easy and practical way.
-provider Definition:
-Tells Terraform which cloud or service to connect to.
-provider &#34;aws&#34; { region = &#34;us-east-1&#34; } resource Definition:
-Creates or manages infrastructure like servers or networks.
-resource &#34;aws_instance&#34; &#34;my_server&#34; { ami = &#34;ami-123456&#34; instance_type = &#34;t2.micro&#34; } data Definition:
-Fetches already existing resources.
-data &#34;aws_ami&#34; &#34;latest&#34; { most_recent = true } variable Definition:
-Stores input values.">
+1) terraform Block What it is:
+Main configuration block for Terraform settings like required version, providers, and backend.
+Why used:
+Controls Terraform behavior and dependencies.
+example:
+terraform { required_version = &#34;&gt;= 1.5.0&#34; required_providers { aws = { source = &#34;hashicorp/aws&#34; version = &#34;~&gt; 5.0&#34; } } } 2) provider What it is:
+Tells Terraform which cloud/service to talk to and how.">
   <meta property="og:locale" content="en-us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="notes">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="Terraform Important Blocks &amp; Arguments (Simple Notes)
+<meta name="twitter:description" content="Terraform Blocks &amp; Arguments
 Terraform is an infrastructure tool created by HashiCorp.
 These notes explain key Terraform blocks in an easy and practical way.
 
-provider
-Definition:
-Tells Terraform which cloud or service to connect to.
-provider &#34;aws&#34; {
-  region = &#34;us-east-1&#34;
+1) terraform Block
+What it is:
+Main configuration block for Terraform settings like required version, providers, and backend.
+Why used:
+Controls Terraform behavior and dependencies.
+example:
+terraform {
+  required_version = &#34;&gt;= 1.5.0&#34;
+
+  required_providers {
+    aws = {
+      source  = &#34;hashicorp/aws&#34;
+      version = &#34;~&gt; 5.0&#34;
+    }
+  }
 }
 
-resource
-Definition:
-Creates or manages infrastructure like servers or networks.
-resource &#34;aws_instance&#34; &#34;my_server&#34; {
-  ami           = &#34;ami-123456&#34;
-  instance_type = &#34;t2.micro&#34;
-}
-
-data
-Definition:
-Fetches already existing resources.
-data &#34;aws_ami&#34; &#34;latest&#34; {
-  most_recent = true
-}
-
-variable
-Definition:
-Stores input values.">
+2) provider
+What it is:
+Tells Terraform which cloud/service to talk to and how.">
 
 
 <script type="application/ld+json">
@@ -179,12 +168,12 @@ Stores input values.">
   "@type": "BlogPosting",
   "headline": "",
   "name": "",
-  "description": "Terraform Important Blocks \u0026amp; Arguments (Simple Notes) Terraform is an infrastructure tool created by HashiCorp.\nThese notes explain key Terraform blocks in an easy and practical way.\nprovider Definition:\nTells Terraform which cloud or service to connect to.\nprovider \u0026#34;aws\u0026#34; { region = \u0026#34;us-east-1\u0026#34; } resource Definition:\nCreates or manages infrastructure like servers or networks.\nresource \u0026#34;aws_instance\u0026#34; \u0026#34;my_server\u0026#34; { ami = \u0026#34;ami-123456\u0026#34; instance_type = \u0026#34;t2.micro\u0026#34; } data Definition:\nFetches already existing resources.\ndata \u0026#34;aws_ami\u0026#34; \u0026#34;latest\u0026#34; { most_recent = true } variable Definition:\nStores input values.\n",
+  "description": "Terraform Blocks \u0026amp; Arguments Terraform is an infrastructure tool created by HashiCorp.\nThese notes explain key Terraform blocks in an easy and practical way.\n1) terraform Block What it is:\nMain configuration block for Terraform settings like required version, providers, and backend.\nWhy used:\nControls Terraform behavior and dependencies.\nexample:\nterraform { required_version = \u0026#34;\u0026gt;= 1.5.0\u0026#34; required_providers { aws = { source = \u0026#34;hashicorp/aws\u0026#34; version = \u0026#34;~\u0026gt; 5.0\u0026#34; } } } 2) provider What it is:\nTells Terraform which cloud/service to talk to and how.\n",
   "keywords": [
     
   ],
-  "articleBody": "Terraform Important Blocks \u0026 Arguments (Simple Notes) Terraform is an infrastructure tool created by HashiCorp.\nThese notes explain key Terraform blocks in an easy and practical way.\nprovider Definition:\nTells Terraform which cloud or service to connect to.\nprovider \"aws\" { region = \"us-east-1\" } resource Definition:\nCreates or manages infrastructure like servers or networks.\nresource \"aws_instance\" \"my_server\" { ami = \"ami-123456\" instance_type = \"t2.micro\" } data Definition:\nFetches already existing resources.\ndata \"aws_ami\" \"latest\" { most_recent = true } variable Definition:\nStores input values.\nvariable \"instance_type\" { default = \"t2.micro\" } output Definition:\nDisplays useful results.\noutput \"server_ip\" { value = aws_instance.my_server.public_ip } locals Definition:\nStores reusable values.\nlocals { env = \"dev\" } module Definition:\nReusable Terraform code.\nmodule \"vpc\" { source = \"./vpc-module\" } Advanced Terraform Blocks count Definition:\nCreates multiple copies of a resource.\nresource \"aws_instance\" \"server\" { count = 3 instance_type = \"t2.micro\" } for_each Definition:\nCreates resources using a list or map.\nresource \"aws_instance\" \"servers\" { for_each = [\"dev\", \"test\", \"prod\"] instance_type = \"t2.micro\" } lifecycle Definition:\nControls how Terraform handles changes.\nresource \"aws_instance\" \"server\" { lifecycle { prevent_destroy = true } } depends_on Definition:\nForces resource order.\nresource \"aws_instance\" \"app\" { depends_on = [aws_vpc.main] } Quick Memory Trick provider → connect\nresource → create\ndata → read\ncount → many copies\nfor_each → loop\nlifecycle → control changes\ndepends_on → order\nHappy Terraform Learning!\n",
-  "wordCount" : "231",
+  "articleBody": "Terraform Blocks \u0026 Arguments Terraform is an infrastructure tool created by HashiCorp.\nThese notes explain key Terraform blocks in an easy and practical way.\n1) terraform Block What it is:\nMain configuration block for Terraform settings like required version, providers, and backend.\nWhy used:\nControls Terraform behavior and dependencies.\nexample:\nterraform { required_version = \"\u003e= 1.5.0\" required_providers { aws = { source = \"hashicorp/aws\" version = \"~\u003e 5.0\" } } } 2) provider What it is:\nTells Terraform which cloud/service to talk to and how.\nWhy used:\nWithout provider → Terraform doesn’t know where to create resources.\nexample:\nprovider \"aws\" { region = \"us-east-1\" } 3) resource What it is:\nActual infrastructure you want to create.\nexample:\nresource \"aws_instance\" \"my_server\" { ami = \"ami-123456\" instance_type = \"t2.micro\" } Quick meaning:\\\naws_instance → resource type my_server → local name 4) variable What it is:\nInput values to make configs reusable.\nexample:\nvariable \"instance_type\" { default = \"t2.micro\" } Use it:\ninstance_type = var.instance_type 5) output What it is:\nShows important values after terraform apply.\nexample:\noutput \"server_ip\" { value = aws_instance.my_server.public_ip } 6) locals What it is:\nTemporary variables inside Terraform for calculations or reuse.\nexample:\nlocals { app_name = \"my-app\" } resource \"aws_s3_bucket\" \"bucket\" { bucket = \"${local.app_name}-bucket\" } 7) module What it is:\nReusable Terraform code (like functions in programming).\nexample:\nmodule \"vpc\" { source = \"./modules/vpc\" cidr = \"10.0.0.0/16\" } 8) data What it is:\nUsed to fetch existing resources instead of creating new ones.\nexample:\ndata \"aws_ami\" \"latest\" { most_recent = true } Important Resource Arguments These are commonly used across many resources.\n1) count What it does:\nCreates multiple copies of a resource.\nexample:\nresource \"aws_instance\" \"server\" { count = 3 instance_type = \"t2.micro\" } Access:\naws_instance.web[0].id 2) for_each What it does:\nCreates resources based on a map or set.\nexample:\nresource \"aws_s3_bucket\" \"bucket\" { for_each = { dev = \"dev-bucket\" prod = \"prod-bucket\" } bucket = each.value } 3) lifecycle What it does:\nControls how Terraform handles changes.\nCommon options:\ncreate_before_destroy prevent_destroy ignore_changes example:\nresource \"aws_instance\" \"web\" { ami = \"ami-123\" instance_type = \"t2.micro\" lifecycle { create_before_destroy = true } } 4) depends_on What it does:\nForces resource creation order.\nexample:\nresource \"aws_instance\" \"app\" { depends_on = [aws_vpc.main] } 5) provisioner (less used now, but still seen) What it does:\nRuns scripts after resource creation.\nexample:\nprovisioner \"local-exec\" { command = \"echo Instance created\" } Backend Block (Very Important in Real Projects) Backend What it is:\nWhere Terraform state file is stored.\nExample (S3 remote state)\nterraform { backend \"s3\" { bucket = \"tf-state-bucket\" key = \"prod/terraform.tfstate\" region = \"us-east-1\" } } Widely Used Modern Concepts (Must Know) 1) Remote State Store state in:\nS3 Terraform Cloud Azure Storage GCS Why: Team collaboration + locking.\n2) Workspaces Used to manage multiple environments.\nterraform workspace new dev terraform workspace new prod 3) Dynamic Blocks Generate nested blocks programmatically.\ndynamic \"ingress\" { for_each = var.ports content { from_port = ingress.value to_port = ingress.value protocol = \"tcp\" } } 4) Terraform Functions Common ones:\nlookup() join() split() length() upper() lower() name = upper(\"dev-server\") Quick Memory Trick provider → connect\nresource → create\ndata → read\ncount → many copies\nfor_each → loop\nlifecycle → control changes\ndepends_on → order\n",
+  "wordCount" : "541",
   "inLanguage": "en",
   "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
@@ -271,92 +260,213 @@ Stores input values.">
 
 </div>
   </header> 
-  <div class="post-content"><h1 id="terraform-important-blocks--arguments-simple-notes">Terraform Important Blocks &amp; Arguments (Simple Notes)<a hidden class="anchor" aria-hidden="true" href="#terraform-important-blocks--arguments-simple-notes">#</a></h1>
+  <div class="post-content"><h2 id="terraform-blocks--arguments">Terraform Blocks &amp; Arguments<a hidden class="anchor" aria-hidden="true" href="#terraform-blocks--arguments">#</a></h2>
 <p>Terraform is an infrastructure tool created by HashiCorp.</p>
 <p>These notes explain key Terraform blocks in an easy and practical way.</p>
 <hr>
-<h2 id="provider">provider<a hidden class="anchor" aria-hidden="true" href="#provider">#</a></h2>
-<p><strong>Definition:</strong><br>
-Tells Terraform which cloud or service to connect to.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;aws&#34;</span> {
+<h3 id="1-terraform-block">1) terraform Block<a hidden class="anchor" aria-hidden="true" href="#1-terraform-block">#</a></h3>
+<p><strong>What it is:</strong><br>
+Main configuration block for Terraform settings like required version, providers, and backend.</p>
+<p><strong>Why used:</strong><br>
+Controls Terraform behavior and dependencies.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">terraform</span> {
+</span></span><span style="display:flex;"><span>  required_version <span style="color:#f92672">=</span> &#34;&gt;<span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">5</span>.<span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">required_providers</span> {
+</span></span><span style="display:flex;"><span>    aws <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>      source  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hashicorp/aws&#34;</span>
+</span></span><span style="display:flex;"><span>      version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;~&gt; 5.0&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="2-provider">2) provider<a hidden class="anchor" aria-hidden="true" href="#2-provider">#</a></h3>
+<p><strong>What it is:</strong><br>
+Tells Terraform which cloud/service to talk to and how.</p>
+<p><strong>Why used:</strong><br>
+Without provider → Terraform doesn’t know where to create resources.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>  <span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;aws&#34;</span> {
 </span></span><span style="display:flex;"><span>  region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h2 id="resource">resource<a hidden class="anchor" aria-hidden="true" href="#resource">#</a></h2>
-<p><strong>Definition:</strong><br>
-Creates or manages infrastructure like servers or networks.</p>
+<h3 id="3-resource">3) resource<a hidden class="anchor" aria-hidden="true" href="#3-resource">#</a></h3>
+<p><strong>What it is:</strong><br>
+Actual infrastructure you want to create.</p>
+<p><strong>example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;my_server&#34;</span> {
 </span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-123456&#34;</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h2 id="data">data<a hidden class="anchor" aria-hidden="true" href="#data">#</a></h2>
-<p><strong>Definition:</strong><br>
-Fetches already existing resources.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_ami&#34; &#34;latest&#34;</span> {
-</span></span><span style="display:flex;"><span>  most_recent <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h2 id="variable">variable<a hidden class="anchor" aria-hidden="true" href="#variable">#</a></h2>
-<p><strong>Definition:</strong><br>
-Stores input values.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;instance_type&#34;</span> {
+</span></span></code></pre></div><p><strong>Quick meaning:</strong>\</p>
+<ul>
+<li>aws_instance → resource type</li>
+<li>my_server → local name</li>
+</ul>
+<hr>
+<h3 id="4-variable">4) variable<a hidden class="anchor" aria-hidden="true" href="#4-variable">#</a></h3>
+<p><strong>What it is:</strong><br>
+Input values to make configs reusable.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>  <span style="color:#66d9ef">variable</span> <span style="color:#e6db74">&#34;instance_type&#34;</span> {
 </span></span><span style="display:flex;"><span>  default <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
 </span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Use it:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>instance_type <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">instance_type</span>
 </span></span></code></pre></div><hr>
-<h2 id="output">output<a hidden class="anchor" aria-hidden="true" href="#output">#</a></h2>
-<p><strong>Definition:</strong><br>
-Displays useful results.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;server_ip&#34;</span> {
+<h3 id="5-output">5) output<a hidden class="anchor" aria-hidden="true" href="#5-output">#</a></h3>
+<p><strong>What it is:</strong><br>
+Shows important values after terraform apply.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>  <span style="color:#66d9ef">output</span> <span style="color:#e6db74">&#34;server_ip&#34;</span> {
 </span></span><span style="display:flex;"><span>  value <span style="color:#f92672">=</span> <span style="color:#66d9ef">aws_instance</span>.<span style="color:#66d9ef">my_server</span>.<span style="color:#66d9ef">public_ip</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h2 id="locals">locals<a hidden class="anchor" aria-hidden="true" href="#locals">#</a></h2>
-<p><strong>Definition:</strong><br>
-Stores reusable values.</p>
+<h3 id="6-locals">6) locals<a hidden class="anchor" aria-hidden="true" href="#6-locals">#</a></h3>
+<p><strong>What it is:</strong><br>
+Temporary variables inside Terraform for calculations or reuse.</p>
+<p><strong>example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">locals</span> {
-</span></span><span style="display:flex;"><span>  env <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dev&#34;</span>
+</span></span><span style="display:flex;"><span>  app_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;my-app&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_s3_bucket&#34; &#34;bucket&#34;</span> {
+</span></span><span style="display:flex;"><span>  bucket <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${local.app_name}-bucket&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h2 id="module">module<a hidden class="anchor" aria-hidden="true" href="#module">#</a></h2>
-<p><strong>Definition:</strong><br>
-Reusable Terraform code.</p>
+<h3 id="7-module">7) module<a hidden class="anchor" aria-hidden="true" href="#7-module">#</a></h3>
+<p><strong>What it is:</strong><br>
+Reusable Terraform code (like functions in programming).</p>
+<p><strong>example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#e6db74">&#34;vpc&#34;</span> {
-</span></span><span style="display:flex;"><span>  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./vpc-module&#34;</span>
+</span></span><span style="display:flex;"><span>  source <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./modules/vpc&#34;</span>
+</span></span><span style="display:flex;"><span>  cidr   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10.0.0.0/16&#34;</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h1 id="advanced-terraform-blocks">Advanced Terraform Blocks<a hidden class="anchor" aria-hidden="true" href="#advanced-terraform-blocks">#</a></h1>
-<h2 id="count">count<a hidden class="anchor" aria-hidden="true" href="#count">#</a></h2>
-<p><strong>Definition:</strong><br>
+<h3 id="8-data">8) data<a hidden class="anchor" aria-hidden="true" href="#8-data">#</a></h3>
+<p><strong>What it is:</strong><br>
+Used to fetch existing resources instead of creating new ones.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>  <span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;aws_ami&#34; &#34;latest&#34;</span> {
+</span></span><span style="display:flex;"><span>  most_recent <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="important-resource-arguments">Important Resource Arguments<a hidden class="anchor" aria-hidden="true" href="#important-resource-arguments">#</a></h2>
+<p>These are commonly used across many resources.</p>
+<hr>
+<h3 id="1-count">1) count<a hidden class="anchor" aria-hidden="true" href="#1-count">#</a></h3>
+<p><strong>What it does:</strong><br>
 Creates multiple copies of a resource.</p>
+<p><strong>example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;server&#34;</span> {
 </span></span><span style="display:flex;"><span>  count <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
 </span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
 </span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Access:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">aws_instance</span>.<span style="color:#66d9ef">web</span>[<span style="color:#ae81ff">0</span>].<span style="color:#66d9ef">id</span>
 </span></span></code></pre></div><hr>
-<h2 id="for_each">for_each<a hidden class="anchor" aria-hidden="true" href="#for_each">#</a></h2>
-<p><strong>Definition:</strong><br>
-Creates resources using a list or map.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;servers&#34;</span> {
-</span></span><span style="display:flex;"><span>  for_each <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;dev&#34;, &#34;test&#34;, &#34;prod&#34;</span>]
-</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+<h3 id="2-for_each">2) for_each<a hidden class="anchor" aria-hidden="true" href="#2-for_each">#</a></h3>
+<p><strong>What it does:</strong><br>
+Creates resources based on a map or set.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_s3_bucket&#34; &#34;bucket&#34;</span> {
+</span></span><span style="display:flex;"><span>  for_each <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    dev  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dev-bucket&#34;</span>
+</span></span><span style="display:flex;"><span>    prod <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prod-bucket&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  bucket <span style="color:#f92672">=</span> <span style="color:#66d9ef">each</span>.<span style="color:#66d9ef">value</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h2 id="lifecycle">lifecycle<a hidden class="anchor" aria-hidden="true" href="#lifecycle">#</a></h2>
-<p><strong>Definition:</strong><br>
+<h3 id="3-lifecycle">3) lifecycle<a hidden class="anchor" aria-hidden="true" href="#3-lifecycle">#</a></h3>
+<p><strong>What it does:</strong><br>
 Controls how Terraform handles changes.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;server&#34;</span> {
+<p><strong>Common options:</strong></p>
+<ul>
+<li>create_before_destroy</li>
+<li>prevent_destroy</li>
+<li>ignore_changes</li>
+</ul>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;web&#34;</span> {
+</span></span><span style="display:flex;"><span>  ami           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ami-123&#34;</span>
+</span></span><span style="display:flex;"><span>  instance_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;t2.micro&#34;</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">lifecycle</span> {
-</span></span><span style="display:flex;"><span>    prevent_destroy <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    create_before_destroy <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><hr>
-<h2 id="depends_on">depends_on<a hidden class="anchor" aria-hidden="true" href="#depends_on">#</a></h2>
-<p><strong>Definition:</strong><br>
-Forces resource order.</p>
+<h3 id="4-depends_on">4) depends_on<a hidden class="anchor" aria-hidden="true" href="#4-depends_on">#</a></h3>
+<p><strong>What it does:</strong><br>
+Forces resource creation order.</p>
+<p><strong>example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;aws_instance&#34; &#34;app&#34;</span> {
 </span></span><span style="display:flex;"><span>  depends_on <span style="color:#f92672">=</span> [<span style="color:#66d9ef">aws_vpc</span>.<span style="color:#66d9ef">main</span>]
 </span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="5-provisioner-less-used-now-but-still-seen">5) provisioner (less used now, but still seen)<a hidden class="anchor" aria-hidden="true" href="#5-provisioner-less-used-now-but-still-seen">#</a></h3>
+<p><strong>What it does:</strong><br>
+Runs scripts after resource creation.</p>
+<p><strong>example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">provisioner</span> <span style="color:#e6db74">&#34;local-exec&#34;</span> {
+</span></span><span style="display:flex;"><span>  command <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;echo Instance created&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="backend-block-very-important-in-real-projects">Backend Block (Very Important in Real Projects)<a hidden class="anchor" aria-hidden="true" href="#backend-block-very-important-in-real-projects">#</a></h2>
+<hr>
+<h3 id="backend">Backend<a hidden class="anchor" aria-hidden="true" href="#backend">#</a></h3>
+<p><strong>What it is:</strong><br>
+Where Terraform state file is stored.</p>
+<p><strong>Example (S3 remote state)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">terraform</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">backend</span> <span style="color:#e6db74">&#34;s3&#34;</span> {
+</span></span><span style="display:flex;"><span>    bucket <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tf-state-bucket&#34;</span>
+</span></span><span style="display:flex;"><span>    key    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;prod/terraform.tfstate&#34;</span>
+</span></span><span style="display:flex;"><span>    region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;us-east-1&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="widely-used-modern-concepts-must-know">Widely Used Modern Concepts (Must Know)<a hidden class="anchor" aria-hidden="true" href="#widely-used-modern-concepts-must-know">#</a></h2>
+<hr>
+<h3 id="1-remote-state">1) Remote State<a hidden class="anchor" aria-hidden="true" href="#1-remote-state">#</a></h3>
+<p>Store state in:</p>
+<ul>
+<li>S3</li>
+<li>Terraform Cloud</li>
+<li>Azure Storage</li>
+<li>GCS</li>
+</ul>
+<p><strong>Why:</strong> Team collaboration + locking.</p>
+<hr>
+<h3 id="2-workspaces">2) Workspaces<a hidden class="anchor" aria-hidden="true" href="#2-workspaces">#</a></h3>
+<p>Used to manage multiple environments.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">terraform</span> <span style="color:#66d9ef">workspace</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">dev</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">terraform</span> <span style="color:#66d9ef">workspace</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">prod</span>
+</span></span></code></pre></div><hr>
+<h3 id="3-dynamic-blocks">3) Dynamic Blocks<a hidden class="anchor" aria-hidden="true" href="#3-dynamic-blocks">#</a></h3>
+<p>Generate nested blocks programmatically.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">dynamic</span> <span style="color:#e6db74">&#34;ingress&#34;</span> {
+</span></span><span style="display:flex;"><span>  for_each <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">ports</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">content</span> {
+</span></span><span style="display:flex;"><span>    from_port <span style="color:#f92672">=</span> <span style="color:#66d9ef">ingress</span>.<span style="color:#66d9ef">value</span>
+</span></span><span style="display:flex;"><span>    to_port   <span style="color:#f92672">=</span> <span style="color:#66d9ef">ingress</span>.<span style="color:#66d9ef">value</span>
+</span></span><span style="display:flex;"><span>    protocol  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tcp&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="4-terraform-functions">4) Terraform Functions<a hidden class="anchor" aria-hidden="true" href="#4-terraform-functions">#</a></h3>
+<p><strong>Common ones:</strong></p>
+<ul>
+<li>lookup()</li>
+<li>join()</li>
+<li>split()</li>
+<li>length()</li>
+<li>upper()</li>
+<li>lower()</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span>name <span style="color:#f92672">=</span> <span style="color:#66d9ef">upper</span>(<span style="color:#e6db74">&#34;dev-server&#34;</span>)
 </span></span></code></pre></div><hr>
 <h2 id="quick-memory-trick">Quick Memory Trick<a hidden class="anchor" aria-hidden="true" href="#quick-memory-trick">#</a></h2>
 <p>provider → connect<br>
@@ -367,7 +477,6 @@ for_each → loop<br>
 lifecycle → control changes<br>
 depends_on → order</p>
 <hr>
-<p>Happy Terraform Learning!</p>
 
 
   </div>

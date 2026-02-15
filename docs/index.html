@@ -240,16 +240,15 @@ Why Is It Hard? In distributed systems, the same data can be cached in many plac
     </h2>
   </header>
   <div class="entry-content">
-    <p>Terraform Important Blocks &amp; Arguments (Simple Notes) Terraform is an infrastructure tool created by HashiCorp.
+    <p>Terraform Blocks &amp; Arguments Terraform is an infrastructure tool created by HashiCorp.
 These notes explain key Terraform blocks in an easy and practical way.
-provider Definition:
-Tells Terraform which cloud or service to connect to.
-provider &#34;aws&#34; { region = &#34;us-east-1&#34; } resource Definition:
-Creates or manages infrastructure like servers or networks.
-resource &#34;aws_instance&#34; &#34;my_server&#34; { ami = &#34;ami-123456&#34; instance_type = &#34;t2.micro&#34; } data Definition:
-Fetches already existing resources.
-data &#34;aws_ami&#34; &#34;latest&#34; { most_recent = true } variable Definition:
-Stores input values.
+1) terraform Block What it is:
+Main configuration block for Terraform settings like required version, providers, and backend.
+Why used:
+Controls Terraform behavior and dependencies.
+example:
+terraform { required_version = &#34;&gt;= 1.5.0&#34; required_providers { aws = { source = &#34;hashicorp/aws&#34; version = &#34;~&gt; 5.0&#34; } } } 2) provider What it is:
+Tells Terraform which cloud/service to talk to and how.
 ...</p>
   </div>
   <footer class="entry-footer"><span>Ankur Singh</span></footer>
