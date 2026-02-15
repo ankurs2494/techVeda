@@ -38,6 +38,12 @@ url = "notes/systemdesign/"
 identifier = "systemdesign"
 weight = 10
 
+# Terraform
+[[menu.main]]
+name = "IaC"
+url = "notes/iac/"
+identifier = "iac"
+weight = 10
 
 # Production use case
 [[menu.main]]
