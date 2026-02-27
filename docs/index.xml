@@ -2,17 +2,86 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>My Tech Knowledge Notes</title>
-    <link>http://localhost:1313/techVeda/</link>
+    <link>https://ankurs2494.github.io/techVeda/</link>
     <description>Recent content on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ankurs2494.github.io/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform Interview Deep Dive</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/iac/terraform_interview/</link>
+      <pubDate>Thu, 26 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/iac/terraform_interview/</guid>
+      <description>&lt;p&gt;This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.&lt;/p&gt;
+&lt;p&gt;It explains state management, locking mechanisms, drift detection, module design, zero-downtime strategies, and production-safe refactoring practices.The content focuses on real-world scenarios, failure handling, and enterprise-grade architecture patterns.&lt;/p&gt;
+&lt;p&gt;Perfect for preparing strong, practical answers that demonstrate hands-on Terraform experience.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1--what-happens-if-two-engineers-run-terraform-apply-at-the-same-time-on-the-same-remote-backend&#34;&gt;1)  What happens if two engineers run &lt;code&gt;terraform apply&lt;/code&gt; at the same time on the same remote backend?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;If state locking is enabled and supported by the backend&lt;/strong&gt; (e.g., S3 &lt;strong&gt;with DynamoDB locking&lt;/strong&gt;, Terraform Cloud/Enterprise, etc.), the &lt;strong&gt;first apply acquires the lock&lt;/strong&gt; and proceeds; the second will &lt;strong&gt;fail fast&lt;/strong&gt; (or wait, depending on flags) with a &amp;ldquo;state lock&amp;rdquo; error.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;If locking is not enabled / not supported&lt;/strong&gt;, both can proceed and you risk:
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Lost updates&lt;/strong&gt; to state (last writer wins).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Double-creation&lt;/strong&gt; attempts (race conditions) and inconsistent state vs real infrastructure.&lt;/li&gt;
+&lt;li&gt;Weird diffs where each run plans from a stale view.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Good practice: always use a backend with locking, enforce it in policy, and use CI to serialize applies per workspace/environment.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2--how-does-terraform-state-locking-work-internally-with-s3-and-dynamodb&#34;&gt;2)  How does Terraform state locking work internally with S3 and DynamoDB?&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;S3 backend stores the state file&lt;/strong&gt; (&lt;code&gt;terraform.tfstate&lt;/code&gt;) as an object in a bucket (often versioned).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DynamoDB is used only for locking&lt;/strong&gt; (and sometimes storing lock metadata), not for the state itself.&lt;/li&gt;
+&lt;li&gt;When Terraform starts an operation that writes state (plan with &lt;code&gt;-out&lt;/code&gt; doesn&amp;rsquo;t write state; apply does), it:
+&lt;ol&gt;
+&lt;li&gt;Tries to &lt;strong&gt;acquire a lock&lt;/strong&gt; by writing an item into the DynamoDB table with a &lt;strong&gt;conditional put&lt;/strong&gt; (i.e., &amp;ldquo;create only if not exists&amp;rdquo;).&lt;/li&gt;
+&lt;li&gt;The lock item contains metadata like &lt;strong&gt;operation&lt;/strong&gt;, &lt;strong&gt;who&lt;/strong&gt;, &lt;strong&gt;when&lt;/strong&gt;, and an &lt;strong&gt;ID&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;If the conditional put fails, Terraform reports &lt;strong&gt;lock already held&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;On success, Terraform proceeds to read/modify state in S3, then &lt;strong&gt;releases&lt;/strong&gt; the lock by deleting the DynamoDB item.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;If a process crashes, the lock may remain and you may need &lt;strong&gt;&lt;code&gt;terraform force-unlock &amp;lt;LOCK_ID&amp;gt;&lt;/code&gt;&lt;/strong&gt; (with caution, ensuring no apply is still running).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;3--what-are-the-risks-of-manually-editing-the-tfstate-file-and-how-would-you-recover-from-corruption&#34;&gt;3)  What are the risks of manually editing the &lt;code&gt;.tfstate&lt;/code&gt; file, and how would you recover from corruption?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Risks&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Terraform Blocks &amp; Arguments</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/</link>
+      <pubDate>Sat, 14 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/</guid>
+      <description>&lt;p&gt;Terraform is an infrastructure tool created by HashiCorp.&lt;/p&gt;
+&lt;p&gt;These notes explain key Terraform blocks in an easy and practical way.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-terraform-block&#34;&gt;1) terraform Block&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
+Main configuration block for Terraform settings like required version, providers, and backend.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why used:&lt;/strong&gt;&lt;br&gt;
+Controls Terraform behavior and dependencies.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;example:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  required_version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;#34;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    aws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hashicorp/aws&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~&amp;gt; 5.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;2-provider&#34;&gt;2) provider&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
+Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Cloud Networking &amp; Zero-Trust Interview Guide</title>
-      <link>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/operations/cloud-ntw-zero-test-scenarios/</guid>
       <description>&lt;p&gt;A comprehensive deep-dive into the four pillars of modern cloud networking:&lt;/p&gt;
 &lt;p&gt;🟢 1. Protocol &amp;amp; Layer Troubleshooting.&lt;br&gt;
 🟡 2. Connectivity &amp;amp; Routing.&lt;br&gt;
@@ -25,9 +94,9 @@
     </item>
     <item>
       <title>Kubernetes Production Issues</title>
-      <link>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/operations/prod-kubernetes/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/operations/prod-kubernetes/</guid>
       <description>&lt;p&gt;Kubernetes Production Issues (Most Common → Rare &amp;amp; Critical)&lt;/p&gt;
 &lt;hr&gt;
 &lt;h3 id=&#34;1-pods-stuck-in-crashloopbackoff-most-common&#34;&gt;1️⃣ Pods Stuck in &lt;code&gt;CrashLoopBackOff&lt;/code&gt; (MOST COMMON)&lt;/h3&gt;
@@ -59,9 +128,9 @@
     </item>
     <item>
       <title>Zero-Trust in Cloud: PrivateLink &#43; IAM</title>
-      <link>http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</link>
       <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/zero-trust-cloud/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/zero-trust-cloud/</guid>
       <description>&lt;p&gt;This page explains how Zero-Trust is implemented in the cloud using PrivateLink and IAM.&lt;/p&gt;
 &lt;p&gt;It shows why private network access alone is not sufficient and how identity and policy enforcement control access.&lt;/p&gt;
 &lt;p&gt;PrivateLink reduces network exposure, while IAM ensures authentication and authorization per request. Together, they form a true Zero-Trust architecture.&lt;/p&gt;
@@ -81,9 +150,9 @@
     </item>
     <item>
       <title>Phase 3 : TCP/IP and ports</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase3-tcp-ip-ports/</guid>
       <description>&lt;p&gt;This phase is where networking becomes practical and real. We focus on how data actually moves between devices.&lt;/p&gt;
 &lt;p&gt;You’ll learn why TCP and UDP exist, how ports work, and how reliable and fast communication is achieved between clients and servers in the real world.&lt;/p&gt;
 &lt;hr&gt;
@@ -102,9 +171,9 @@
     </item>
     <item>
       <title>Phase 4 – DNS (Domain Name System)</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase4-dns-name-resolution/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase4-dns-name-resolution/</guid>
       <description>&lt;!-- ### What This Phase Covers --&gt;
 &lt;p&gt;DNS is one of the most critical systems on the internet.&lt;/p&gt;
 &lt;p&gt;If DNS fails, &lt;strong&gt;everything appears broken&lt;/strong&gt; — even when the network is perfectly fine.&lt;/p&gt;
@@ -113,9 +182,9 @@
     </item>
     <item>
       <title>Phase 5 : Routing, Gateway and NAT</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase5-routing-gateway-nat/</guid>
       <description>&lt;p&gt;Phase 5 focuses on how networks communicate.&lt;/p&gt;
 &lt;p&gt;It covers routing, which directs traffic between networks; gateways, which connect different network types; and NAT (Network Address Translation), which lets multiple devices share a single IP while keeping internal addresses private.&lt;/p&gt;
 &lt;hr&gt;
@@ -128,9 +197,9 @@
     </item>
     <item>
       <title>Phase 6 : Firewall and Network Security Basics</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase6-firewall-ntw-security-basic/</guid>
       <description>&lt;p&gt;Phase 6 is where you learn why traffic is allowed or blocked. Most real outages live here.&lt;/p&gt;
 &lt;p&gt;This phase introduces the fundamentals of network security, focusing on how firewalls control and protect traffic.&lt;/p&gt;
 &lt;p&gt;It explains basic security rules, filtering concepts, and how networks defend against unauthorized access and common threats.&lt;/p&gt;
@@ -150,9 +219,9 @@
     </item>
     <item>
       <title>Phase 7 : End-to-End Troubleshooting Mental Model</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</link>
       <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase7-end-end-troubleshotting-mental-model/</guid>
       <description>&lt;p&gt;This phase builds a structured way of thinking for diagnosing network issues.&lt;/p&gt;
 &lt;p&gt;It emphasizes tracing problems step-by-step from source to destination, helping you quickly isolate, analyze, and resolve real-world connectivity issues.&lt;/p&gt;
 &lt;hr&gt;
@@ -177,9 +246,9 @@
     </item>
     <item>
       <title>Phase 2 : IP and Subnetting</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase2-ip-and-subnetting/</guid>
       <description>&lt;p&gt;In this phase, we explore IP addresses and subnetting — the part of networking that explains how devices are identified and grouped together.&lt;/p&gt;
 &lt;p&gt;You’ll understand what IP addresses represent, why networks are divided into subnets, and how this structure makes large networks possible and manageable.&lt;/p&gt;
 &lt;hr&gt;
@@ -194,9 +263,9 @@
     </item>
     <item>
       <title>Phase 1 : Core networking concepts</title>
-      <link>http://localhost:1313/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</link>
       <pubDate>Mon, 19 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/networking/phase1-core-ntw-concepts/</guid>
       <description>&lt;p&gt;In this phase, we build the foundation of networking by understanding what networks are and how devices communicate.&lt;/p&gt;
 &lt;p&gt;You’ll learn what hosts, IP addresses, clients, and servers really mean, and how simple request–response communication powers almost everything on the internet.&lt;/p&gt;
 &lt;hr&gt;
@@ -216,23 +285,23 @@
     </item>
     <item>
       <title>Content Delivery Network (CDN): Beginner to SRE-Level Complete Guide</title>
-      <link>http://localhost:1313/techVeda/notes/systemdesign/cdn/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/systemdesign/cdn/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cdn/</guid>
       <description>A complete CDN guide from basics to advanced SRE concepts with diagrams, use cases, examples, and 20 interview Q&amp;amp;A.</description>
     </item>
     <item>
       <title>Redis vs Memcached: Short Explanation, Use Cases, Pros &amp; Cons</title>
-      <link>http://localhost:1313/techVeda/notes/systemdesign/redis-vs-memcached/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</link>
       <pubDate>Sun, 04 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/redis-vs-memcached/</guid>
       <description>A concise comparison of Redis and Memcached with real-life scenarios and 20 must-know interview questions.</description>
     </item>
     <item>
       <title>Browser Caching</title>
-      <link>http://localhost:1313/techVeda/notes/systemdesign/browser-caching/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</link>
       <pubDate>Sat, 03 Jan 2026 21:32:16 +0100</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/systemdesign/browser-caching/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/browser-caching/</guid>
       <description>&lt;h2 id=&#34;what-is-browser-caching&#34;&gt;What is browser caching?&lt;/h2&gt;
 &lt;p&gt;Broswer caching is a technique where the web browser stores copies of website files (HTML, CSS, Javacsript, images, etc .) on the user&amp;rsquo;s device so that the website loads faster on future visits.&lt;/p&gt;
 &lt;hr&gt;
@@ -286,9 +355,9 @@
     </item>
     <item>
       <title>Cache invalidation</title>
-      <link>http://localhost:1313/techVeda/notes/systemdesign/cache-invalidation/</link>
+      <link>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</link>
       <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/systemdesign/cache-invalidation/</guid>
+      <guid>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</guid>
       <description>&lt;h2 id=&#34;what-is-cache-invalidation&#34;&gt;What is Cache Invalidation?&lt;/h2&gt;
 &lt;p&gt;Cache invalidation is the process of removing or updating cached data before it naturally expires, when the original data changes — so users don’t see outdated (“stale”) information.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Always serve fresh and correct data, not stale cached copies.&lt;/p&gt;
@@ -300,77 +369,6 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;“There are only two hard things in Computer Science: cache invalidation and naming things.”&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/techVeda/notes/iac/terraform_basic/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/iac/terraform_basic/</guid>
-      <description>&lt;h2 id=&#34;terraform-blocks--arguments&#34;&gt;Terraform Blocks &amp;amp; Arguments&lt;/h2&gt;
-&lt;p&gt;Terraform is an infrastructure tool created by HashiCorp.&lt;/p&gt;
-&lt;p&gt;These notes explain key Terraform blocks in an easy and practical way.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;1-terraform-block&#34;&gt;1) terraform Block&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
-Main configuration block for Terraform settings like required version, providers, and backend.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why used:&lt;/strong&gt;&lt;br&gt;
-Controls Terraform behavior and dependencies.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;example:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  required_version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;#34;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    aws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hashicorp/aws&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~&amp;gt; 5.0&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h3 id=&#34;2-provider&#34;&gt;2) provider&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
-Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/techVeda/notes/iac/terraform_interview/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/iac/terraform_interview/</guid>
-      <description>&lt;h2 id=&#34;terraform-interview-deep-dive&#34;&gt;Terraform Interview Deep Dive&lt;/h2&gt;
-&lt;p&gt;This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.&lt;/p&gt;
-&lt;p&gt;It explains state management, locking mechanisms, drift detection, module design, zero-downtime strategies, and production-safe refactoring practices.The content focuses on real-world scenarios, failure handling, and enterprise-grade architecture patterns.&lt;/p&gt;
-&lt;p&gt;Perfect for preparing strong, practical answers that demonstrate hands-on Terraform experience.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;1--what-happens-if-two-engineers-run-terraform-apply-at-the-same-time-on-the-same-remote-backend&#34;&gt;1)  What happens if two engineers run &lt;code&gt;terraform apply&lt;/code&gt; at the same time on the same remote backend?&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;If state locking is enabled and supported by the backend&lt;/strong&gt; (e.g., S3 &lt;strong&gt;with DynamoDB locking&lt;/strong&gt;, Terraform Cloud/Enterprise, etc.), the &lt;strong&gt;first apply acquires the lock&lt;/strong&gt; and proceeds; the second will &lt;strong&gt;fail fast&lt;/strong&gt; (or wait, depending on flags) with a &amp;ldquo;state lock&amp;rdquo; error.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;If locking is not enabled / not supported&lt;/strong&gt;, both can proceed and you risk:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Lost updates&lt;/strong&gt; to state (last writer wins).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Double-creation&lt;/strong&gt; attempts (race conditions) and inconsistent state vs real infrastructure.&lt;/li&gt;
-&lt;li&gt;Weird diffs where each run plans from a stale view.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Good practice: always use a backend with locking, enforce it in policy, and use CI to serialize applies per workspace/environment.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;2--how-does-terraform-state-locking-work-internally-with-s3-and-dynamodb&#34;&gt;2)  How does Terraform state locking work internally with S3 and DynamoDB?&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;S3 backend stores the state file&lt;/strong&gt; (&lt;code&gt;terraform.tfstate&lt;/code&gt;) as an object in a bucket (often versioned).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;DynamoDB is used only for locking&lt;/strong&gt; (and sometimes storing lock metadata), not for the state itself.&lt;/li&gt;
-&lt;li&gt;When Terraform starts an operation that writes state (plan with &lt;code&gt;-out&lt;/code&gt; doesn&amp;rsquo;t write state; apply does), it:
-&lt;ol&gt;
-&lt;li&gt;Tries to &lt;strong&gt;acquire a lock&lt;/strong&gt; by writing an item into the DynamoDB table with a &lt;strong&gt;conditional put&lt;/strong&gt; (i.e., &amp;ldquo;create only if not exists&amp;rdquo;).&lt;/li&gt;
-&lt;li&gt;The lock item contains metadata like &lt;strong&gt;operation&lt;/strong&gt;, &lt;strong&gt;who&lt;/strong&gt;, &lt;strong&gt;when&lt;/strong&gt;, and an &lt;strong&gt;ID&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;If the conditional put fails, Terraform reports &lt;strong&gt;lock already held&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;On success, Terraform proceeds to read/modify state in S3, then &lt;strong&gt;releases&lt;/strong&gt; the lock by deleting the DynamoDB item.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;If a process crashes, the lock may remain and you may need &lt;strong&gt;&lt;code&gt;terraform force-unlock &amp;lt;LOCK_ID&amp;gt;&lt;/code&gt;&lt;/strong&gt; (with caution, ensuring no apply is still running).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;3--what-are-the-risks-of-manually-editing-the-tfstate-file-and-how-would-you-recover-from-corruption&#34;&gt;3)  What are the risks of manually editing the &lt;code&gt;.tfstate&lt;/code&gt; file, and how would you recover from corruption?&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Risks&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

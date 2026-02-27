@@ -2,48 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Terraform concept on My Tech Knowledge Notes</title>
-    <link>http://localhost:1313/techVeda/notes/iac/</link>
+    <link>https://ankurs2494.github.io/techVeda/notes/iac/</link>
     <description>Recent content in Terraform concept on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
-    <atom:link href="http://localhost:1313/techVeda/notes/iac/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ankurs2494.github.io/techVeda/notes/iac/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>http://localhost:1313/techVeda/notes/iac/terraform_basic/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/iac/terraform_basic/</guid>
-      <description>&lt;h2 id=&#34;terraform-blocks--arguments&#34;&gt;Terraform Blocks &amp;amp; Arguments&lt;/h2&gt;
-&lt;p&gt;Terraform is an infrastructure tool created by HashiCorp.&lt;/p&gt;
-&lt;p&gt;These notes explain key Terraform blocks in an easy and practical way.&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;1-terraform-block&#34;&gt;1) terraform Block&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
-Main configuration block for Terraform settings like required version, providers, and backend.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Why used:&lt;/strong&gt;&lt;br&gt;
-Controls Terraform behavior and dependencies.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;example:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  required_version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;#34;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    aws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hashicorp/aws&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~&amp;gt; 5.0&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h3 id=&#34;2-provider&#34;&gt;2) provider&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
-Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/techVeda/notes/iac/terraform_interview/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/techVeda/notes/iac/terraform_interview/</guid>
-      <description>&lt;h2 id=&#34;terraform-interview-deep-dive&#34;&gt;Terraform Interview Deep Dive&lt;/h2&gt;
-&lt;p&gt;This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.&lt;/p&gt;
+      <title>Terraform Interview Deep Dive</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/iac/terraform_interview/</link>
+      <pubDate>Thu, 26 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/iac/terraform_interview/</guid>
+      <description>&lt;p&gt;This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.&lt;/p&gt;
 &lt;p&gt;It explains state management, locking mechanisms, drift detection, module design, zero-downtime strategies, and production-safe refactoring practices.The content focuses on real-world scenarios, failure handling, and enterprise-grade architecture patterns.&lt;/p&gt;
 &lt;p&gt;Perfect for preparing strong, practical answers that demonstrate hands-on Terraform experience.&lt;/p&gt;
 &lt;hr&gt;
@@ -77,6 +47,35 @@ Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
 &lt;hr&gt;
 &lt;h3 id=&#34;3--what-are-the-risks-of-manually-editing-the-tfstate-file-and-how-would-you-recover-from-corruption&#34;&gt;3)  What are the risks of manually editing the &lt;code&gt;.tfstate&lt;/code&gt; file, and how would you recover from corruption?&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Risks&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Terraform Blocks &amp; Arguments</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/</link>
+      <pubDate>Sat, 14 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/iac/terraform_basic/</guid>
+      <description>&lt;p&gt;Terraform is an infrastructure tool created by HashiCorp.&lt;/p&gt;
+&lt;p&gt;These notes explain key Terraform blocks in an easy and practical way.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-terraform-block&#34;&gt;1) terraform Block&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
+Main configuration block for Terraform settings like required version, providers, and backend.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Why used:&lt;/strong&gt;&lt;br&gt;
+Controls Terraform behavior and dependencies.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;example:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;terraform&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  required_version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &amp;#34;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;.&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;required_providers&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    aws &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      source  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hashicorp/aws&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      version &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;~&amp;gt; 5.0&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;2-provider&#34;&gt;2) provider&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;br&gt;
+Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
