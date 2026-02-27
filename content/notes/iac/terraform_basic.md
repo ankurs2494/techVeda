@@ -1,4 +1,8 @@
-## Terraform Blocks & Arguments
+---
+title: "Terraform Blocks & Arguments"
+date: 2026-02-14
+type: page
+---
 
 Terraform is an infrastructure tool created by HashiCorp.
 

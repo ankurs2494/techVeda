@@ -9,5 +9,5 @@ description: "A quick review notes and explanations for terraform"
 <!-- Below is a curated list of all topics covered related to terraform. -->
 
 ### 1. Terraform
-- [Terraform Basic](terraform_basic/)
-- [Terraform Interview](terraform_interview/)
+- [Terraform Blocks & Arguments](terraform_basic/)
+- [Terraform Interview Deep Dive](terraform_interview/)

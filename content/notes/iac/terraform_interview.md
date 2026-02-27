@@ -1,4 +1,8 @@
-## Terraform Interview Deep Dive
+---
+title: "Terraform Interview Deep Dive"
+date: 2026-02-26
+type: page
+---
 
 This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.
 
