@@ -10,4 +10,4 @@ description: "A quick review notes and explanations for terraform"
 
 ### 1. Terraform
 - [Terraform Basic](terraform_basic/)
-
+- [Terraform Interview](terraform_interview/)

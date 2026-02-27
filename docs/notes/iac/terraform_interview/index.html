@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/techVeda/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=techVeda/livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="Terraform Interview Deep Dive
+This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.
+It explains state management, locking mechanisms, drift detection, module design, zero-downtime strategies, and production-safe refactoring practices.The content focuses on real-world scenarios, failure handling, and enterprise-grade architecture patterns.
+Perfect for preparing strong, practical answers that demonstrate hands-on Terraform experience.
+
+1)  What happens if two engineers run terraform apply at the same time on the same remote backend?
+
+If state locking is enabled and supported by the backend (e.g., S3 with DynamoDB locking, Terraform Cloud/Enterprise, etc.), the first apply acquires the lock and proceeds; the second will fail fast (or wait, depending on flags) with a &ldquo;state lock&rdquo; error.
+If locking is not enabled / not supported, both can proceed and you risk:
+
+Lost updates to state (last writer wins).
+Double-creation attempts (race conditions) and inconsistent state vs real infrastructure.
+Weird diffs where each run plans from a stale view.
+
+
+Good practice: always use a backend with locking, enforce it in policy, and use CI to serialize applies per workspace/environment.
+
+
+2)  How does Terraform state locking work internally with S3 and DynamoDB?
+
+S3 backend stores the state file (terraform.tfstate) as an object in a bucket (often versioned).
+DynamoDB is used only for locking (and sometimes storing lock metadata), not for the state itself.
+When Terraform starts an operation that writes state (plan with -out doesn&rsquo;t write state; apply does), it:
+
+Tries to acquire a lock by writing an item into the DynamoDB table with a conditional put (i.e., &ldquo;create only if not exists&rdquo;).
+The lock item contains metadata like operation, who, when, and an ID.
+If the conditional put fails, Terraform reports lock already held.
+On success, Terraform proceeds to read/modify state in S3, then releases the lock by deleting the DynamoDB item.
+
+
+If a process crashes, the lock may remain and you may need terraform force-unlock &lt;LOCK_ID&gt; (with caution, ensuring no apply is still running).
+
+
+3)  What are the risks of manually editing the .tfstate file, and how would you recover from corruption?
+Risks">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="http://localhost:1313/techVeda/notes/iac/terraform_interview/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/techVeda/notes/iac/terraform_interview/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/techVeda/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="http://localhost:1313/techVeda/notes/iac/">Terraform concept</a></div>
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta"><span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="terraform-interview-deep-dive">Terraform Interview Deep Dive<a hidden class="anchor" aria-hidden="true" href="#terraform-interview-deep-dive">#</a></h2>
+<p>This guide covers advanced Terraform concepts frequently asked in DevOps and platform engineering interviews.</p>
+<p>It explains state management, locking mechanisms, drift detection, module design, zero-downtime strategies, and production-safe refactoring practices.The content focuses on real-world scenarios, failure handling, and enterprise-grade architecture patterns.</p>
+<p>Perfect for preparing strong, practical answers that demonstrate hands-on Terraform experience.</p>
+<hr>
+<h3 id="1--what-happens-if-two-engineers-run-terraform-apply-at-the-same-time-on-the-same-remote-backend">1)  What happens if two engineers run <code>terraform apply</code> at the same time on the same remote backend?<a hidden class="anchor" aria-hidden="true" href="#1--what-happens-if-two-engineers-run-terraform-apply-at-the-same-time-on-the-same-remote-backend">#</a></h3>
+<ul>
+<li><strong>If state locking is enabled and supported by the backend</strong> (e.g., S3 <strong>with DynamoDB locking</strong>, Terraform Cloud/Enterprise, etc.), the <strong>first apply acquires the lock</strong> and proceeds; the second will <strong>fail fast</strong> (or wait, depending on flags) with a &ldquo;state lock&rdquo; error.</li>
+<li><strong>If locking is not enabled / not supported</strong>, both can proceed and you risk:
+<ul>
+<li><strong>Lost updates</strong> to state (last writer wins).</li>
+<li><strong>Double-creation</strong> attempts (race conditions) and inconsistent state vs real infrastructure.</li>
+<li>Weird diffs where each run plans from a stale view.</li>
+</ul>
+</li>
+<li>Good practice: always use a backend with locking, enforce it in policy, and use CI to serialize applies per workspace/environment.</li>
+</ul>
+<hr>
+<h3 id="2--how-does-terraform-state-locking-work-internally-with-s3-and-dynamodb">2)  How does Terraform state locking work internally with S3 and DynamoDB?<a hidden class="anchor" aria-hidden="true" href="#2--how-does-terraform-state-locking-work-internally-with-s3-and-dynamodb">#</a></h3>
+<ul>
+<li><strong>S3 backend stores the state file</strong> (<code>terraform.tfstate</code>) as an object in a bucket (often versioned).</li>
+<li><strong>DynamoDB is used only for locking</strong> (and sometimes storing lock metadata), not for the state itself.</li>
+<li>When Terraform starts an operation that writes state (plan with <code>-out</code> doesn&rsquo;t write state; apply does), it:
+<ol>
+<li>Tries to <strong>acquire a lock</strong> by writing an item into the DynamoDB table with a <strong>conditional put</strong> (i.e., &ldquo;create only if not exists&rdquo;).</li>
+<li>The lock item contains metadata like <strong>operation</strong>, <strong>who</strong>, <strong>when</strong>, and an <strong>ID</strong>.</li>
+<li>If the conditional put fails, Terraform reports <strong>lock already held</strong>.</li>
+<li>On success, Terraform proceeds to read/modify state in S3, then <strong>releases</strong> the lock by deleting the DynamoDB item.</li>
+</ol>
+</li>
+<li>If a process crashes, the lock may remain and you may need <strong><code>terraform force-unlock &lt;LOCK_ID&gt;</code></strong> (with caution, ensuring no apply is still running).</li>
+</ul>
+<hr>
+<h3 id="3--what-are-the-risks-of-manually-editing-the-tfstate-file-and-how-would-you-recover-from-corruption">3)  What are the risks of manually editing the <code>.tfstate</code> file, and how would you recover from corruption?<a hidden class="anchor" aria-hidden="true" href="#3--what-are-the-risks-of-manually-editing-the-tfstate-file-and-how-would-you-recover-from-corruption">#</a></h3>
+<p><strong>Risks</strong></p>
+<ul>
+<li><strong>Breaking JSON structure</strong> (Terraform can&rsquo;t read it).</li>
+<li><strong>Incorrect resource addresses</strong> / instance keys (Terraform thinks resources are gone and may recreate/destroy).</li>
+<li><strong>Wrong attributes</strong> (provider sees drift and may attempt destructive changes).</li>
+<li><strong>Dependency/linkage damage</strong> (e.g., IDs, references, deposed objects).</li>
+<li><strong>Secrets exposure</strong> (state often contains sensitive values in plaintext unless protected).</li>
+</ul>
+<p><strong>Recovery</strong></p>
+<ul>
+<li>If using <strong>remote state with S3 versioning</strong>: restore a previous <strong>object version</strong> (best case).</li>
+<li>Use <strong><code>terraform state pull</code></strong> to get a copy, keep backups, and use <strong><code>terraform state push</code></strong> only when you&rsquo;re 100% sure.</li>
+<li>Prefer <strong><code>terraform state</code> commands</strong> over editing:
+<ul>
+<li><code>terraform state mv</code>, <code>rm</code>, <code>import</code>, <code>replace-provider</code>, etc.</li>
+</ul>
+</li>
+<li>If corruption is logical (state doesn&rsquo;t match reality):
+<ul>
+<li>Reconcile with <strong><code>terraform import</code></strong> to rebuild state.</li>
+</ul>
+</li>
+<li>For many resources, use automation (scripts) to re-import.</li>
+<li>If the state is fully unrecoverable:
+<ul>
+<li>Treat infrastructure as source of truth: <strong>import everything</strong>, then plan/apply carefully.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="4--how-do-you-design-terraform-architecture-for-multiple-environments-dev--qa--prod-in-a-scalable-way">4)  How do you design Terraform architecture for multiple environments (Dev / QA / Prod) in a scalable way?<a hidden class="anchor" aria-hidden="true" href="#4--how-do-you-design-terraform-architecture-for-multiple-environments-dev--qa--prod-in-a-scalable-way">#</a></h3>
+<p>A scalable pattern I like:</p>
+<ul>
+<li><strong>Single set of reusable modules</strong> (versioned) that define infrastructure building blocks.</li>
+<li><strong>One &ldquo;root module&rdquo; per environment</strong> that wires modules together and supplies env-specific variables.</li>
+<li><strong>Separate state per environment</strong> to avoid blast radius:
+<ul>
+<li>Separate <strong>backend key</strong> (S3 path) or separate <strong>workspace</strong> (I prefer separate state files/keys and often separate AWS accounts).</li>
+</ul>
+</li>
+<li><strong>Environment isolation</strong>:
+<ul>
+<li>Ideally separate cloud accounts/subscriptions/projects for Prod vs non-Prod.</li>
+</ul>
+</li>
+<li><strong>Config structure example</strong>
+<ul>
+<li><code>modules/</code> (reusable)</li>
+<li><code>envs/dev</code>, <code>envs/qa</code>, <code>envs/prod</code> (root modules)</li>
+</ul>
+</li>
+<li>Use <strong>CI/CD</strong> to run plan/apply with approvals, and <strong>policy checks</strong> (OPA/Sentinel) for guardrails.</li>
+<li>Avoid massive monolith state; consider <strong>layering</strong> (network, platform, app) with clear ownership and dependencies.</li>
+</ul>
+<hr>
+<h3 id="5--what-is-terraform-drift-how-do-you-detect-and-prevent-it-in-production">5)  What is Terraform drift? How do you detect and prevent it in production?<a hidden class="anchor" aria-hidden="true" href="#5--what-is-terraform-drift-how-do-you-detect-and-prevent-it-in-production">#</a></h3>
+<ul>
+<li>
+<p><strong>Drift</strong> is when <strong>real infrastructure changes outside Terraform</strong> so it no longer matches what Terraform expects (state + configuration).</p>
+<p><strong>Detect</strong></p>
+</li>
+<li>
+<p>Run <strong><code>terraform plan</code></strong> regularly in CI against the current state and config.</p>
+</li>
+<li>
+<p>Some teams run scheduled drift detection (daily) and alert if plan isn&rsquo;t empty.</p>
+</li>
+<li>
+<p>Cloud-native tools can help (AWS Config, Azure Policy) but Terraform plan is the canonical &ldquo;what would Terraform change?&rdquo; view.</p>
+<p><strong>Prevent</strong></p>
+</li>
+<li>
+<p>Tighten permissions: reduce who can change infra outside Terraform.</p>
+</li>
+<li>
+<p>Use policy-as-code to block risky changes.</p>
+</li>
+<li>
+<p>Make Terraform the <strong>single deployment path</strong> (GitOps for infra).</p>
+</li>
+<li>
+<p>For unavoidable out-of-band changes, document and <strong>import/update code</strong> quickly.</p>
+</li>
+</ul>
+<hr>
+<h3 id="6--explain-the-difference-between-count-and-for_each-why-cancount-be-dangerous-in-production">6)  Explain the difference between <code>count</code> and <code>for_each</code>. Why can<code>count</code> be dangerous in production?<a hidden class="anchor" aria-hidden="true" href="#6--explain-the-difference-between-count-and-for_each-why-cancount-be-dangerous-in-production">#</a></h3>
+<ul>
+<li><code>count</code> creates <strong>N instances indexed by number</strong>:
+<code>resource.foo[0]</code>, <code>resource.foo[1]</code>, etc.</li>
+<li><code>for_each</code> creates instances keyed by <strong>stable identifiers</strong> (map keys or set elements): <code>resource.foo[&quot;api&quot;]</code>.</li>
+</ul>
+<p><strong>Why <code>count</code> can be dangerous</strong> - If your <code>count</code> is derived from a <strong>list</strong>, and that list order changes (or an element is inserted/removed), indexes shift. - Terraform may interpret that as &ldquo;destroy index 2 and recreate index 2,&rdquo; causing <strong>unexpected replacements</strong>. - <code>for_each</code> with stable keys avoids index shifting and is safer for long-lived production resources.</p>
+<hr>
+<h3 id="7--how-would-you-migrate-terraform-state-from-local-backend-to-remote-backend-without-downtime">7)  How would you migrate Terraform state from local backend to remote backend without downtime?<a hidden class="anchor" aria-hidden="true" href="#7--how-would-you-migrate-terraform-state-from-local-backend-to-remote-backend-without-downtime">#</a></h3>
+<ul>
+<li>Configure the <strong>new backend</strong> in code (<code>backend &quot;s3&quot; { ... }</code>).</li>
+<li>Run: <strong><code>terraform init -migrate-state</code></strong>
+<ul>
+<li>Terraform copies local state into the remote backend.</li>
+</ul>
+</li>
+<li>Validate:
+<ul>
+<li><code>terraform state list</code> matches expectations</li>
+<li><code>terraform plan</code> shows <strong>no changes</strong></li>
+</ul>
+</li>
+<li>Downtime is not expected because you&rsquo;re not changing infrastructure&mdash;only where state lives. The real risk is <strong>concurrent writes</strong> during migration, so do it in a controlled
+window and ensure nobody else applies.</li>
+</ul>
+<hr>
+<h3 id="8--how-do-you-refactor-terraform-code-without-destroying-existing-infrastructure">8)  How do you refactor Terraform code without destroying existing infrastructure?<a hidden class="anchor" aria-hidden="true" href="#8--how-do-you-refactor-terraform-code-without-destroying-existing-infrastructure">#</a></h3>
+<p>Key principle: <strong>keep resource addresses stable</strong>, or move state addresses to match refactors.</p>
+<p>Tools/techniques:</p>
+<ul>
+<li>Use <strong><code>moved { from = ... to = ... }</code></strong> blocks (Terraform refactoring feature) to tell Terraform how addresses changed.</li>
+<li>Or use <strong><code>terraform state mv</code></strong> for older workflows.</li>
+<li>Refactor in small steps:
+<ul>
+<li>Move code, run plan, ensure no destroy/recreate.</li>
+</ul>
+</li>
+<li>When splitting monolith into modules:
+<ul>
+<li>Move resources into module code</li>
+<li>Use <code>moved</code> blocks to map old addresses → new module addresses.</li>
+</ul>
+</li>
+<li>Always review plan carefully; enforce &ldquo;no destroy&rdquo; policies unless explicitly intended.</li>
+</ul>
+<hr>
+<h3 id="9--what-are-lifecycle-meta-arguments-in-terraform-when-would-you-use-create_before_destroy-or-prevent_destroy">9)  What are lifecycle meta-arguments in Terraform? When would you use <code>create_before_destroy</code> or <code>prevent_destroy</code>?<a hidden class="anchor" aria-hidden="true" href="#9--what-are-lifecycle-meta-arguments-in-terraform-when-would-you-use-create_before_destroy-or-prevent_destroy">#</a></h3>
+<p>Lifecycle meta-arguments are per-resource behaviors that adjust how Terraform plans/applies, e.g.:</p>
+<ul>
+<li><code>create_before_destroy</code>:
+<ul>
+<li>Terraform will <strong>create the replacement first</strong> and only destroy the old after, when possible.</li>
+<li>Use for resources where downtime is unacceptable and the provider supports parallel existence (e.g., new ASG before deleting old).</li>
+<li>Watch out for name uniqueness constraints and capacity/cost during overlap.</li>
+</ul>
+</li>
+<li><code>prevent_destroy</code>:
+<ul>
+<li>Terraform will <strong>error</strong> if a plan includes destroying that resource.</li>
+<li>Use for &ldquo;must never delete&rdquo; resources: prod databases, critical KMS keys, foundational networking.</li>
+<li>It&rsquo;s a guardrail, not a substitute for backups and change control.</li>
+</ul>
+</li>
+</ul>
+<p>Other common ones: - <code>ignore_changes</code> for attributes managed externally (use sparingly; it can hide real drift).</p>
+<hr>
+<h3 id="10-how-do-you-securely-manage-secrets-in-terraform-best-practices">10) How do you securely manage secrets in Terraform? Best practices:<a hidden class="anchor" aria-hidden="true" href="#10-how-do-you-securely-manage-secrets-in-terraform-best-practices">#</a></h3>
+<ul>
+<li><strong>Avoid putting secrets in Terraform when possible</strong> (Terraform state can capture them).</li>
+<li>If you must:
+<ul>
+<li>Use a <strong>secrets manager</strong> (AWS Secrets Manager, SSM Parameter Store, Vault, etc.) and reference secrets at runtime.</li>
+<li>Mark variables <code>sensitive = true</code> (helps UI/logging, but <strong>does not fully protect state</strong>).</li>
+</ul>
+</li>
+<li>Protect state:
+<ul>
+<li>Remote backend with encryption (e.g., S3 SSE-KMS), tight IAM, bucket policies, and audit logs.</li>
+</ul>
+</li>
+<li>CI hygiene:
+<ul>
+<li>Don&rsquo;t echo secrets in logs.</li>
+<li>Use short-lived credentials (OIDC) rather than static keys.</li>
+</ul>
+</li>
+<li>Prefer patterns where Terraform provisions the <strong>secret container</strong> (Vault path, Secrets Manager secret) but applications fetch the secret dynamically.</li>
+</ul>
+<hr>
+<h3 id="11-how-does-terraform-handle-dependency-graphs-internally">11) How does Terraform handle dependency graphs internally?<a hidden class="anchor" aria-hidden="true" href="#11-how-does-terraform-handle-dependency-graphs-internally">#</a></h3>
+<ul>
+<li>Terraform builds a <strong>DAG (directed acyclic graph)</strong> of resources and data sources.</li>
+<li>Dependencies come from:
+<ul>
+<li><strong>References</strong> in expressions (e.g., <code>aws_subnet.foo.id</code>).</li>
+<li>Explicit <strong><code>depends_on</code></strong>.</li>
+<li>Implicit provider/meta dependencies.</li>
+</ul>
+</li>
+<li>The plan/apply walks the graph to:
+<ul>
+<li>Order operations correctly.</li>
+<li>Run <strong>parallel</strong> operations where no dependency exists (controlled via <code>-parallelism</code>).</li>
+</ul>
+</li>
+<li>This is why clean references are important; it lets Terraform parallelize safely and avoid brittle ordering hacks.</li>
+</ul>
+<hr>
+<h3 id="12-what-is-the-difference-between-terraform-refresh-plan-and-apply-in-terms-of-state-behavior">12) What is the difference between <code>terraform refresh</code>, <code>plan</code>, and <code>apply</code> in terms of state behavior?<a hidden class="anchor" aria-hidden="true" href="#12-what-is-the-difference-between-terraform-refresh-plan-and-apply-in-terms-of-state-behavior">#</a></h3>
+<ul>
+<li><strong><code>refresh</code></strong> (older/legacy standalone usage; modern Terraform often uses <code>refresh</code> behavior during plan):
+<ul>
+<li>Reads real infrastructure and <strong>updates state</strong> to match reality <strong>without changing infra</strong>.</li>
+</ul>
+</li>
+<li><strong><code>plan</code></strong>:
+<ul>
+<li>Compares config + current state + provider reads and produces an execution plan.</li>
+<li>By default it <strong>may refresh</strong> state during planning (depending on version/flags), but it <strong>does not change infra</strong>.</li>
+<li>If you use <code>-out</code>, it saves the plan file for a controlled apply.</li>
+</ul>
+</li>
+<li><strong><code>apply</code></strong>:
+<ul>
+<li>Executes the changes and then <strong>writes updated state</strong> reflecting what was created/changed/destroyed.</li>
+</ul>
+</li>
+</ul>
+<p><strong>In short:</strong> refresh updates state only; plan calculates intended changes;
+apply performs changes and writes state.</p>
+<hr>
+<h3 id="13-how-would-you-design-reusable-version-controlled-terraform-modules-for-enterprise-use">13) How would you design reusable, version-controlled Terraform modules for enterprise use?<a hidden class="anchor" aria-hidden="true" href="#13-how-would-you-design-reusable-version-controlled-terraform-modules-for-enterprise-use">#</a></h3>
+<ul>
+<li>Treat modules like products:
+<ul>
+<li>Clear inputs/outputs, documentation, examples.</li>
+</ul>
+</li>
+<li>Versioning:
+<ul>
+<li>Publish modules in a registry (private registry, Terraform Cloud registry, Git tags).</li>
+<li>Use <strong>semantic versioning</strong> and pin versions in consumers (<code>version = &quot;~&gt; 1.2&quot;</code> style).</li>
+</ul>
+</li>
+<li>Interface stability:
+<ul>
+<li>Avoid breaking variable changes; add new variables with defaults.</li>
+</ul>
+</li>
+<li>Validation and safety:
+<ul>
+<li><code>variable</code> validation blocks, sane defaults, strong typing.</li>
+<li>Opinionated guardrails inside modules (tags, encryption defaults, logging).</li>
+</ul>
+</li>
+<li>Testing:
+<ul>
+<li><code>terraform validate</code>, <code>tflint</code>, <code>tfsec</code>/Checkov, unit-ish tests with <code>terraform test</code> (where applicable), and integration tests in ephemeral environments.</li>
+</ul>
+</li>
+<li>Keep modules focused:
+<ul>
+<li>Small, composable modules beat &ldquo;god modules.&rdquo;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="14-how-do-you-perform-zero-downtime-updates-for-critical-infrastructure-using-terraform">14) How do you perform zero-downtime updates for critical infrastructure using Terraform?<a hidden class="anchor" aria-hidden="true" href="#14-how-do-you-perform-zero-downtime-updates-for-critical-infrastructure-using-terraform">#</a></h3>
+<ul>
+<li>Design infrastructure to support <strong>blue/green</strong> or <strong>rolling</strong> deployments:
+<ul>
+<li>Load balancers + target groups</li>
+<li>Auto-scaling groups, rolling updates, health checks</li>
+</ul>
+</li>
+<li>Terraform tactics:
+<ul>
+<li>Use <code>create_before_destroy</code> where it makes sense.</li>
+<li>Use immutable patterns (new launch template/version, shift traffic).</li>
+<li>Avoid in-place changes for resources that cause disruption (e.g., replace instead).</li>
+</ul>
+</li>
+<li>Separate &ldquo;platform&rdquo; from &ldquo;app&rdquo; layers:
+<ul>
+<li>Reduce the blast radius and make deploys smaller.</li>
+</ul>
+</li>
+<li>Always rely on health checks and staged rollouts:
+<ul>
+<li>Apply changes, verify health, then decommission old components.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="15-how-would-you-handle-a-situation-where-terraform-partially-created-resources-and-failed-midway">15) How would you handle a situation where Terraform partially created resources and failed midway?<a hidden class="anchor" aria-hidden="true" href="#15-how-would-you-handle-a-situation-where-terraform-partially-created-resources-and-failed-midway">#</a></h3>
+<ul>
+<li>First: <strong>don&rsquo;t rerun apply blindly</strong> until you understand what happened.</li>
+</ul>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Inspect error and logs: provider API limits, permissions, dependency issues, timeouts.</li>
+<li>Check current state:
+<ul>
+<li><code>terraform state list</code></li>
+<li><code>terraform plan</code> to see what Terraform <em>thinks</em> remains.</li>
+</ul>
+</li>
+<li>Reconcile reality vs state:
+<ul>
+<li>If resources were created but not recorded in state, you may need <strong><code>terraform import</code></strong>.</li>
+<li>If state has resources that didn&rsquo;t actually get created, you may need <code>terraform state rm</code> (carefully) or just re-apply if safe.</li>
+</ul>
+</li>
+<li>Fix the root cause (permissions, ordering, quotas) and then <strong>re-apply</strong>.</li>
+<li>For repeated partial failures, reduce parallelism or break changes into smaller applies.</li>
+</ol>
+<p><strong>Goal:</strong> converge to a consistent state where <strong>config ↔ state ↔ real infrastructure</strong> match, without accidental deletes.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
