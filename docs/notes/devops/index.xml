@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Devops Interview on My Tech Knowledge Notes</title>
+    <link>https://ankurs2494.github.io/techVeda/notes/devops/</link>
+    <description>Recent content in Devops Interview on My Tech Knowledge Notes</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ankurs2494.github.io/techVeda/notes/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DevOps Technical Interview</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/</link>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/</guid>
+      <description>&lt;p&gt;DevOps Technical Interview – Kubernetes, Architecture, Security &amp;amp; CI/CD&lt;/p&gt;
+&lt;p&gt;This document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.&lt;/p&gt;
+&lt;p&gt;Round 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals.
+Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.&lt;/p&gt;
+&lt;p&gt;The content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

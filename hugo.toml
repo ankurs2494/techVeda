@@ -30,6 +30,12 @@ url = "notes/networking/"
 identifier = "networking"
 weight = 10
 
+# Linux topic
+[[menu.main]]
+name = "Linux"
+url = "notes/linux/"
+identifier = "linux"
+weight = 10
 
 # System Design topic
 [[menu.main]]
@@ -50,4 +56,12 @@ weight = 10
 name = "Operations"
 url = "notes/operations/"
 identifier = "operations"
+weight = 10
+
+
+# devops Interview question
+[[menu.main]]
+name = "Devops"
+url = "notes/devops/"
+identifier = "devops"
 weight = 10

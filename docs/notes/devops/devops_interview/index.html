@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>DevOps Technical Interview | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="DevOps Technical Interview – Kubernetes, Architecture, Security &amp; CI/CD
+This document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.
+Round 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals.
+Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.
+The content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="DevOps Technical Interview">
+  <meta property="og:description" content="DevOps Technical Interview – Kubernetes, Architecture, Security &amp; CI/CD
+This document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.
+Round 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals. Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.
+The content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-02-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-28T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DevOps Technical Interview">
+<meta name="twitter:description" content="DevOps Technical Interview – Kubernetes, Architecture, Security &amp; CI/CD
+This document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.
+Round 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals.
+Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.
+The content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Devops Interview",
+      "item": "https://ankurs2494.github.io/techVeda/notes/devops/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "DevOps Technical Interview",
+      "item": "https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "DevOps Technical Interview",
+  "name": "DevOps Technical Interview",
+  "description": "DevOps Technical Interview – Kubernetes, Architecture, Security \u0026amp; CI/CD\nThis document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.\nRound 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals. Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.\nThe content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "DevOps Technical Interview – Kubernetes, Architecture, Security \u0026 CI/CD\nThis document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.\nRound 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals. Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.\nThe content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.\n⚠️ Important Note This document is intended for learning and interview preparation purposes only.\nInfrastructure designs, security configurations, and CI/CD practices should be thoroughly reviewed, tested, and adapted to your specific use case.\nDo not apply configurations directly to production systems without proper validation and risk assessment.\nRound 1: Kubernetes \u0026 Networking Foundation 1. What are the different types of services in Kubernetes? Explanation 1: Kubernetes has four types of services:\nClusterIP (default) — exposes the service on an internal IP within the cluster. Only accessible from within the cluster. Used for internal microservice communication. NodePort — exposes the service on each Node’s IP at a static port (range 30000–32767). External traffic can reach the service via :. It’s not production-friendly but useful for quick testing. LoadBalancer — provisions an external load balancer from the cloud provider (AWS ELB, GCP LB, etc.). It’s the standard way to expose services to the internet in cloud environments. Internally it also creates a NodePort and ClusterIP automatically. ExternalName — maps a service to a DNS name (like my-db.example.com). It doesn’t proxy traffic; it just returns a CNAME record. Useful for integrating external services into cluster DNS. Explanation 2: ClusterIP (Default):\nExposes the service on an internal IP within the cluster Only accessible from within the cluster Used for internal microservice communication NodePort:\nExposes the service on each Node’s IP at a static port (range 30000–32767) External traffic can reach the service via : Not production-friendly but useful for quick testing LoadBalancer:\nProvisions an external load balancer from the cloud provider (AWS ELB, GCP LB, etc.) Standard way to expose services to the internet in cloud environments Internally also creates a NodePort and ClusterIP automatically ExternalName:\nMaps a service to a DNS name (like my-db.example.com) Doesn’t proxy traffic — just returns a CNAME record Useful for integrating external services into cluster DNS 2. There is an EC2 instance in a public subnet; how will you migrate it to a private subnet? Explanation 1: Here’s how I approach it: First, I never do this blindly — I assess what the instance is serving. If it’s internet-facing, I need to ensure a load balancer or NAT gateway is ready before the move.\nThe Steps are:\ncreate a private subnet in the same VPC and AZ if it doesn’t exist, then configure a route table for that private subnet pointing outbound traffic to a NAT Gateway (placed in the public subnet). Then I stop the EC2 instance, go to the network interface settings, and — since AWS doesn’t allow directly moving an instance between subnets — I create an AMI snapshot of the instance, launch a new instance from that AMI into the private subnet with the same security groups and IAM role, and then terminate the old one. I update any Elastic IPs, DNS records, or target group registrations pointing to the old instance. If the instance had a public IP for inbound traffic, I place an Application Load Balancer in the public subnet and point it to the new private instance. This is actually the more secure and correct architecture.\nExplanation 2: Pre-Migration Assessment:\nNever do this blindly — assess what the instance is serving If internet-facing, ensure a Load Balancer or NAT Gateway is ready before the move Step-by-Step Migration:\nCreate a private subnet in the same VPC and AZ if it doesn’t exist Configure a route table for the private subnet pointing outbound traffic to a NAT Gateway (placed in the public subnet) Stop the EC2 instance Since AWS doesn’t allow directly moving an instance between subnets: Create an AMI snapshot of the instance Launch a new instance from that AMI into the private subnet with the same Security Groups and IAM role Terminate the old instance Update any Elastic IPs, DNS records, or Target Group registrations pointing to the old instance For Internet-Facing Instances:\nPlace an Application Load Balancer in the public subnet Point ALB to the new private instance This is the more secure and correct architecture 3. What is Ingress in Kubernetes, and why do we need it? Explanation 1: Ingress is a Kubernetes API object that manages external HTTP/HTTPS access to services within the cluster. It acts as a smart reverse proxy or a Layer 7 load balancer. Without Ingress, to expose 10 microservices externally, you’d need 10 LoadBalancer services — that means 10 cloud load balancers, which is expensive and unmanageable. Ingress solves this by using a single entry point with routing rules. For example, you can route api.example.com/users to the users-service and api.example.com/orders to the orders-service — all through one Ingress resource. It also handles TLS termination, so you manage SSL certificates in one place rather than at every service. Ingress requires an Ingress Controller to actually implement the rules — popular ones are NGINX Ingress Controller, AWS ALB Ingress Controller, and Traefik. The Ingress object itself is just a spec; the controller is what does the actual work.\nExplanation 2: What is Ingress:\nA Kubernetes API object that manages external HTTP/HTTPS access to services within the cluster Acts as a smart reverse proxy or Layer 7 load balancer Why We Need It:\nWithout Ingress, exposing 10 microservices externally requires 10 LoadBalancer services → 10 cloud load balancers → expensive and unmanageable Ingress provides a single entry point with path and host-based routing rules Example: api.example.com/users` → routes to users-service api.example.com/orders → routes to orders-service Handles TLS termination in one place rather than at every individual service Ingress Controller:\nIngress object is just a spec/definition — it does nothing on its own Requires an Ingress Controller to implement the rules Popular controllers: NGINX Ingress Controller, AWS ALB Ingress Controller, Traefik 4. Why should we use Kubernetes? What specific challenges does it solve? Explanation 1: Before Kubernetes, running containerized apps at scale was chaotic. Here’s what it concretely solves: Container orchestration — manually managing which container runs on which server doesn’t scale. Kubernetes schedules containers across nodes based on resource availability automatically. Self-healing — if a container crashes, Kubernetes restarts it. If a node dies, it reschedules pods on healthy nodes. No manual intervention needed at 3 AM. Horizontal scaling — with HPA (Horizontal Pod Autoscaler), it scales pods up and down based on CPU, memory, or custom metrics automatically. Rolling deployments and rollbacks — you can deploy new versions with zero downtime and roll back instantly if something goes wrong. Service discovery and load balancing — services find each other via DNS names within the cluster without hardcoding IPs. Configuration and secret management — ConfigMaps and Secrets decouple config from code, which is a twelve-factor app principle. Resource efficiency — bin packing across nodes means you use your infrastructure more efficiently compared to dedicated VMs per service. In short, Kubernetes lets small teams operate large-scale, resilient infrastructure that previously required massive ops teams.\nExplanation 2: Container Orchestration:\nManually managing which container runs on which server doesn’t scale Kubernetes automatically schedules containers across nodes based on resource availability Self-Healing:\nIf a container crashes → Kubernetes automatically restarts it If a node dies → reschedules pods on healthy nodes No manual intervention needed at 3 AM Horizontal Scaling:\nHPA (Horizontal Pod Autoscaler) scales pods up and down automatically Based on CPU, memory, or custom metrics Rolling Deployments \u0026 Rollbacks:\nDeploy new versions with zero downtime Instant rollback if something goes wrong Service Discovery \u0026 Load Balancing:\nServices find each other via DNS names within the cluster No hardcoding of IPs required Configuration \u0026 Secret Management:\nConfigMaps and Secrets decouple configuration from code Follows the twelve-factor app principle Resource Efficiency:\nBin packing across nodes means better infrastructure utilization Compared to dedicated VMs per service — significant cost savings Kubernetes lets small teams operate large-scale, resilient infrastructure that previously required massive ops teams.\n5. Explain the detailed flow: How does a user request travel from a browser to a Kubernetes cluster? Explanation 1: This is end-to-end and I’ll walk through every layer: The user types https://app.example.com in the browser. DNS resolves that domain to the IP of a cloud Load Balancer (like AWS ALB or NLB). This load balancer sits outside the cluster in the public subnet. The load balancer forwards the request to the Ingress Controller pod running inside the cluster — typically NGINX or ALB controller. The Ingress Controller evaluates the host and path rules defined in the Ingress resource and determines which backend Service to forward to. The request hits the Kubernetes Service (ClusterIP). The Service uses iptables rules (managed by kube-proxy on each node) or IPVS to load balance across healthy Pod endpoints. It selects one of the matching pods based on the selector labels. The request reaches the application Pod — the container inside processes it, queries a database or other internal service if needed, and sends a response back through the same chain. TLS termination typically happens at the Ingress Controller layer, so the internal cluster traffic can be plain HTTP.\nExplanation 2: Step 1 — DNS Resolution:\nUser types https://app.example.com in the browser DNS resolves the domain to the IP of a cloud Load Balancer (AWS ALB or NLB) Load Balancer sits outside the cluster in the public subnet Step 2 — Ingress Controller:\nLoad Balancer forwards the request to the Ingress Controller pod inside the cluster (NGINX or ALB Controller) Ingress Controller evaluates host and path rules defined in the Ingress resource Determines which backend Serviceto forward the request to Step 3 — Kubernetes Service (ClusterIP):**\nRequest hits the ClusterIP Service Service uses iptables rules (managed by kube-proxy) or IPVS to load balance across healthy Pod endpoints Selects one of the matching pods based on selector labels Step 4 — Application Pod:\nRequest reaches the application Pod Container processes the request Queries a database or other internal services if needed Sends response back through the same chain Step 5 — TLS Termination:\nTLS termination happens at the Ingress Controller layer Internal cluster traffic can be plain HTTP 6. What happens internally when you run kubectl apply -f deployment.yaml? Explanation 1: This is a great question that tests deep Kubernetes knowledge. kubectl reads the YAML file and sends an HTTP PATCH or POST request to the kube-apiserver REST API endpoint. Before processing, the API server performs authentication (who are you — via kubeconfig cert or token), authorization (are you allowed — via RBAC), and admission control (mutating webhooks may modify the object, validating webhooks may reject it). The API server validates the object schema and then persists the desired state to etcd — the cluster’s key-value store. This is the source of truth. The Deployment Controller inside the kube-controller-manager is watching etcd for Deployment changes. It detects the new or updated Deployment and creates or updates a ReplicaSet to match the desired replica count. The ReplicaSet Controller then ensures the correct number of Pods exist. It creates Pod objects in etcd with status “Pending.” The kube-scheduler is watching for unscheduled pods. It evaluates all nodes based on resource requests, node selectors, taints/tolerations, and affinity rules, then assigns the pod to the most suitable node by writing the node name to the Pod spec in etcd. The kubelet on the selected node is watching the API server for pods assigned to its node. It sees the new pod, calls the Container Runtime (containerd or Docker) via the CRI interface to pull the image and start the container. It also sets up networking via the CNI plugin (like Calico or Flannel), which assigns a pod IP. The kubelet then continuously reports pod status back to the API server, and the pod transitions from Pending → ContainerCreating → Running. That entire flow — from your command to a running container — typically completes in seconds.\nExplanation 2: Step 1 — kubectl sends API Request:\nkubectl reads the YAML file Sends an HTTP PATCH or POST request to the kube-apiserver REST API endpoint Step 2 — API Server Validation (3 stages):\nAuthentication — Who are you? (via kubeconfig cert or token) Authorization — Are you allowed? (via RBAC) Admission Control — Mutating webhooks may modify the object; Validating webhooks may reject it Step 3 — Persisted to etcd:\nAPI server validates the object schema Persists the desired state to etcd — the cluster’s key-value store and single source of truth Step 4 — Deployment Controller:\nDeployment Controller inside kube-controller-manager watches etcd for Deployment changes Detects the new/updated Deployment Creates or updates a ReplicaSet to match the desired replica count Step 5 — ReplicaSet Controller:\nEnsures the correct number of Pods exist Creates Pod objects in etcd with status “Pending” Step 6 — kube-scheduler:\nWatches for unscheduled pods Evaluates all nodes based on resource requests, node selectors, taints/tolerations, and affinity rules Assigns the pod to the most suitable node by writing the node name to the Pod spec in etcd Step 7 — kubelet:\nkubelet on the selected node watches the API server for pods assigned to its node Calls the Container Runtime (containerd or Docker) via CRI interface to pull the image and start the container Sets up networking via CNI plugin (Calico or Flannel) which assigns a Pod IP Step 8 — Pod Status Update:\nkubelet continuously reports pod status back to the API server Pod transitions: Pending → ContainerCreating → Running The entire flow — from your kubectl command to a running container — typically completes in seconds.\nRound 2: Architecture, Security \u0026 CI/CD 1. What is the difference between an API Gateway and Kubernetes Ingress? Explanation 1: Both sit at the edge and route traffic, but they operate at fundamentally different layers and solve different problems. Kubernetes Ingress is a cluster-internal construct. It operates at Layer 7 and handles HTTP/HTTPS routing to services within the cluster based on host and path rules. It’s lightweight, Kubernetes-native, and managed via YAML manifests. It has no concept of authentication, rate limiting, or API monetization out of the box. API Gateway (like AWS API Gateway, Kong, or Apigee) is a full-featured API management platform. It handles authentication and authorization (OAuth, JWT, API keys), rate limiting and throttling, request/response transformation, caching, usage analytics, and developer portals. It sits in front of your entire backend, which could be Lambda, EC2, ECS, or even a Kubernetes cluster. In real architectures I’ve built, both are used together — API Gateway handles cross-cutting concerns like auth and rate limiting at the edge, then routes to an ALB which hits the Ingress Controller inside the cluster. Ingress then handles internal service routing. Each does what it’s best at.\nExplanation 2: Kubernetes Ingress:\nCluster-internal construct operating at Layer 7 Handles HTTP/HTTPS routing to services within the cluster based on host and path rules Lightweight, Kubernetes-native, managed via YAML manifests No built-in authentication, rate limiting, or API monetization Managed by an Ingress Controller (NGINX, AWS ALB Controller, Traefik) API Gateway (AWS API Gateway, Kong, Apigee):\nFull-featured API management platform Handles Authentication \u0026 Authorization (OAuth, JWT, API keys) Provides rate limiting, throttling, request/response transformation Built-in caching, usage analytics, and developer portals Sits in front of entire backend — Lambda, EC2, ECS, or Kubernetes Real-world usage:\nBoth are used together in production API Gateway handles cross-cutting concerns at the edge → routes to ALB → hits Ingress Controller → internal service routing Each tool does what it does best 2. How would you build a highly available and scalable architecture on AWS? Explanation 1: I’ll describe the architecture I’ve built and recommend in production environments. Networking foundation — a VPC spanning at least two (ideally three) Availability Zones. Public subnets host load balancers and NAT Gateways. Private subnets host application servers. Isolated subnets host databases. Never put application or database servers in a public subnet. Traffic entry — Route 53 for DNS with health check-based failover. An Application Load Balancer in public subnets across multiple AZs. The ALB terminates SSL using ACM certificates. Compute layer — EC2 instances inside an Auto Scaling Group spread across multiple AZs, with target tracking policies based on CPU or request count. If containerized, I use EKS with managed node groups or Fargate for serverless pods. Database layer — RDS with Multi-AZ deployment for automatic failover, or Aurora which is inherently multi-AZ with up to 15 read replicas. ElastiCache (Redis) in cluster mode for session management and caching. Storage — S3 with versioning and cross-region replication for static assets. EFS for shared file systems across instances. Observability — CloudWatch for metrics and alarms, CloudWatch Logs Insights for log analysis, X-Ray for distributed tracing. I also set up dashboards in Grafana pulling from CloudWatch. Security — WAF attached to the ALB, Security Groups with least-privilege rules, IAM roles instead of access keys for EC2, secrets in AWS Secrets Manager, and VPC Flow Logs enabled. The result is an architecture with no single point of failure at any layer.\nExplanation 2: Networking Foundation:\nVPC spanning minimum 2 AZs (ideally 3) Public subnets → Load Balancers \u0026 NAT Gateways Private subnets → Application Servers Isolated subnets → Databases Never expose app or DB servers in public subnets Traffic Entry:\nRoute 53 for DNS with health check-based failover Application Load Balancer (ALB) in public subnets across multiple AZs SSL termination at ALB using ACM certificates Compute Layer:\nEC2 inside Auto Scaling Groups spread across AZs Target tracking policies based on CPU or request count For containers → EKS with managed node groups or Fargate for serverless pods Database Layer:\nRDS Multi-AZ for automatic failover Aurora — inherently multi-AZ with up to 15 read replicas ElastiCache (Redis) in cluster mode for session management and caching Storage:\nS3 with versioning and cross-region replication for static assets EFS for shared file systems across instances Observability:\nCloudWatch for metrics, alarms, and log analysis X-Ray for distributed tracing Grafana dashboards pulling from CloudWatch Security:\nWAF attached to the ALB Security Groups with least-privilege rules IAM roles instead of access keys on EC2 Secrets stored in AWS Secrets Manager VPC Flow Logs enabled 3. What is the difference between a NAT Instance and a NAT Gateway? Explanation 1: A NAT Instance is a regular EC2 instance configured to do Network Address Translation. You manage it yourself — patching, scaling, high availability, and you must disable source/destination checks on it. It’s a single point of failure unless you build your own HA setup with scripts and Elastic IPs. The only reason to use it today is cost — in very low-traffic environments it can be cheaper. A NAT Gateway is a fully managed AWS service. AWS handles availability, scaling (up to 45 Gbps), patching, and redundancy within a single AZ. You don’t manage any underlying infrastructure. For high availability across AZs, you deploy one NAT Gateway per AZ — each private subnet’s route table points to the NAT Gateway in its own AZ to avoid cross-AZ data transfer costs. In production, I always use NAT Gateway. The operational overhead of managing a NAT Instance is not worth the marginal cost savings. I’ve seen teams burn engineering hours debugging a failed NAT Instance at 2 AM — NAT Gateway eliminates that class of problem.\nExplanation 2: Feature NAT Instance NAT Gateway Management Self-managed EC2 instance Fully managed by AWS Availability Single point of failure (unless you design HA) Highly available within an AZ Scaling Manual scaling (change instance type) Automatically scales (up to ~45 Gbps) Patching You must handle OS updates \u0026 security patches AWS handles maintenance \u0026 updates Cost Cheaper at low traffic Higher cost but predictable billing Source/Dest Check Must disable manually Not required Best Practice:\nAlways use NAT Gateway in production Deploy one NAT Gateway per AZ — each private subnet’s route table points to NAT Gateway in its own AZ to avoid cross-AZ data transfer costs NAT Instances are only justifiable for extreme cost optimization in non-critical, low-traffic environments 4. What is SonarQube? How do you integrate it with Jenkins, and what real-life issues have you faced during integration? Explanation 1: What it is — SonarQube is a static code analysis platform that measures code quality across dimensions like bugs, vulnerabilities, code smells, duplications, test coverage, and technical debt. It enforces quality gates that can block deployments if thresholds aren’t met. Integration with Jenkins — I install the SonarQube Scanner plugin in Jenkins and configure the SonarQube server URL and authentication token in Jenkins global settings. In the pipeline, I add a stage that runs the scanner. For a Java/Maven project it looks roughly like running mvn sonar:sonar with the project key and server URL passed as parameters. After the scan, I add a waitForQualityGate() Step that pauses the pipeline and fails the build if the quality gate doesn’t pass.\nReal issues I’ve faced:\nThe most common one is quality gate failures blocking releases when SonarQube is introduced to a legacy codebase. The code has thousands of pre-existing issues and everything fails on day one. The fix is to use the “New Code” baseline feature — you only gate on issues introduced in new code, and create a separate tech debt reduction backlog for legacy issues. Another issue was test coverage drops causing false failures. A developer would delete a test file while refactoring and coverage would drop below the threshold, breaking unrelated pipelines. We solved this by setting coverage thresholds at the project level carefully and adding coverage trend monitoring rather than absolute thresholds initially. I also faced scanner timeout issues on large monorepos. The scanner was timing out in Jenkins because the analysis was taking 20+ minutes. We solved it by running the scan in parallel with tests rather than sequentially, and by excluding auto-generated code directories from analysis. Finally, token expiration in SonarQube would silently break the integration. The Jenkins job would fail with an authentication error mid-pipeline. We solved this by storing the token in Jenkins credentials with a rotation reminder and adding clear error handling to catch auth failures specifically.\nExplanation 2: What is SonarQube:\nStatic code analysis platform measuring code quality Tracks bugs, vulnerabilities, code smells, duplications, test coverage, and technical debt Enforces Quality Gates that can block deployments if thresholds aren’t met Jenkins Integration Steps:\nInstall SonarQube Scanner plugin in Jenkins Configure SonarQube server URL and auth token in Jenkins global settings Add a scan stage in the pipeline (e.g., mvn sonar:sonar for Maven projects) Use waitForQualityGate() step to pause pipeline and fail build if quality gate doesn’t pass Real Issues Faced:\nQuality gate failures on legacy codebases — thousands of pre-existing issues cause everything to fail on day one\nFix: Use “New Code” baseline — gate only on issues in new code, create separate tech debt backlog for legacy issues Test coverage drops causing false failures — deleting a test file drops coverage below threshold, breaking unrelated pipelines\nFix: Set coverage thresholds carefully, monitor coverage trends rather than hard absolute thresholds initially Scanner timeouts on large monorepos — analysis taking 20+ minutes causing Jenkins job timeouts\nFix: Run scan in parallel with tests, exclude auto-generated code directories from analysis Token expiration silently breaking integration — Jenkins jobs fail mid-pipeline with auth errors\nFix: Store token in Jenkins credentials with rotation reminders, add explicit error handling to catch auth failures 5. What are the different Routing Policies available in Route 53? Explanation 1: Simple Routing — one record, one or more IP values returned randomly. No health checks. Used for single resources. Weighted Routing — distribute traffic across multiple resources by percentage. I use this for canary deployments — send 5% of traffic to the new version, monitor, then gradually increase. Latency-based Routing — routes users to the AWS region that provides the lowest latency. Route 53 measures latency between the user’s location and AWS regions and picks the best one automatically. Failover Routing — active-passive setup. Primary record serves traffic normally; if its health check fails, Route 53 automatically routes to the secondary. Used for disaster recovery. Geolocation Routing — routes based on the geographic location of the user (country or continent level). Useful for serving region-specific content or complying with data residency laws. Different from latency-based — it’s about location, not speed. Geoproximity Routing — routes based on geographic location of both users and resources, with a bias value you can adjust to shift more or less traffic toward a region. Available through Traffic Flow. Multivalue Answer Routing — like Simple but returns multiple values with health checks. Up to 8 healthy records returned per query. It’s not a replacement for a load balancer but provides basic client-side load balancing. IP-based Routing — routes traffic based on the CIDR block of the client’s IP. Useful when you know your users’ IP ranges and want to send them to specific endpoints.\nExplanation 2: Routing Policy What It Does Use Case Simple Returns a single record or multiple IPs randomly (no health checks by default) Single resource, basic DNS routing Weighted Distributes traffic by assigned percentage across multiple resources Canary deployments, A/B testing Latency-Based Routes users to the region with the lowest network latency Multi-region performance optimization Failover Active-passive setup; routes to secondary if primary health check fails Disaster Recovery (DR) Geolocation Routes traffic based on user’s country or continent Region-specific content, data residency compliance Geoproximity Routes based on user location and resource location with adjustable bias Traffic shifting between regions Multi-Value Answer Returns multiple healthy records for basic client-side load balancing Lightweight redundancy (not a replacement for ALB) IP-Based Routing Routes traffic based on client’s IP address or CIDR range Direct specific IP ranges to dedicated endpoints 6. Explain the request flow from a Load Balancer to an EC2 web server. Explanation 1: The client sends an HTTP/HTTPS request to the ALB’s DNS name, which resolves to one of the ALB’s nodes across AZs. The ALB terminates the TLS connection using the ACM certificate — decrypting the traffic. It then evaluates listener rules top to bottom — checking host headers, path patterns, query strings — and determines which Target Group to forward the request to. The ALB performs a health check against registered EC2 instances and only routes to healthy ones. It selects a target using its load balancing algorithm (round-robin for HTTP, least-outstanding-requests is also available) and forwards the request. The ALB preserves or rewrites headers as configured — importantly, it adds X-Forwarded-For with the client’s real IP, since from the EC2’s perspective the request comes from the ALB’s IP. The request arrives at the EC2 instance’s Security Group — which must have an inbound rule allowing traffic from the ALB’s Security Group (not from 0.0.0.0/0, that’s a common misconfiguration I always fix). The web server (Nginx, Apache) processes the request and sends the response back to the ALB, which forwards it to the client. If HTTPS is used end-to-end, I configure the ALB to use HTTPS to the backend as well, with the instance’s own certificate — this is end-to-end encryption in transit.\nExplanation 2: Step 1 — DNS Resolution: Client sends request to ALB’s DNS name → resolves to one of the ALB nodes across AZs\nStep 2 — TLS Termination: ALB decrypts HTTPS traffic using ACM certificate\nStep 3 — Listener Rule Evaluation: ALB evaluates rules top-to-bottom — checks host headers, path patterns, query strings — determines the target Target Group\nStep 4 — Health Check: ALB only routes to instances that are passing health checks\nStep 5 — Target Selection: Selects a healthy EC2 instance using round-robin or least-outstanding-requests algorithm\nStep 6 — Header Injection: ALB adds X-Forwarded-For header with the real client IP before forwarding\nStep 7 — Security Group Check: EC2’s Security Group must allow inbound traffic from ALB’s Security Group (not 0.0.0.0/0 — a common misconfiguration)\nStep 8 — Web Server Processing: Nginx/Apache processes the request and sends response back to ALB → forwarded to client\nEnd-to-End Encryption: For full HTTPS, configure ALB to use HTTPS to backend as well with the instance’s own certificate\n7. How can you migrate a web server hosted on an EC2 instance to another AWS region? Explanation 1: My approach follows a structured migration with zero-downtime as the goal. First, I create an AMI of the source EC2 instance — this captures the OS, application code, and configuration. I then copy that AMI to the target region using the copy-image API. AMIs are region-specific so this step is mandatory. In the target region, I set up the full networking stack first — VPC, subnets, route tables, Internet Gateway, Security Groups mirroring the source region’s setup. If I’m using Infrastructure as Code (which I always do), I just run the same Terraform with the new region as the target, which makes this nearly instant. I launch a new EC2 instance from the copied AMI in the target region, assign appropriate IAM roles, and configure any environment-specific settings — like updating database connection strings to point to a new RDS instance in the target region or to a global Aurora cluster. For data migration, if there’s a database, I use RDS snapshot copy for the same cross-region copy process, or AWS DMS for live migration with minimal downtime. For S3 assets, I enable cross-region replication. Once the target environment is validated and tested, I use Route 53 weighted routing to shift traffic gradually — 10% to new region, monitor error rates and latency, then increase to 50%, then 100%. This gives me an easy rollback path at any point. Once I’m confident, I remove the old region’s weight and eventually terminate the source resources.\nExplanation 2: Step 1 — Create AMI:\nCreate an AMI of the source EC2 instance (captures OS, app code, configuration) Copy AMI to target region using copy-image API (AMIs are region-specific) Step 2 — Setup Networking in Target Region:\nCreate VPC, subnets, route tables, IGW, and Security Groups mirroring source region If using Terraform, run same code with new region as target — nearly instant Step 3 — Launch New Instance:\nLaunch EC2 from copied AMI in target region Assign appropriate IAM roles Update environment-specific configs (DB connection strings, endpoints) Step 4 — Data Migration:\nRDS → Use RDS snapshot cross-region copy or AWS DMS for live migration S3 → Enable cross-region replication Step 5 — Validation:\nFully test the target environment before shifting any traffic Step 6 — Traffic Cutover (Zero Downtime):\nUse Route 53 Weighted Routing to gradually shift traffic 10% → new region, monitor error rates and latency Increase to 50% → then 100% Easy rollback at any point by adjusting weights Once stable → remove old region weight → terminate source resources 8. How do you handle “Infrastructure Drift” when using Terraform? Explanation 1: Infrastructure drift happens when the actual state of your cloud resources diverges from what Terraform believes it to be — usually because someone made a manual change in the console, or a cloud service auto-modified a resource. My first line of defense is prevention. I enforce a policy that no one touches infrastructure outside of Terraform. IAM permissions are restricted so most team members can’t make manual changes to production resources directly. All changes go through pull requests against the Terraform codebase. For detection, I run terraform plan in a scheduled CI/CD pipeline — even when no code has changed — and alert on any non-empty plan output. I’ve also used tools like Atlantis which runs plans automatically on PRs and Driftctl which specifically scans for drift and gives a detailed drift report. AWS Config with custom rules is another layer that catches configuration deviations. When drift is detected, I have two options depending on context. If the manual change was valid and needs to be kept, I use terraform import to bring the resource under Terraform management and update the code to match. If the drift is unauthorized or incorrect, I run terraform apply to reconcile state back to the desired configuration, effectively reverting the manual change. For state file integrity, I store the Terraform state in S3 with versioning enabled and DynamoDB for state locking — this prevents concurrent applies that could corrupt state, which is another form of drift. I never let developers have write access to the state file directly. The key principle is treating Terraform state as the single source of truth and building guardrails around it operationally and technically.\nExplanation 2: Prevention (First Line of Defense):\nEnforce policy — no manual changes outside of Terraform Restrict IAM permissions so team members cannot make manual changes to production resources All infrastructure changes go through Pull Requests against Terraform codebase Detection:\nRun terraform plan on a scheduled CI/CD pipeline even with no code changes — alert on any non-empty plan output Use Atlantis — auto-runs plans on PRs Use Driftctl — specifically scans for drift and generates detailed drift reports AWS Config with custom rules as an additional detection layer Remediation:\nIf manual change was valid and needs to be kept → use terraform import to bring resource under Terraform management and update code to match If drift is unauthorized or incorrect → run terraform apply to reconcile state back to desired configuration State File Best Practices:\nStore Terraform state in S3 with versioning enabled Use DynamoDB for state locking — prevents concurrent applies that could corrupt state Never give developers direct write access to the state file Treat Terraform state as the single source of truth with operational and technical guardrails around it ",
+  "wordCount" : "5611",
+  "inLanguage": "en",
+  "datePublished": "2026-02-28T00:00:00Z",
+  "dateModified": "2026-02-28T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/devops/">Devops Interview</a></div>
+    <h1 class="post-title entry-hint-parent">
+      DevOps Technical Interview
+    </h1>
+    <div class="post-meta"><span title='2026-02-28 00:00:00 +0000 UTC'>February 28, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>DevOps Technical Interview – Kubernetes, Architecture, Security &amp; CI/CD</p>
+<p>This document captures a two-round DevOps technical interview covering Kubernetes fundamentals, networking concepts, AWS architecture design, security best practices, and CI/CD integration.</p>
+<p>Round 1 focuses on Kubernetes services, ingress, networking flow, and cluster internals.
+Round 2 expands into high-availability AWS architecture, routing strategies, infrastructure migration, SonarQube integration, and Terraform drift management.</p>
+<p>The content reflects real-world DevOps experience with production-grade systems and cloud-native best practices.</p>
+<hr>
+<h2 id="-important-note">⚠️ Important Note<a hidden class="anchor" aria-hidden="true" href="#-important-note">#</a></h2>
+<p>This document is intended for learning and interview preparation purposes only.<br>
+Infrastructure designs, security configurations, and CI/CD practices should be thoroughly reviewed, tested, and adapted to your specific use case.</p>
+<p>Do not apply configurations directly to production systems without proper validation and risk assessment.</p>
+<hr>
+<h2 id="round-1-kubernetes--networking-foundation">Round 1: Kubernetes &amp; Networking Foundation<a hidden class="anchor" aria-hidden="true" href="#round-1-kubernetes--networking-foundation">#</a></h2>
+<hr>
+<h3 id="1-what-are-the-different-types-of-services-in-kubernetes">1. What are the different types of services in Kubernetes?<a hidden class="anchor" aria-hidden="true" href="#1-what-are-the-different-types-of-services-in-kubernetes">#</a></h3>
+<h3 id="explanation-1"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1">#</a></h3>
+<p><strong>Kubernetes has four types of services:</strong></p>
+<ul>
+<li>ClusterIP (default) — exposes the service on an internal IP within the cluster. Only accessible from within the cluster. Used for internal microservice communication.</li>
+<li>NodePort — exposes the service on each Node&rsquo;s IP at a static port (range 30000–32767). External traffic can reach the service via <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. It&rsquo;s not production-friendly but useful for quick testing.</li>
+<li>LoadBalancer — provisions an external load balancer from the cloud provider (AWS ELB, GCP LB, etc.). It&rsquo;s the standard way to expose services to the internet in cloud environments. Internally it also creates a NodePort and ClusterIP automatically.</li>
+<li>ExternalName — maps a service to a DNS name (like my-db.example.com). It doesn&rsquo;t proxy traffic; it just returns a CNAME record. Useful for integrating external services into cluster DNS.</li>
+</ul>
+<h3 id="explanation-2"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2">#</a></h3>
+<p><strong>ClusterIP (Default):</strong></p>
+<ul>
+<li>Exposes the service on an internal IP within the cluster</li>
+<li>Only accessible from within the cluster</li>
+<li>Used for internal microservice communication</li>
+</ul>
+<p><strong>NodePort:</strong></p>
+<ul>
+<li>Exposes the service on each Node&rsquo;s IP at a static port (range 30000–32767)</li>
+<li>External traffic can reach the service via <NodeIP>:<NodePort></li>
+<li>Not production-friendly but useful for quick testing</li>
+</ul>
+<p><strong>LoadBalancer:</strong></p>
+<ul>
+<li>Provisions an external load balancer from the cloud provider (AWS ELB, GCP LB, etc.)</li>
+<li>Standard way to expose services to the internet in cloud environments</li>
+<li>Internally also creates a NodePort and ClusterIP automatically</li>
+</ul>
+<p><strong>ExternalName:</strong></p>
+<ul>
+<li>Maps a service to a DNS name (like my-db.example.com)</li>
+<li>Doesn&rsquo;t proxy traffic — just returns a CNAME record</li>
+<li>Useful for integrating external services into cluster DNS</li>
+</ul>
+<hr>
+<h3 id="2-there-is-an-ec2-instance-in-a-public-subnet-how-will-you-migrate-it-to-a-private-subnet">2. There is an EC2 instance in a public subnet; how will you migrate it to a private subnet?<a hidden class="anchor" aria-hidden="true" href="#2-there-is-an-ec2-instance-in-a-public-subnet-how-will-you-migrate-it-to-a-private-subnet">#</a></h3>
+<h3 id="explanation-1-1"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-1">#</a></h3>
+<p><strong>Here&rsquo;s how I approach it:</strong>
+First, I never do this blindly — I assess what the instance is serving. If it&rsquo;s internet-facing, I need to ensure a load balancer or NAT gateway is ready before the move.</p>
+<p><strong>The Steps are:</strong><br>
+create a private subnet in the same VPC and AZ if it doesn&rsquo;t exist, then configure a route table for that private subnet pointing outbound traffic to a NAT Gateway (placed in the public subnet). Then I stop the EC2 instance, go to the network interface settings, and — since AWS doesn&rsquo;t allow directly moving an instance between subnets — I create an AMI snapshot of the instance, launch a new instance from that AMI into the private subnet with the same security groups and IAM role, and then terminate the old one. I update any Elastic IPs, DNS records, or target group registrations pointing to the old instance.
+If the instance had a public IP for inbound traffic, I place an Application Load Balancer in the public subnet and point it to the new private instance. This is actually the more secure and correct architecture.</p>
+<h3 id="explanation-2-1"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-1">#</a></h3>
+<p><strong>Pre-Migration Assessment:</strong></p>
+<ul>
+<li>Never do this blindly — assess what the instance is serving</li>
+<li>If internet-facing, ensure a Load Balancer or NAT Gateway is ready before the move</li>
+</ul>
+<p><strong>Step-by-Step Migration:</strong></p>
+<ul>
+<li>Create a private subnet in the same VPC and AZ if it doesn&rsquo;t exist</li>
+<li>Configure a route table for the private subnet pointing outbound traffic to a NAT Gateway (placed in the public subnet)</li>
+<li>Stop the EC2 instance</li>
+<li>Since AWS doesn&rsquo;t allow directly moving an instance between subnets:
+<ul>
+<li>Create an AMI snapshot of the instance</li>
+<li>Launch a new instance from that AMI into the private subnet with the same Security Groups and IAM role</li>
+<li>Terminate the old instance</li>
+</ul>
+</li>
+<li>Update any Elastic IPs, DNS records, or Target Group registrations pointing to the old instance</li>
+</ul>
+<p><strong>For Internet-Facing Instances:</strong></p>
+<ul>
+<li>Place an Application Load Balancer in the public subnet</li>
+<li>Point ALB to the new private instance</li>
+<li>This is the more secure and correct architecture</li>
+</ul>
+<hr>
+<h3 id="3-what-is-ingress-in-kubernetes-and-why-do-we-need-it">3. What is Ingress in Kubernetes, and why do we need it?<a hidden class="anchor" aria-hidden="true" href="#3-what-is-ingress-in-kubernetes-and-why-do-we-need-it">#</a></h3>
+<h3 id="explanation-1-2"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-2">#</a></h3>
+<p>Ingress is a Kubernetes API object that manages external HTTP/HTTPS access to services within the cluster. It acts as a smart reverse proxy or a Layer 7 load balancer.
+Without Ingress, to expose 10 microservices externally, you&rsquo;d need 10 LoadBalancer services — that means 10 cloud load balancers, which is expensive and unmanageable. Ingress solves this by using a single entry point with routing rules.
+For example, you can route api.example.com/users to the users-service and api.example.com/orders to the orders-service — all through one Ingress resource. It also handles TLS termination, so you manage SSL certificates in one place rather than at every service.
+Ingress requires an Ingress Controller to actually implement the rules — popular ones are NGINX Ingress Controller, AWS ALB Ingress Controller, and Traefik. The Ingress object itself is just a spec; the controller is what does the actual work.</p>
+<h3 id="explanation-2-2"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-2">#</a></h3>
+<p><strong>What is Ingress:</strong></p>
+<ul>
+<li>A Kubernetes API object that manages external HTTP/HTTPS access to services within the cluster</li>
+<li>Acts as a smart reverse proxy or Layer 7 load balancer</li>
+</ul>
+<p><strong>Why We Need It:</strong></p>
+<ul>
+<li>Without Ingress, exposing 10 microservices externally requires 10 LoadBalancer services → 10 cloud load balancers → expensive and unmanageable</li>
+<li>Ingress provides a single entry point with path and host-based routing rules</li>
+<li>Example:
+<ul>
+<li><code>api.example.com/user</code>s` → routes to users-service</li>
+<li><code>api.example.com/orders</code> → routes to orders-service</li>
+</ul>
+</li>
+<li>Handles TLS termination in one place rather than at every individual service</li>
+</ul>
+<p><strong>Ingress Controller:</strong></p>
+<ul>
+<li>Ingress object is just a spec/definition — it does nothing on its own</li>
+<li>Requires an Ingress Controller to implement the rules</li>
+<li>Popular controllers: NGINX Ingress Controller, AWS ALB Ingress Controller, Traefik</li>
+</ul>
+<hr>
+<h3 id="4-why-should-we-use-kubernetes-what-specific-challenges-does-it-solve">4. Why should we use Kubernetes? What specific challenges does it solve?<a hidden class="anchor" aria-hidden="true" href="#4-why-should-we-use-kubernetes-what-specific-challenges-does-it-solve">#</a></h3>
+<h3 id="explanation-1-3"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-3">#</a></h3>
+<p>Before Kubernetes, running containerized apps at scale was chaotic. Here&rsquo;s what it concretely solves:
+Container orchestration — manually managing which container runs on which server doesn&rsquo;t scale. Kubernetes schedules containers across nodes based on resource availability automatically.
+Self-healing — if a container crashes, Kubernetes restarts it. If a node dies, it reschedules pods on healthy nodes. No manual intervention needed at 3 AM.
+Horizontal scaling — with HPA (Horizontal Pod Autoscaler), it scales pods up and down based on CPU, memory, or custom metrics automatically.
+Rolling deployments and rollbacks — you can deploy new versions with zero downtime and roll back instantly if something goes wrong.
+Service discovery and load balancing — services find each other via DNS names within the cluster without hardcoding IPs.
+Configuration and secret management — ConfigMaps and Secrets decouple config from code, which is a twelve-factor app principle.
+Resource efficiency — bin packing across nodes means you use your infrastructure more efficiently compared to dedicated VMs per service.
+In short, Kubernetes lets small teams operate large-scale, resilient infrastructure that previously required massive ops teams.</p>
+<h3 id="explanation-2-3"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-3">#</a></h3>
+<p><strong>Container Orchestration:</strong></p>
+<ul>
+<li>Manually managing which container runs on which server doesn&rsquo;t scale</li>
+<li>Kubernetes <strong>automatically schedules containers</strong> across nodes based on resource availability</li>
+</ul>
+<p><strong>Self-Healing:</strong></p>
+<ul>
+<li>If a container crashes → Kubernetes <strong>automatically restarts it</strong></li>
+<li>If a node dies → <strong>reschedules pods</strong> on healthy nodes</li>
+<li>No manual intervention needed at 3 AM</li>
+</ul>
+<p><strong>Horizontal Scaling:</strong></p>
+<ul>
+<li><strong>HPA (Horizontal Pod Autoscaler)</strong> scales pods up and down automatically</li>
+<li>Based on CPU, memory, or custom metrics</li>
+</ul>
+<p><strong>Rolling Deployments &amp; Rollbacks:</strong></p>
+<ul>
+<li>Deploy new versions with <strong>zero downtime</strong></li>
+<li><strong>Instant rollback</strong> if something goes wrong</li>
+</ul>
+<p><strong>Service Discovery &amp; Load Balancing:</strong></p>
+<ul>
+<li>Services find each other via <strong>DNS names</strong> within the cluster</li>
+<li>No hardcoding of IPs required</li>
+</ul>
+<p><strong>Configuration &amp; Secret Management:</strong></p>
+<ul>
+<li><strong>ConfigMaps and Secrets</strong> decouple configuration from code</li>
+<li>Follows the twelve-factor app principle</li>
+</ul>
+<p><strong>Resource Efficiency:</strong></p>
+<ul>
+<li><strong>Bin packing</strong> across nodes means better infrastructure utilization</li>
+<li>Compared to dedicated VMs per service — significant cost savings</li>
+</ul>
+<p>Kubernetes lets small teams operate large-scale, resilient infrastructure that previously required massive ops teams.</p>
+<hr>
+<h3 id="5-explain-the-detailed-flow-how-does-a-user-request-travel-from-a-browser-to-a-kubernetes-cluster">5. Explain the detailed flow: How does a user request travel from a browser to a Kubernetes cluster?<a hidden class="anchor" aria-hidden="true" href="#5-explain-the-detailed-flow-how-does-a-user-request-travel-from-a-browser-to-a-kubernetes-cluster">#</a></h3>
+<h3 id="explanation-1-4"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-4">#</a></h3>
+<p>This is end-to-end and I&rsquo;ll walk through every layer:
+The user types <a href="https://app.example.com">https://app.example.com</a> in the browser. DNS resolves that domain to the IP of a cloud Load Balancer (like AWS ALB or NLB). This load balancer sits outside the cluster in the public subnet.
+The load balancer forwards the request to the Ingress Controller pod running inside the cluster — typically NGINX or ALB controller. The Ingress Controller evaluates the host and path rules defined in the Ingress resource and determines which backend Service to forward to.
+The request hits the Kubernetes Service (ClusterIP). The Service uses iptables rules (managed by kube-proxy on each node) or IPVS to load balance across healthy Pod endpoints. It selects one of the matching pods based on the selector labels.
+The request reaches the application Pod — the container inside processes it, queries a database or other internal service if needed, and sends a response back through the same chain.
+TLS termination typically happens at the Ingress Controller layer, so the internal cluster traffic can be plain HTTP.</p>
+<h3 id="explanation-2-4"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-4">#</a></h3>
+<p><strong>Step 1 — DNS Resolution:</strong></p>
+<ul>
+<li>User types <code>https://app.example.com</code> in the browser</li>
+<li>DNS resolves the domain to the IP of a <strong>cloud Load Balancer</strong> (AWS ALB or NLB)</li>
+<li>Load Balancer sits <strong>outside the cluster</strong> in the public subnet</li>
+</ul>
+<p><strong>Step 2 — Ingress Controller:</strong></p>
+<ul>
+<li>Load Balancer forwards the request to the <strong>Ingress Controller pod</strong> inside the cluster (NGINX or ALB Controller)</li>
+<li>Ingress Controller evaluates <strong>host and path rules</strong> defined in the Ingress resource</li>
+<li>Determines which <strong>backend Service</strong>to forward the request to</li>
+</ul>
+<p><strong>Step 3 — Kubernetes Service (ClusterIP):</strong>**</p>
+<ul>
+<li>Request hits the <strong>ClusterIP Service</strong></li>
+<li>Service uses <strong>iptables rules</strong> (managed by kube-proxy) or <strong>IPVS</strong> to load balance across healthy Pod endpoints</li>
+<li>Selects one of the matching pods based on <strong>selector labels</strong></li>
+</ul>
+<p><strong>Step 4 — Application Pod:</strong></p>
+<ul>
+<li>Request reaches the <strong>application Pod</strong></li>
+<li>Container processes the request</li>
+<li>Queries a database or other internal services if needed</li>
+<li>Sends <strong>response back through the same chain</strong></li>
+</ul>
+<p><strong>Step 5 — TLS Termination:</strong></p>
+<ul>
+<li>TLS termination happens at the <strong>Ingress Controller layer</strong></li>
+<li>Internal cluster traffic can be <strong>plain HTTP</strong></li>
+</ul>
+<hr>
+<h3 id="6-what-happens-internally-when-you-run-kubectl-apply--f-deploymentyaml">6. What happens internally when you run <code>kubectl apply -f deployment.yaml</code>?<a hidden class="anchor" aria-hidden="true" href="#6-what-happens-internally-when-you-run-kubectl-apply--f-deploymentyaml">#</a></h3>
+<h3 id="explanation-1-5"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-5">#</a></h3>
+<p>This is a great question that tests deep Kubernetes knowledge.
+kubectl reads the YAML file and sends an HTTP PATCH or POST request to the kube-apiserver REST API endpoint. Before processing, the API server performs authentication (who are you — via kubeconfig cert or token), authorization (are you allowed — via RBAC), and admission control (mutating webhooks may modify the object, validating webhooks may reject it).
+The API server validates the object schema and then persists the desired state to etcd — the cluster&rsquo;s key-value store. This is the source of truth.
+The Deployment Controller inside the kube-controller-manager is watching etcd for Deployment changes. It detects the new or updated Deployment and creates or updates a ReplicaSet to match the desired replica count.
+The ReplicaSet Controller then ensures the correct number of Pods exist. It creates Pod objects in etcd with status &ldquo;Pending.&rdquo;
+The kube-scheduler is watching for unscheduled pods. It evaluates all nodes based on resource requests, node selectors, taints/tolerations, and affinity rules, then assigns the pod to the most suitable node by writing the node name to the Pod spec in etcd.
+The kubelet on the selected node is watching the API server for pods assigned to its node. It sees the new pod, calls the Container Runtime (containerd or Docker) via the CRI interface to pull the image and start the container. It also sets up networking via the CNI plugin (like Calico or Flannel), which assigns a pod IP.
+The kubelet then continuously reports pod status back to the API server, and the pod transitions from Pending → ContainerCreating → Running.
+That entire flow — from your command to a running container — typically completes in seconds.</p>
+<h3 id="explanation-2-5"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-5">#</a></h3>
+<p><strong>Step 1 — kubectl sends API Request:</strong></p>
+<ul>
+<li><code>kubectl</code> reads the YAML file</li>
+<li>Sends an <strong>HTTP PATCH or POST</strong> request to the <code>kube-apiserver</code> REST API endpoint</li>
+</ul>
+<p><strong>Step 2 — API Server Validation (3 stages):</strong></p>
+<ul>
+<li>Authentication — Who are you? (via kubeconfig cert or token)</li>
+<li>Authorization — Are you allowed? (via RBAC)</li>
+<li>Admission Control — Mutating webhooks may modify the object; Validating webhooks may reject it</li>
+</ul>
+<p><strong>Step 3 — Persisted to etcd:</strong></p>
+<ul>
+<li>API server validates the object schema</li>
+<li>Persists the <strong>desired state to etcd</strong> — the cluster&rsquo;s key-value store and single source of truth</li>
+</ul>
+<p><strong>Step 4 — Deployment Controller:</strong></p>
+<ul>
+<li>Deployment Controller inside <code>kube-controller-manager</code> watches etcd for Deployment changes</li>
+<li>Detects the new/updated Deployment</li>
+<li>Creates or updates a <strong>ReplicaSet</strong> to match the desired replica count</li>
+</ul>
+<p><strong>Step 5 — ReplicaSet Controller:</strong></p>
+<ul>
+<li>Ensures the correct number of <strong>Pods exist</strong></li>
+<li>Creates Pod objects in etcd with status <strong>&ldquo;Pending&rdquo;</strong></li>
+</ul>
+<p><strong>Step 6 — kube-scheduler:</strong></p>
+<ul>
+<li>Watches for <strong>unscheduled pods</strong></li>
+<li>Evaluates all nodes based on resource requests, node selectors, taints/tolerations, and affinity rules</li>
+<li>Assigns the pod to the most suitable node by <strong>writing the node name</strong> to the Pod spec in etcd</li>
+</ul>
+<p><strong>Step 7 — kubelet:</strong></p>
+<ul>
+<li><code>kubelet</code> on the selected node watches the API server for <strong>pods assigned to its node</strong></li>
+<li>Calls the <strong>Container Runtime</strong> (containerd or Docker) via CRI interface to pull the image and start the container</li>
+<li>Sets up networking via <strong>CNI plugin</strong> (Calico or Flannel) which assigns a Pod IP</li>
+</ul>
+<p><strong>Step 8 — Pod Status Update:</strong></p>
+<ul>
+<li><code>kubelet</code> continuously reports pod status back to the API server</li>
+<li>Pod transitions: <strong>Pending → ContainerCreating → Running</strong></li>
+</ul>
+<blockquote>
+<p>The entire flow — from your <code>kubectl</code> command to a running container — typically completes in seconds.</p>
+</blockquote>
+<hr>
+<h2 id="round-2-architecture-security--cicd">Round 2: Architecture, Security &amp; CI/CD<a hidden class="anchor" aria-hidden="true" href="#round-2-architecture-security--cicd">#</a></h2>
+<hr>
+<h3 id="1-what-is-the-difference-between-an-api-gateway-and-kubernetes-ingress">1. What is the difference between an API Gateway and Kubernetes Ingress?<a hidden class="anchor" aria-hidden="true" href="#1-what-is-the-difference-between-an-api-gateway-and-kubernetes-ingress">#</a></h3>
+<h3 id="explanation-1-6"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-6">#</a></h3>
+<p>Both sit at the edge and route traffic, but they operate at fundamentally different layers and solve different problems.
+Kubernetes Ingress is a cluster-internal construct. It operates at Layer 7 and handles HTTP/HTTPS routing to services within the cluster based on host and path rules. It&rsquo;s lightweight, Kubernetes-native, and managed via YAML manifests. It has no concept of authentication, rate limiting, or API monetization out of the box.
+API Gateway (like AWS API Gateway, Kong, or Apigee) is a full-featured API management platform. It handles authentication and authorization (OAuth, JWT, API keys), rate limiting and throttling, request/response transformation, caching, usage analytics, and developer portals. It sits in front of your entire backend, which could be Lambda, EC2, ECS, or even a Kubernetes cluster.
+In real architectures I&rsquo;ve built, both are used together — API Gateway handles cross-cutting concerns like auth and rate limiting at the edge, then routes to an ALB which hits the Ingress Controller inside the cluster. Ingress then handles internal service routing. Each does what it&rsquo;s best at.</p>
+<h3 id="explanation-2-6"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-6">#</a></h3>
+<p><strong>Kubernetes Ingress:</strong></p>
+<ul>
+<li>Cluster-internal construct operating at Layer 7</li>
+<li>Handles HTTP/HTTPS routing to services within the cluster based on host and path rules</li>
+<li>Lightweight, Kubernetes-native, managed via YAML manifests</li>
+<li>No built-in authentication, rate limiting, or API monetization</li>
+<li>Managed by an Ingress Controller (NGINX, AWS ALB Controller, Traefik)</li>
+</ul>
+<p><strong>API Gateway (AWS API Gateway, Kong, Apigee):</strong></p>
+<ul>
+<li>Full-featured API management platform</li>
+<li>Handles Authentication &amp; Authorization (OAuth, JWT, API keys)</li>
+<li>Provides rate limiting, throttling, request/response transformation</li>
+<li>Built-in caching, usage analytics, and developer portals</li>
+<li>Sits in front of entire backend — Lambda, EC2, ECS, or Kubernetes</li>
+</ul>
+<p><strong>Real-world usage:</strong></p>
+<ul>
+<li>Both are used together in production</li>
+<li>API Gateway handles cross-cutting concerns at the edge → routes to ALB → hits Ingress Controller → internal service routing</li>
+<li>Each tool does what it does best</li>
+</ul>
+<hr>
+<h3 id="2-how-would-you-build-a-highly-available-and-scalable-architecture-on-aws">2. How would you build a highly available and scalable architecture on AWS?<a hidden class="anchor" aria-hidden="true" href="#2-how-would-you-build-a-highly-available-and-scalable-architecture-on-aws">#</a></h3>
+<h3 id="explanation-1-7"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-7">#</a></h3>
+<p>I&rsquo;ll describe the architecture I&rsquo;ve built and recommend in production environments.
+Networking foundation — a VPC spanning at least two (ideally three) Availability Zones. Public subnets host load balancers and NAT Gateways. Private subnets host application servers. Isolated subnets host databases. Never put application or database servers in a public subnet.
+Traffic entry — Route 53 for DNS with health check-based failover. An Application Load Balancer in public subnets across multiple AZs. The ALB terminates SSL using ACM certificates.
+Compute layer — EC2 instances inside an Auto Scaling Group spread across multiple AZs, with target tracking policies based on CPU or request count. If containerized, I use EKS with managed node groups or Fargate for serverless pods.
+Database layer — RDS with Multi-AZ deployment for automatic failover, or Aurora which is inherently multi-AZ with up to 15 read replicas. ElastiCache (Redis) in cluster mode for session management and caching.
+Storage — S3 with versioning and cross-region replication for static assets. EFS for shared file systems across instances.
+Observability — CloudWatch for metrics and alarms, CloudWatch Logs Insights for log analysis, X-Ray for distributed tracing. I also set up dashboards in Grafana pulling from CloudWatch.
+Security — WAF attached to the ALB, Security Groups with least-privilege rules, IAM roles instead of access keys for EC2, secrets in AWS Secrets Manager, and VPC Flow Logs enabled.
+The result is an architecture with no single point of failure at any layer.</p>
+<h3 id="explanation-2-7"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-7">#</a></h3>
+<p><strong>Networking Foundation:</strong></p>
+<ul>
+<li>VPC spanning minimum 2 AZs (ideally 3)</li>
+<li>Public subnets → Load Balancers &amp; NAT Gateways</li>
+<li>Private subnets → Application Servers</li>
+<li>Isolated subnets → Databases</li>
+<li>Never expose app or DB servers in public subnets</li>
+</ul>
+<p><strong>Traffic Entry:</strong></p>
+<ul>
+<li>Route 53 for DNS with health check-based failover</li>
+<li>Application Load Balancer (ALB) in public subnets across multiple AZs</li>
+<li>SSL termination at ALB using ACM certificates</li>
+</ul>
+<p><strong>Compute Layer:</strong></p>
+<ul>
+<li>EC2 inside Auto Scaling Groups spread across AZs</li>
+<li>Target tracking policies based on CPU or request count</li>
+<li>For containers → EKS with managed node groups or Fargate for serverless pods</li>
+</ul>
+<p><strong>Database Layer:</strong></p>
+<ul>
+<li>RDS Multi-AZ for automatic failover</li>
+<li>Aurora — inherently multi-AZ with up to 15 read replicas</li>
+<li>ElastiCache (Redis) in cluster mode for session management and caching</li>
+</ul>
+<p><strong>Storage:</strong></p>
+<ul>
+<li>S3 with versioning and cross-region replication for static assets</li>
+<li>EFS for shared file systems across instances</li>
+</ul>
+<p><strong>Observability:</strong></p>
+<ul>
+<li>CloudWatch for metrics, alarms, and log analysis</li>
+<li>X-Ray for distributed tracing</li>
+<li>Grafana dashboards pulling from CloudWatch</li>
+</ul>
+<p><strong>Security:</strong></p>
+<ul>
+<li>WAF attached to the ALB</li>
+<li>Security Groups with least-privilege rules</li>
+<li>IAM roles instead of access keys on EC2</li>
+<li>Secrets stored in AWS Secrets Manager</li>
+<li>VPC Flow Logs enabled</li>
+</ul>
+<hr>
+<h3 id="3-what-is-the-difference-between-a-nat-instance-and-a-nat-gateway">3. What is the difference between a NAT Instance and a NAT Gateway?<a hidden class="anchor" aria-hidden="true" href="#3-what-is-the-difference-between-a-nat-instance-and-a-nat-gateway">#</a></h3>
+<h3 id="explanation-1-8"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-8">#</a></h3>
+<p>A NAT Instance is a regular EC2 instance configured to do Network Address Translation. You manage it yourself — patching, scaling, high availability, and you must disable source/destination checks on it. It&rsquo;s a single point of failure unless you build your own HA setup with scripts and Elastic IPs. The only reason to use it today is cost — in very low-traffic environments it can be cheaper.
+A NAT Gateway is a fully managed AWS service. AWS handles availability, scaling (up to 45 Gbps), patching, and redundancy within a single AZ. You don&rsquo;t manage any underlying infrastructure. For high availability across AZs, you deploy one NAT Gateway per AZ — each private subnet&rsquo;s route table points to the NAT Gateway in its own AZ to avoid cross-AZ data transfer costs.
+In production, I always use NAT Gateway. The operational overhead of managing a NAT Instance is not worth the marginal cost savings. I&rsquo;ve seen teams burn engineering hours debugging a failed NAT Instance at 2 AM — NAT Gateway eliminates that class of problem.</p>
+<h3 id="explanation-2-8"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-8">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>NAT Instance</th>
+          <th>NAT Gateway</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Management</td>
+          <td>Self-managed EC2 instance</td>
+          <td>Fully managed by AWS</td>
+      </tr>
+      <tr>
+          <td>Availability</td>
+          <td>Single point of failure (unless you design HA)</td>
+          <td>Highly available within an AZ</td>
+      </tr>
+      <tr>
+          <td>Scaling</td>
+          <td>Manual scaling (change instance type)</td>
+          <td>Automatically scales (up to ~45 Gbps)</td>
+      </tr>
+      <tr>
+          <td>Patching</td>
+          <td>You must handle OS updates &amp; security patches</td>
+          <td>AWS handles maintenance &amp; updates</td>
+      </tr>
+      <tr>
+          <td>Cost</td>
+          <td>Cheaper at low traffic</td>
+          <td>Higher cost but predictable billing</td>
+      </tr>
+      <tr>
+          <td>Source/Dest Check</td>
+          <td>Must disable manually</td>
+          <td>Not required</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Best Practice:</strong></p>
+<ul>
+<li>Always use NAT Gateway in production</li>
+<li>Deploy one NAT Gateway per AZ — each private subnet&rsquo;s route table points to NAT Gateway in its own AZ to avoid cross-AZ data transfer costs</li>
+<li>NAT Instances are only justifiable for extreme cost optimization in non-critical, low-traffic environments</li>
+</ul>
+<hr>
+<h3 id="4-what-is-sonarqube-how-do-you-integrate-it-with-jenkins-and-what-real-life-issues-have-you-faced-during-integration">4. What is SonarQube? How do you integrate it with Jenkins, and what real-life issues have you faced during integration?<a hidden class="anchor" aria-hidden="true" href="#4-what-is-sonarqube-how-do-you-integrate-it-with-jenkins-and-what-real-life-issues-have-you-faced-during-integration">#</a></h3>
+<h3 id="explanation-1-9"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-9">#</a></h3>
+<p>What it is — SonarQube is a static code analysis platform that measures code quality across dimensions like bugs, vulnerabilities, code smells, duplications, test coverage, and technical debt. It enforces quality gates that can block deployments if thresholds aren&rsquo;t met.
+Integration with Jenkins — I install the SonarQube Scanner plugin in Jenkins and configure the SonarQube server URL and authentication token in Jenkins global settings. In the pipeline, I add a stage that runs the scanner. For a Java/Maven project it looks roughly like running mvn sonar:sonar with the project key and server URL passed as parameters. After the scan, I add a waitForQualityGate() Step that pauses the pipeline and fails the build if the quality gate doesn&rsquo;t pass.</p>
+<p><strong>Real issues I&rsquo;ve faced:</strong><br>
+The most common one is quality gate failures blocking releases when SonarQube is introduced to a legacy codebase. The code has thousands of pre-existing issues and everything fails on day one. The fix is to use the &ldquo;New Code&rdquo; baseline feature — you only gate on issues introduced in new code, and create a separate tech debt reduction backlog for legacy issues.
+Another issue was test coverage drops causing false failures. A developer would delete a test file while refactoring and coverage would drop below the threshold, breaking unrelated pipelines. We solved this by setting coverage thresholds at the project level carefully and adding coverage trend monitoring rather than absolute thresholds initially.
+I also faced scanner timeout issues on large monorepos. The scanner was timing out in Jenkins because the analysis was taking 20+ minutes. We solved it by running the scan in parallel with tests rather than sequentially, and by excluding auto-generated code directories from analysis.
+Finally, token expiration in SonarQube would silently break the integration. The Jenkins job would fail with an authentication error mid-pipeline. We solved this by storing the token in Jenkins credentials with a rotation reminder and adding clear error handling to catch auth failures specifically.</p>
+<h3 id="explanation-2-9"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-9">#</a></h3>
+<p><strong>What is SonarQube:</strong></p>
+<ul>
+<li>Static code analysis platform measuring code quality</li>
+<li>Tracks bugs, vulnerabilities, code smells, duplications, test coverage, and technical debt</li>
+<li>Enforces <strong>Quality Gates</strong> that can block deployments if thresholds aren&rsquo;t met</li>
+</ul>
+<p><strong>Jenkins Integration Steps:</strong></p>
+<ul>
+<li>Install <strong>SonarQube Scanner plugin</strong> in Jenkins</li>
+<li>Configure SonarQube server URL and auth token in Jenkins global settings</li>
+<li>Add a scan stage in the pipeline (e.g., <code>mvn sonar:sonar</code> for Maven projects)</li>
+<li>Use <code>waitForQualityGate()</code> step to pause pipeline and fail build if quality gate doesn&rsquo;t pass</li>
+</ul>
+<p><strong>Real Issues Faced:</strong></p>
+<ul>
+<li>
+<p><strong>Quality gate failures on legacy codebases</strong> — thousands of pre-existing issues cause everything to fail on day one</p>
+<ul>
+<li>Fix: Use &ldquo;New Code&rdquo; baseline — gate only on issues in new code, create separate tech debt backlog for legacy issues</li>
+</ul>
+</li>
+<li>
+<p><strong>Test coverage drops causing false failures</strong> — deleting a test file drops coverage below threshold, breaking unrelated pipelines</p>
+<ul>
+<li>Fix: Set coverage thresholds carefully, monitor coverage trends rather than hard absolute thresholds initially</li>
+</ul>
+</li>
+<li>
+<p><strong>Scanner timeouts on large monorepos</strong> — analysis taking 20+ minutes causing Jenkins job timeouts</p>
+<ul>
+<li>Fix: Run scan in parallel with tests, exclude auto-generated code directories from analysis</li>
+</ul>
+</li>
+<li>
+<p><strong>Token expiration silently breaking integration</strong> — Jenkins jobs fail mid-pipeline with auth errors</p>
+<ul>
+<li>Fix: Store token in Jenkins credentials with rotation reminders, add explicit error handling to catch auth failures</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-what-are-the-different-routing-policies-available-in-route-53">5. What are the different Routing Policies available in Route 53?<a hidden class="anchor" aria-hidden="true" href="#5-what-are-the-different-routing-policies-available-in-route-53">#</a></h3>
+<h3 id="explanation-1-10"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-10">#</a></h3>
+<p>Simple Routing — one record, one or more IP values returned randomly. No health checks. Used for single resources.
+Weighted Routing — distribute traffic across multiple resources by percentage. I use this for canary deployments — send 5% of traffic to the new version, monitor, then gradually increase.
+Latency-based Routing — routes users to the AWS region that provides the lowest latency. Route 53 measures latency between the user&rsquo;s location and AWS regions and picks the best one automatically.
+Failover Routing — active-passive setup. Primary record serves traffic normally; if its health check fails, Route 53 automatically routes to the secondary. Used for disaster recovery.
+Geolocation Routing — routes based on the geographic location of the user (country or continent level). Useful for serving region-specific content or complying with data residency laws. Different from latency-based — it&rsquo;s about location, not speed.
+Geoproximity Routing — routes based on geographic location of both users and resources, with a bias value you can adjust to shift more or less traffic toward a region. Available through Traffic Flow.
+Multivalue Answer Routing — like Simple but returns multiple values with health checks. Up to 8 healthy records returned per query. It&rsquo;s not a replacement for a load balancer but provides basic client-side load balancing.
+IP-based Routing — routes traffic based on the CIDR block of the client&rsquo;s IP. Useful when you know your users&rsquo; IP ranges and want to send them to specific endpoints.</p>
+<h3 id="explanation-2-10"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-10">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Routing Policy</th>
+          <th>What It Does</th>
+          <th>Use Case</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Simple</td>
+          <td>Returns a single record or multiple IPs randomly (no health checks by default)</td>
+          <td>Single resource, basic DNS routing</td>
+      </tr>
+      <tr>
+          <td>Weighted</td>
+          <td>Distributes traffic by assigned percentage across multiple resources</td>
+          <td>Canary deployments, A/B testing</td>
+      </tr>
+      <tr>
+          <td>Latency-Based</td>
+          <td>Routes users to the region with the lowest network latency</td>
+          <td>Multi-region performance optimization</td>
+      </tr>
+      <tr>
+          <td>Failover</td>
+          <td>Active-passive setup; routes to secondary if primary health check fails</td>
+          <td>Disaster Recovery (DR)</td>
+      </tr>
+      <tr>
+          <td>Geolocation</td>
+          <td>Routes traffic based on user’s country or continent</td>
+          <td>Region-specific content, data residency compliance</td>
+      </tr>
+      <tr>
+          <td>Geoproximity</td>
+          <td>Routes based on user location and resource location with adjustable bias</td>
+          <td>Traffic shifting between regions</td>
+      </tr>
+      <tr>
+          <td>Multi-Value Answer</td>
+          <td>Returns multiple healthy records for basic client-side load balancing</td>
+          <td>Lightweight redundancy (not a replacement for ALB)</td>
+      </tr>
+      <tr>
+          <td>IP-Based Routing</td>
+          <td>Routes traffic based on client’s IP address or CIDR range</td>
+          <td>Direct specific IP ranges to dedicated endpoints</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="6-explain-the-request-flow-from-a-load-balancer-to-an-ec2-web-server">6. Explain the request flow from a Load Balancer to an EC2 web server.<a hidden class="anchor" aria-hidden="true" href="#6-explain-the-request-flow-from-a-load-balancer-to-an-ec2-web-server">#</a></h3>
+<h3 id="explanation-1-11"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-11">#</a></h3>
+<p>The client sends an HTTP/HTTPS request to the ALB&rsquo;s DNS name, which resolves to one of the ALB&rsquo;s nodes across AZs.
+The ALB terminates the TLS connection using the ACM certificate — decrypting the traffic. It then evaluates listener rules top to bottom — checking host headers, path patterns, query strings — and determines which Target Group to forward the request to.
+The ALB performs a health check against registered EC2 instances and only routes to healthy ones. It selects a target using its load balancing algorithm (round-robin for HTTP, least-outstanding-requests is also available) and forwards the request. The ALB preserves or rewrites headers as configured — importantly, it adds X-Forwarded-For with the client&rsquo;s real IP, since from the EC2&rsquo;s perspective the request comes from the ALB&rsquo;s IP.
+The request arrives at the EC2 instance&rsquo;s Security Group — which must have an inbound rule allowing traffic from the ALB&rsquo;s Security Group (not from 0.0.0.0/0, that&rsquo;s a common misconfiguration I always fix). The web server (Nginx, Apache) processes the request and sends the response back to the ALB, which forwards it to the client.
+If HTTPS is used end-to-end, I configure the ALB to use HTTPS to the backend as well, with the instance&rsquo;s own certificate — this is end-to-end encryption in transit.</p>
+<h3 id="explanation-2-11"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-11">#</a></h3>
+<p><strong>Step 1 — DNS Resolution:</strong> Client sends request to ALB&rsquo;s DNS name → resolves to one of the ALB nodes across AZs</p>
+<p><strong>Step 2 — TLS Termination:</strong> ALB decrypts HTTPS traffic using ACM certificate</p>
+<p><strong>Step 3 — Listener Rule Evaluation:</strong> ALB evaluates rules top-to-bottom — checks host headers, path patterns, query strings — determines the target Target Group</p>
+<p><strong>Step 4 — Health Check:</strong> ALB only routes to instances that are passing health checks</p>
+<p><strong>Step 5 — Target Selection:</strong> Selects a healthy EC2 instance using round-robin or least-outstanding-requests algorithm</p>
+<p><strong>Step 6 — Header Injection:</strong> ALB adds <code>X-Forwarded-For</code> header with the real client IP before forwarding</p>
+<p><strong>Step 7 — Security Group Check:</strong> EC2&rsquo;s Security Group must allow inbound traffic from ALB&rsquo;s Security Group (not 0.0.0.0/0 — a common misconfiguration)</p>
+<p><strong>Step 8 — Web Server Processing:</strong> Nginx/Apache processes the request and sends response back to ALB → forwarded to client</p>
+<p><strong>End-to-End Encryption:</strong> For full HTTPS, configure ALB to use HTTPS to backend as well with the instance&rsquo;s own certificate</p>
+<hr>
+<h3 id="7-how-can-you-migrate-a-web-server-hosted-on-an-ec2-instance-to-another-aws-region">7. How can you migrate a web server hosted on an EC2 instance to another AWS region?<a hidden class="anchor" aria-hidden="true" href="#7-how-can-you-migrate-a-web-server-hosted-on-an-ec2-instance-to-another-aws-region">#</a></h3>
+<h3 id="explanation-1-12"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-12">#</a></h3>
+<p>My approach follows a structured migration with zero-downtime as the goal.
+First, I create an AMI of the source EC2 instance — this captures the OS, application code, and configuration. I then copy that AMI to the target region using the copy-image API. AMIs are region-specific so this step is mandatory.
+In the target region, I set up the full networking stack first — VPC, subnets, route tables, Internet Gateway, Security Groups mirroring the source region&rsquo;s setup. If I&rsquo;m using Infrastructure as Code (which I always do), I just run the same Terraform with the new region as the target, which makes this nearly instant.
+I launch a new EC2 instance from the copied AMI in the target region, assign appropriate IAM roles, and configure any environment-specific settings — like updating database connection strings to point to a new RDS instance in the target region or to a global Aurora cluster.
+For data migration, if there&rsquo;s a database, I use RDS snapshot copy for the same cross-region copy process, or AWS DMS for live migration with minimal downtime. For S3 assets, I enable cross-region replication.
+Once the target environment is validated and tested, I use Route 53 weighted routing to shift traffic gradually — 10% to new region, monitor error rates and latency, then increase to 50%, then 100%. This gives me an easy rollback path at any point. Once I&rsquo;m confident, I remove the old region&rsquo;s weight and eventually terminate the source resources.</p>
+<h3 id="explanation-2-12"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-12">#</a></h3>
+<p><strong>Step 1 — Create AMI:</strong></p>
+<ul>
+<li>Create an AMI of the source EC2 instance (captures OS, app code, configuration)</li>
+<li>Copy AMI to target region using copy-image API (AMIs are region-specific)</li>
+</ul>
+<p><strong>Step 2 — Setup Networking in Target Region:</strong></p>
+<ul>
+<li>Create VPC, subnets, route tables, IGW, and Security Groups mirroring source region</li>
+<li>If using Terraform, run same code with new region as target — nearly instant</li>
+</ul>
+<p><strong>Step 3 — Launch New Instance:</strong></p>
+<ul>
+<li>Launch EC2 from copied AMI in target region</li>
+<li>Assign appropriate IAM roles</li>
+<li>Update environment-specific configs (DB connection strings, endpoints)</li>
+</ul>
+<p><strong>Step 4 — Data Migration:</strong></p>
+<ul>
+<li>RDS → Use RDS snapshot cross-region copy or AWS DMS for live migration</li>
+<li>S3 → Enable cross-region replication</li>
+</ul>
+<p><strong>Step 5 — Validation:</strong></p>
+<ul>
+<li>Fully test the target environment before shifting any traffic</li>
+</ul>
+<p><strong>Step 6 — Traffic Cutover (Zero Downtime):</strong></p>
+<ul>
+<li>Use Route 53 Weighted Routing to gradually shift traffic</li>
+<li>10% → new region, monitor error rates and latency</li>
+<li>Increase to 50% → then 100%</li>
+<li>Easy rollback at any point by adjusting weights</li>
+<li>Once stable → remove old region weight → terminate source resources</li>
+</ul>
+<hr>
+<h3 id="8-how-do-you-handle-infrastructure-drift-when-using-terraform">8. How do you handle &ldquo;Infrastructure Drift&rdquo; when using Terraform?<a hidden class="anchor" aria-hidden="true" href="#8-how-do-you-handle-infrastructure-drift-when-using-terraform">#</a></h3>
+<h3 id="explanation-1-13"><font color="BlueViolet">Explanation 1:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-1-13">#</a></h3>
+<p>Infrastructure drift happens when the actual state of your cloud resources diverges from what Terraform believes it to be — usually because someone made a manual change in the console, or a cloud service auto-modified a resource.
+My first line of defense is prevention. I enforce a policy that no one touches infrastructure outside of Terraform. IAM permissions are restricted so most team members can&rsquo;t make manual changes to production resources directly. All changes go through pull requests against the Terraform codebase.
+For detection, I run terraform plan in a scheduled CI/CD pipeline — even when no code has changed — and alert on any non-empty plan output. I&rsquo;ve also used tools like Atlantis which runs plans automatically on PRs and Driftctl which specifically scans for drift and gives a detailed drift report. AWS Config with custom rules is another layer that catches configuration deviations.
+When drift is detected, I have two options depending on context. If the manual change was valid and needs to be kept, I use terraform import to bring the resource under Terraform management and update the code to match. If the drift is unauthorized or incorrect, I run terraform apply to reconcile state back to the desired configuration, effectively reverting the manual change.
+For state file integrity, I store the Terraform state in S3 with versioning enabled and DynamoDB for state locking — this prevents concurrent applies that could corrupt state, which is another form of drift. I never let developers have write access to the state file directly.
+The key principle is treating Terraform state as the single source of truth and building guardrails around it operationally and technically.</p>
+<h3 id="explanation-2-13"><font color="teal">Explanation 2:</font><a hidden class="anchor" aria-hidden="true" href="#explanation-2-13">#</a></h3>
+<p><strong>Prevention (First Line of Defense):</strong></p>
+<ul>
+<li>Enforce policy — no manual changes outside of Terraform</li>
+<li>Restrict IAM permissions so team members cannot make manual changes to production resources</li>
+<li>All infrastructure changes go through Pull Requests against Terraform codebase</li>
+</ul>
+<p><strong>Detection:</strong></p>
+<ul>
+<li>Run terraform plan on a scheduled CI/CD pipeline even with no code changes — alert on any non-empty plan output</li>
+<li>Use Atlantis — auto-runs plans on PRs</li>
+<li>Use Driftctl — specifically scans for drift and generates detailed drift reports</li>
+<li>AWS Config with custom rules as an additional detection layer</li>
+</ul>
+<p><strong>Remediation:</strong></p>
+<ul>
+<li>If manual change was valid and needs to be kept → use terraform import to bring resource under Terraform management and update code to match</li>
+<li>If drift is unauthorized or incorrect → run terraform apply to reconcile state back to desired configuration</li>
+</ul>
+<p><strong>State File Best Practices:</strong></p>
+<ul>
+<li>Store Terraform state in S3 with versioning enabled</li>
+<li>Use DynamoDB for state locking — prevents concurrent applies that could corrupt state</li>
+<li>Never give developers direct write access to the state file</li>
+<li>Treat Terraform state as the single source of truth with operational and technical guardrails around it</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Linux command list | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="Linux Commands (Basic → Advanced)
+Format: Command | Description (including flags used) | Example Command
+
+File and Directory Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          pwd
+          Print working directory (no flags).
+          pwd
+      
+      
+          ls
+          List directory contents. -l long format; -a include hidden files.
+          ls -la
+      
+      
+          cd
+          Change directory (no flags). .. = parent, ~ = home.
+          cd /var/log
+      
+      
+          mkdir
+          Create directory. -p create parent dirs as needed (no error if exists).
+          mkdir -p projects/app/logs
+      
+      
+          rmdir
+          Remove empty directory (no flags).
+          rmdir old_empty_dir
+      
+      
+          touch
+          Create empty file or update timestamps. -a access time; -m modify time.
+          touch -am notes.txt
+      
+      
+          cp
+          Copy files/dirs. -r recursive; -i prompt before overwrite.
+          cp -ri src/ backup/
+      
+      
+          mv
+          Move/rename. -i prompt before overwrite; -n no clobber (don’t overwrite).
+          mv -i report.txt report-2026.txt
+      
+      
+          rm
+          Remove files/dirs. -r recursive; -f force (no prompts). Use carefully.
+          rm -rf build/
+      
+      
+          find
+          Search for files. -type f files only; -name pattern; -mtime -7 modified within 7 days.
+          find . -type f -name &quot;*.log&quot; -mtime -7
+      
+      
+          locate
+          Fast filename search via database. -i case-insensitive.
+          locate -i ssh_config
+      
+      
+          updatedb
+          Update locate database (often requires sudo).
+          sudo updatedb
+      
+      
+          stat
+          Show detailed file metadata (size, perms, times).
+          stat /etc/hosts
+      
+      
+          file
+          Detect file type by content (no flags).
+          file archive.tar.gz
+      
+      
+          cat
+          Print file contents. -n number lines.
+          cat -n README.md
+      
+      
+          tac
+          Print file in reverse (last line first).
+          tac /var/log/syslog
+      
+      
+          less
+          Page through text. -N show line numbers; -S chop long lines.
+          less -NS large.log
+      
+      
+          head
+          Show first lines. -n 20 show 20 lines.
+          head -n 20 access.log
+      
+      
+          tail
+          Show last lines. -n 50 show 50 lines; -f follow appended data.
+          tail -n 50 -f app.log
+      
+      
+          grep
+          Search text. -n show line numbers; -i ignore case; -r recursive.
+          grep -rin &quot;error&quot; /var/log
+      
+      
+          sed
+          Stream editor. -i edit in place (GNU sed); s/old/new/g substitute globally.
+          sed -i &#39;s/DEBUG/INFO/g&#39; app.conf
+      
+      
+          awk
+          Field/column processing. -F, set delimiter to comma.
+          awk -F, &#39;{print $1,$3}&#39; data.csv
+      
+      
+          sort
+          Sort lines. -n numeric; -r reverse.
+          sort -nr scores.txt
+      
+      
+          uniq
+          Remove adjacent duplicates. -c prefix counts. (Often used after sort.)
+          sort words.txt | uniq -c
+      
+      
+          tar
+          Archive. -c create; -z gzip; -v verbose; -f filename.
+          tar -czvf logs.tar.gz /var/log
+      
+  
+
+
+Networking Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          ip
+          Modern network tool. addr show addresses; link show interfaces.
+          ip addr show
+      
+      
+          ip link
+          Manage links. set change state; up enable.
+          sudo ip link set eth0 up
+      
+      
+          ip route
+          Show routing table (no flags).
+          ip route
+      
+      
+          ping
+          ICMP reachability. -c 4 send 4 packets.
+          ping -c 4 8.8.8.8
+      
+      
+          traceroute
+          Trace route hops. -n don’t resolve DNS (faster).
+          traceroute -n example.com
+      
+      
+          mtr
+          Combined ping/traceroute. -r report mode; -c 20 20 cycles.
+          mtr -r -c 20 example.com
+      
+      
+          nslookup
+          DNS lookup (no flags).
+          nslookup example.com
+      
+      
+          dig
+          DNS query. &#43;short compact output; @8.8.8.8 choose resolver.
+          dig @8.8.8.8 example.com A &#43;short
+      
+      
+          host
+          DNS lookup (simple). -t MX query MX records.
+          host -t MX example.com
+      
+      
+          curl
+          HTTP client. -I headers only; -L follow redirects.
+          curl -IL https://example.com
+      
+      
+          wget
+          Downloader. -O output file; -q quiet.
+          wget -q -O index.html https://example.com
+      
+      
+          ssh
+          Secure remote shell. -p port; -i identity key file.
+          ssh -p 2222 -i ~/.ssh/id_ed25519 user@server
+      
+      
+          scp
+          Secure copy. -P port; -r recursive.
+          scp -P 2222 -r ./site user@server:/var/www/
+      
+      
+          sftp
+          Interactive file transfer over SSH (no flags).
+          sftp user@server
+      
+      
+          ss
+          Socket statistics (replacement for netstat). -t TCP; -u UDP; -l listening; -n numeric; -p process.
+          ss -tulnp
+      
+      
+          netstat
+          Legacy sockets/routes. -tulnp similar meaning: TCP/UDP/listen/numeric/process.
+          sudo netstat -tulnp
+      
+      
+          lsof
+          List open files. -i :80 show processes using TCP/UDP port 80.
+          sudo lsof -i :80
+      
+      
+          nc
+          Netcat for testing. -z zero-I/O scan; -v verbose; -w 2 timeout.
+          nc -zvw 2 example.com 443
+      
+      
+          nmap
+          Network scanner. -sS SYN scan; -p 1-1000 ports; -Pn no ping.
+          sudo nmap -sS -p 1-1000 -Pn 10.0.0.5
+      
+      
+          tcpdump
+          Packet capture. -i interface; -nn no name/port resolve; -c 50 packets.
+          sudo tcpdump -i eth0 -nn -c 50 port 53
+      
+      
+          iptables
+          Legacy firewall. -A append rule; -p protocol; --dport dest port; -j action.
+          sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+      
+      
+          ufw
+          Uncomplicated firewall. allow 22/tcp allow SSH.
+          sudo ufw allow 22/tcp
+      
+      
+          nmcli
+          NetworkManager CLI. dev status device status.
+          nmcli dev status
+      
+      
+          ethtool
+          NIC details. (Example reads settings; some options require root.)
+          sudo ethtool eth0
+      
+      
+          openssl s_client
+          Inspect TLS connection. -connect host:port target; -servername SNI.
+          openssl s_client -connect example.com:443 -servername example.com
+      
+  
+
+
+Process and System Monitoring Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          uname
+          Kernel/system info. -a all details.
+          uname -a
+      
+      
+          uptime
+          System uptime and load averages (no flags).
+          uptime
+      
+      
+          date
+          Show/set date. &#43;FORMAT custom output format.
+          date &#43;&quot;%Y-%m-%d %H:%M:%S&quot;
+      
+      
+          whoami
+          Current username (no flags).
+          whoami
+      
+      
+          w
+          Who is logged in &#43; activity (no flags).
+          w
+      
+      
+          top
+          Interactive process viewer (no flags).
+          top
+      
+      
+          htop
+          Enhanced interactive process viewer (no flags; if installed).
+          htop
+      
+      
+          ps
+          Process snapshot. aux = all users, user-oriented format, include processes without TTY.
+          ps aux
+      
+      
+          pgrep
+          Find PID(s) by name. -a show full command line.
+          pgrep -a nginx
+      
+      
+          pkill
+          Kill by name. -f match full command line (use carefully).
+          pkill -f &quot;python app.py&quot;
+      
+      
+          kill
+          Send signal to PID. -9 SIGKILL (force); prefer -15 (default) when possible.
+          kill -9 12345
+      
+      
+          killall
+          Kill processes by name. -i interactive prompt.
+          killall -i chrome
+      
+      
+          nice
+          Start process with priority. -n 10 set niceness &#43;10 (lower priority).
+          nice -n 10 make
+      
+      
+          renice
+          Change running process priority. -n new niceness; -p target PID.
+          sudo renice -n -5 -p 12345
+      
+      
+          free
+          Memory usage. -h human-readable.
+          free -h
+      
+      
+          vmstat
+          Virtual memory &amp; CPU stats. 1 5 every 1s, 5 times.
+          vmstat 1 5
+      
+      
+          iostat
+          CPU/disk I/O stats (sysstat). -x extended; 1 3 interval/count.
+          iostat -x 1 3
+      
+      
+          df
+          Disk free. -h human-readable; -T filesystem type.
+          df -hT
+      
+      
+          du
+          Disk usage. -h human-readable; -s summary; --max-depth=1 one level.
+          du -hs --max-depth=1 /var
+      
+      
+          lsblk
+          List block devices. -f include filesystem info.
+          lsblk -f
+      
+      
+          mount
+          Show mounts (no flags).
+          mount
+      
+      
+          dmesg
+          Kernel ring buffer. -T human timestamps; -l err,warn filter levels.
+          dmesg -T -l err,warn
+      
+      
+          journalctl
+          systemd logs. -u unit; -p priority; -b current boot.
+          journalctl -u ssh -p warning -b
+      
+      
+          systemctl
+          systemd service manager. status show state; --no-pager avoid pager.
+          systemctl status nginx --no-pager
+      
+      
+          sar
+          Historic stats (sysstat). -u CPU; 1 3 interval/count.
+          sar -u 1 3
+      
+  
+
+
+User and Permission Management Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          id
+          Show user/group IDs. -u user ID; -n name instead of number.
+          id -un
+      
+      
+          who
+          Show logged-in users. -a all details.
+          who -a
+      
+      
+          groups
+          Show groups for a user (no flags).
+          groups alice
+      
+      
+          useradd
+          Create user. -m create home; -s login shell.
+          sudo useradd -m -s /bin/bash devuser
+      
+      
+          usermod
+          Modify user. -aG append to supplementary groups (don’t replace).
+          sudo usermod -aG sudo devuser
+      
+      
+          userdel
+          Delete user. -r remove home and mail spool.
+          sudo userdel -r devuser
+      
+      
+          passwd
+          Set/change password. -l lock; -u unlock.
+          sudo passwd -l devuser
+      
+      
+          chage
+          Password aging. -l list settings.
+          sudo chage -l devuser
+      
+      
+          groupadd
+          Create group (no flags).
+          sudo groupadd developers
+      
+      
+          groupmod
+          Modify group. -n rename group.
+          sudo groupmod -n devs developers
+      
+      
+          groupdel
+          Delete group (no flags).
+          sudo groupdel devs
+      
+      
+          gpasswd
+          Manage group membership. -a add user; -d delete user.
+          sudo gpasswd -a devuser docker
+      
+      
+          su
+          Switch user. - start a login shell (load target env).
+          su - root
+      
+      
+          sudo
+          Run as another user (usually root). -u specify user; -k invalidate cached credentials.
+          sudo -u postgres psql
+      
+      
+          visudo
+          Safely edit sudoers (syntax-checked).
+          sudo visudo
+      
+      
+          chmod
+          Change permissions. -R recursive. (Example uses numeric mode.)
+          chmod -R 750 /opt/app
+      
+      
+          chown
+          Change owner/group. -R recursive; user:group ownership spec.
+          sudo chown -R appuser:appgroup /opt/app
+      
+      
+          chgrp
+          Change group owner. -R recursive.
+          sudo chgrp -R developers /srv/repos
+      
+      
+          umask
+          Set default permission mask (no flags). (Example sets mask to 027.)
+          umask 027
+      
+      
+          getfacl
+          View ACLs (no flags).
+          getfacl /srv/shared
+      
+      
+          setfacl
+          Set ACLs. -m modify ACL; u:user:perms user entry.
+          sudo setfacl -m u:devuser:rwx /srv/shared
+      
+      
+          sudoers.d
+          Best practice: drop-in file for sudo rules (no flags).
+          echo &quot;devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl&quot; | sudo tee /etc/sudoers.d/devuser
+      
+      
+          ssh-keygen
+          Generate SSH keypair. -t type; -b bits; -C comment.
+          ssh-keygen -t ed25519 -C &quot;devuser@laptop&quot;
+      
+      
+          ssh-copy-id
+          Copy SSH public key. -i identity file to install.
+          ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server
+      
+  
+
+
+Notes
+
+Some commands (e.g., iptables, tcpdump, user management) typically require sudo.
+Flags can vary slightly between GNU/Linux distributions (especially sed -i behaviour); check man &lt;command&gt; for your system.
+">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/linux/linux_command/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/linux/linux_command/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/linux/linux_command/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Linux command list">
+  <meta property="og:description" content="Linux Commands (Basic → Advanced) Format: Command | Description (including flags used) | Example Command
+File and Directory Commands Command Description (incl. flags) Example Command pwd Print working directory (no flags). pwd ls List directory contents. -l long format; -a include hidden files. ls -la cd Change directory (no flags). .. = parent, ~ = home. cd /var/log mkdir Create directory. -p create parent dirs as needed (no error if exists). mkdir -p projects/app/logs rmdir Remove empty directory (no flags). rmdir old_empty_dir touch Create empty file or update timestamps. -a access time; -m modify time. touch -am notes.txt cp Copy files/dirs. -r recursive; -i prompt before overwrite. cp -ri src/ backup/ mv Move/rename. -i prompt before overwrite; -n no clobber (don’t overwrite). mv -i report.txt report-2026.txt rm Remove files/dirs. -r recursive; -f force (no prompts). Use carefully. rm -rf build/ find Search for files. -type f files only; -name pattern; -mtime -7 modified within 7 days. find . -type f -name &#34;*.log&#34; -mtime -7 locate Fast filename search via database. -i case-insensitive. locate -i ssh_config updatedb Update locate database (often requires sudo). sudo updatedb stat Show detailed file metadata (size, perms, times). stat /etc/hosts file Detect file type by content (no flags). file archive.tar.gz cat Print file contents. -n number lines. cat -n README.md tac Print file in reverse (last line first). tac /var/log/syslog less Page through text. -N show line numbers; -S chop long lines. less -NS large.log head Show first lines. -n 20 show 20 lines. head -n 20 access.log tail Show last lines. -n 50 show 50 lines; -f follow appended data. tail -n 50 -f app.log grep Search text. -n show line numbers; -i ignore case; -r recursive. grep -rin &#34;error&#34; /var/log sed Stream editor. -i edit in place (GNU sed); s/old/new/g substitute globally. sed -i &#39;s/DEBUG/INFO/g&#39; app.conf awk Field/column processing. -F, set delimiter to comma. awk -F, &#39;{print $1,$3}&#39; data.csv sort Sort lines. -n numeric; -r reverse. sort -nr scores.txt uniq Remove adjacent duplicates. -c prefix counts. (Often used after sort.) sort words.txt | uniq -c tar Archive. -c create; -z gzip; -v verbose; -f filename. tar -czvf logs.tar.gz /var/log Networking Commands Command Description (incl. flags) Example Command ip Modern network tool. addr show addresses; link show interfaces. ip addr show ip link Manage links. set change state; up enable. sudo ip link set eth0 up ip route Show routing table (no flags). ip route ping ICMP reachability. -c 4 send 4 packets. ping -c 4 8.8.8.8 traceroute Trace route hops. -n don’t resolve DNS (faster). traceroute -n example.com mtr Combined ping/traceroute. -r report mode; -c 20 20 cycles. mtr -r -c 20 example.com nslookup DNS lookup (no flags). nslookup example.com dig DNS query. &#43;short compact output; @8.8.8.8 choose resolver. dig @8.8.8.8 example.com A &#43;short host DNS lookup (simple). -t MX query MX records. host -t MX example.com curl HTTP client. -I headers only; -L follow redirects. curl -IL https://example.com wget Downloader. -O output file; -q quiet. wget -q -O index.html https://example.com ssh Secure remote shell. -p port; -i identity key file. ssh -p 2222 -i ~/.ssh/id_ed25519 user@server scp Secure copy. -P port; -r recursive. scp -P 2222 -r ./site user@server:/var/www/ sftp Interactive file transfer over SSH (no flags). sftp user@server ss Socket statistics (replacement for netstat). -t TCP; -u UDP; -l listening; -n numeric; -p process. ss -tulnp netstat Legacy sockets/routes. -tulnp similar meaning: TCP/UDP/listen/numeric/process. sudo netstat -tulnp lsof List open files. -i :80 show processes using TCP/UDP port 80. sudo lsof -i :80 nc Netcat for testing. -z zero-I/O scan; -v verbose; -w 2 timeout. nc -zvw 2 example.com 443 nmap Network scanner. -sS SYN scan; -p 1-1000 ports; -Pn no ping. sudo nmap -sS -p 1-1000 -Pn 10.0.0.5 tcpdump Packet capture. -i interface; -nn no name/port resolve; -c 50 packets. sudo tcpdump -i eth0 -nn -c 50 port 53 iptables Legacy firewall. -A append rule; -p protocol; --dport dest port; -j action. sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT ufw Uncomplicated firewall. allow 22/tcp allow SSH. sudo ufw allow 22/tcp nmcli NetworkManager CLI. dev status device status. nmcli dev status ethtool NIC details. (Example reads settings; some options require root.) sudo ethtool eth0 openssl s_client Inspect TLS connection. -connect host:port target; -servername SNI. openssl s_client -connect example.com:443 -servername example.com Process and System Monitoring Commands Command Description (incl. flags) Example Command uname Kernel/system info. -a all details. uname -a uptime System uptime and load averages (no flags). uptime date Show/set date. &#43;FORMAT custom output format. date &#43;&#34;%Y-%m-%d %H:%M:%S&#34; whoami Current username (no flags). whoami w Who is logged in &#43; activity (no flags). w top Interactive process viewer (no flags). top htop Enhanced interactive process viewer (no flags; if installed). htop ps Process snapshot. aux = all users, user-oriented format, include processes without TTY. ps aux pgrep Find PID(s) by name. -a show full command line. pgrep -a nginx pkill Kill by name. -f match full command line (use carefully). pkill -f &#34;python app.py&#34; kill Send signal to PID. -9 SIGKILL (force); prefer -15 (default) when possible. kill -9 12345 killall Kill processes by name. -i interactive prompt. killall -i chrome nice Start process with priority. -n 10 set niceness &#43;10 (lower priority). nice -n 10 make renice Change running process priority. -n new niceness; -p target PID. sudo renice -n -5 -p 12345 free Memory usage. -h human-readable. free -h vmstat Virtual memory &amp; CPU stats. 1 5 every 1s, 5 times. vmstat 1 5 iostat CPU/disk I/O stats (sysstat). -x extended; 1 3 interval/count. iostat -x 1 3 df Disk free. -h human-readable; -T filesystem type. df -hT du Disk usage. -h human-readable; -s summary; --max-depth=1 one level. du -hs --max-depth=1 /var lsblk List block devices. -f include filesystem info. lsblk -f mount Show mounts (no flags). mount dmesg Kernel ring buffer. -T human timestamps; -l err,warn filter levels. dmesg -T -l err,warn journalctl systemd logs. -u unit; -p priority; -b current boot. journalctl -u ssh -p warning -b systemctl systemd service manager. status show state; --no-pager avoid pager. systemctl status nginx --no-pager sar Historic stats (sysstat). -u CPU; 1 3 interval/count. sar -u 1 3 User and Permission Management Commands Command Description (incl. flags) Example Command id Show user/group IDs. -u user ID; -n name instead of number. id -un who Show logged-in users. -a all details. who -a groups Show groups for a user (no flags). groups alice useradd Create user. -m create home; -s login shell. sudo useradd -m -s /bin/bash devuser usermod Modify user. -aG append to supplementary groups (don’t replace). sudo usermod -aG sudo devuser userdel Delete user. -r remove home and mail spool. sudo userdel -r devuser passwd Set/change password. -l lock; -u unlock. sudo passwd -l devuser chage Password aging. -l list settings. sudo chage -l devuser groupadd Create group (no flags). sudo groupadd developers groupmod Modify group. -n rename group. sudo groupmod -n devs developers groupdel Delete group (no flags). sudo groupdel devs gpasswd Manage group membership. -a add user; -d delete user. sudo gpasswd -a devuser docker su Switch user. - start a login shell (load target env). su - root sudo Run as another user (usually root). -u specify user; -k invalidate cached credentials. sudo -u postgres psql visudo Safely edit sudoers (syntax-checked). sudo visudo chmod Change permissions. -R recursive. (Example uses numeric mode.) chmod -R 750 /opt/app chown Change owner/group. -R recursive; user:group ownership spec. sudo chown -R appuser:appgroup /opt/app chgrp Change group owner. -R recursive. sudo chgrp -R developers /srv/repos umask Set default permission mask (no flags). (Example sets mask to 027.) umask 027 getfacl View ACLs (no flags). getfacl /srv/shared setfacl Set ACLs. -m modify ACL; u:user:perms user entry. sudo setfacl -m u:devuser:rwx /srv/shared sudoers.d Best practice: drop-in file for sudo rules (no flags). echo &#34;devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl&#34; | sudo tee /etc/sudoers.d/devuser ssh-keygen Generate SSH keypair. -t type; -b bits; -C comment. ssh-keygen -t ed25519 -C &#34;devuser@laptop&#34; ssh-copy-id Copy SSH public key. -i identity file to install. ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server Notes Some commands (e.g., iptables, tcpdump, user management) typically require sudo. Flags can vary slightly between GNU/Linux distributions (especially sed -i behaviour); check man &lt;command&gt; for your system. ">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-02-28T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-28T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux command list">
+<meta name="twitter:description" content="Linux Commands (Basic → Advanced)
+Format: Command | Description (including flags used) | Example Command
+
+File and Directory Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          pwd
+          Print working directory (no flags).
+          pwd
+      
+      
+          ls
+          List directory contents. -l long format; -a include hidden files.
+          ls -la
+      
+      
+          cd
+          Change directory (no flags). .. = parent, ~ = home.
+          cd /var/log
+      
+      
+          mkdir
+          Create directory. -p create parent dirs as needed (no error if exists).
+          mkdir -p projects/app/logs
+      
+      
+          rmdir
+          Remove empty directory (no flags).
+          rmdir old_empty_dir
+      
+      
+          touch
+          Create empty file or update timestamps. -a access time; -m modify time.
+          touch -am notes.txt
+      
+      
+          cp
+          Copy files/dirs. -r recursive; -i prompt before overwrite.
+          cp -ri src/ backup/
+      
+      
+          mv
+          Move/rename. -i prompt before overwrite; -n no clobber (don’t overwrite).
+          mv -i report.txt report-2026.txt
+      
+      
+          rm
+          Remove files/dirs. -r recursive; -f force (no prompts). Use carefully.
+          rm -rf build/
+      
+      
+          find
+          Search for files. -type f files only; -name pattern; -mtime -7 modified within 7 days.
+          find . -type f -name &quot;*.log&quot; -mtime -7
+      
+      
+          locate
+          Fast filename search via database. -i case-insensitive.
+          locate -i ssh_config
+      
+      
+          updatedb
+          Update locate database (often requires sudo).
+          sudo updatedb
+      
+      
+          stat
+          Show detailed file metadata (size, perms, times).
+          stat /etc/hosts
+      
+      
+          file
+          Detect file type by content (no flags).
+          file archive.tar.gz
+      
+      
+          cat
+          Print file contents. -n number lines.
+          cat -n README.md
+      
+      
+          tac
+          Print file in reverse (last line first).
+          tac /var/log/syslog
+      
+      
+          less
+          Page through text. -N show line numbers; -S chop long lines.
+          less -NS large.log
+      
+      
+          head
+          Show first lines. -n 20 show 20 lines.
+          head -n 20 access.log
+      
+      
+          tail
+          Show last lines. -n 50 show 50 lines; -f follow appended data.
+          tail -n 50 -f app.log
+      
+      
+          grep
+          Search text. -n show line numbers; -i ignore case; -r recursive.
+          grep -rin &quot;error&quot; /var/log
+      
+      
+          sed
+          Stream editor. -i edit in place (GNU sed); s/old/new/g substitute globally.
+          sed -i &#39;s/DEBUG/INFO/g&#39; app.conf
+      
+      
+          awk
+          Field/column processing. -F, set delimiter to comma.
+          awk -F, &#39;{print $1,$3}&#39; data.csv
+      
+      
+          sort
+          Sort lines. -n numeric; -r reverse.
+          sort -nr scores.txt
+      
+      
+          uniq
+          Remove adjacent duplicates. -c prefix counts. (Often used after sort.)
+          sort words.txt | uniq -c
+      
+      
+          tar
+          Archive. -c create; -z gzip; -v verbose; -f filename.
+          tar -czvf logs.tar.gz /var/log
+      
+  
+
+
+Networking Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          ip
+          Modern network tool. addr show addresses; link show interfaces.
+          ip addr show
+      
+      
+          ip link
+          Manage links. set change state; up enable.
+          sudo ip link set eth0 up
+      
+      
+          ip route
+          Show routing table (no flags).
+          ip route
+      
+      
+          ping
+          ICMP reachability. -c 4 send 4 packets.
+          ping -c 4 8.8.8.8
+      
+      
+          traceroute
+          Trace route hops. -n don’t resolve DNS (faster).
+          traceroute -n example.com
+      
+      
+          mtr
+          Combined ping/traceroute. -r report mode; -c 20 20 cycles.
+          mtr -r -c 20 example.com
+      
+      
+          nslookup
+          DNS lookup (no flags).
+          nslookup example.com
+      
+      
+          dig
+          DNS query. &#43;short compact output; @8.8.8.8 choose resolver.
+          dig @8.8.8.8 example.com A &#43;short
+      
+      
+          host
+          DNS lookup (simple). -t MX query MX records.
+          host -t MX example.com
+      
+      
+          curl
+          HTTP client. -I headers only; -L follow redirects.
+          curl -IL https://example.com
+      
+      
+          wget
+          Downloader. -O output file; -q quiet.
+          wget -q -O index.html https://example.com
+      
+      
+          ssh
+          Secure remote shell. -p port; -i identity key file.
+          ssh -p 2222 -i ~/.ssh/id_ed25519 user@server
+      
+      
+          scp
+          Secure copy. -P port; -r recursive.
+          scp -P 2222 -r ./site user@server:/var/www/
+      
+      
+          sftp
+          Interactive file transfer over SSH (no flags).
+          sftp user@server
+      
+      
+          ss
+          Socket statistics (replacement for netstat). -t TCP; -u UDP; -l listening; -n numeric; -p process.
+          ss -tulnp
+      
+      
+          netstat
+          Legacy sockets/routes. -tulnp similar meaning: TCP/UDP/listen/numeric/process.
+          sudo netstat -tulnp
+      
+      
+          lsof
+          List open files. -i :80 show processes using TCP/UDP port 80.
+          sudo lsof -i :80
+      
+      
+          nc
+          Netcat for testing. -z zero-I/O scan; -v verbose; -w 2 timeout.
+          nc -zvw 2 example.com 443
+      
+      
+          nmap
+          Network scanner. -sS SYN scan; -p 1-1000 ports; -Pn no ping.
+          sudo nmap -sS -p 1-1000 -Pn 10.0.0.5
+      
+      
+          tcpdump
+          Packet capture. -i interface; -nn no name/port resolve; -c 50 packets.
+          sudo tcpdump -i eth0 -nn -c 50 port 53
+      
+      
+          iptables
+          Legacy firewall. -A append rule; -p protocol; --dport dest port; -j action.
+          sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+      
+      
+          ufw
+          Uncomplicated firewall. allow 22/tcp allow SSH.
+          sudo ufw allow 22/tcp
+      
+      
+          nmcli
+          NetworkManager CLI. dev status device status.
+          nmcli dev status
+      
+      
+          ethtool
+          NIC details. (Example reads settings; some options require root.)
+          sudo ethtool eth0
+      
+      
+          openssl s_client
+          Inspect TLS connection. -connect host:port target; -servername SNI.
+          openssl s_client -connect example.com:443 -servername example.com
+      
+  
+
+
+Process and System Monitoring Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          uname
+          Kernel/system info. -a all details.
+          uname -a
+      
+      
+          uptime
+          System uptime and load averages (no flags).
+          uptime
+      
+      
+          date
+          Show/set date. &#43;FORMAT custom output format.
+          date &#43;&quot;%Y-%m-%d %H:%M:%S&quot;
+      
+      
+          whoami
+          Current username (no flags).
+          whoami
+      
+      
+          w
+          Who is logged in &#43; activity (no flags).
+          w
+      
+      
+          top
+          Interactive process viewer (no flags).
+          top
+      
+      
+          htop
+          Enhanced interactive process viewer (no flags; if installed).
+          htop
+      
+      
+          ps
+          Process snapshot. aux = all users, user-oriented format, include processes without TTY.
+          ps aux
+      
+      
+          pgrep
+          Find PID(s) by name. -a show full command line.
+          pgrep -a nginx
+      
+      
+          pkill
+          Kill by name. -f match full command line (use carefully).
+          pkill -f &quot;python app.py&quot;
+      
+      
+          kill
+          Send signal to PID. -9 SIGKILL (force); prefer -15 (default) when possible.
+          kill -9 12345
+      
+      
+          killall
+          Kill processes by name. -i interactive prompt.
+          killall -i chrome
+      
+      
+          nice
+          Start process with priority. -n 10 set niceness &#43;10 (lower priority).
+          nice -n 10 make
+      
+      
+          renice
+          Change running process priority. -n new niceness; -p target PID.
+          sudo renice -n -5 -p 12345
+      
+      
+          free
+          Memory usage. -h human-readable.
+          free -h
+      
+      
+          vmstat
+          Virtual memory &amp; CPU stats. 1 5 every 1s, 5 times.
+          vmstat 1 5
+      
+      
+          iostat
+          CPU/disk I/O stats (sysstat). -x extended; 1 3 interval/count.
+          iostat -x 1 3
+      
+      
+          df
+          Disk free. -h human-readable; -T filesystem type.
+          df -hT
+      
+      
+          du
+          Disk usage. -h human-readable; -s summary; --max-depth=1 one level.
+          du -hs --max-depth=1 /var
+      
+      
+          lsblk
+          List block devices. -f include filesystem info.
+          lsblk -f
+      
+      
+          mount
+          Show mounts (no flags).
+          mount
+      
+      
+          dmesg
+          Kernel ring buffer. -T human timestamps; -l err,warn filter levels.
+          dmesg -T -l err,warn
+      
+      
+          journalctl
+          systemd logs. -u unit; -p priority; -b current boot.
+          journalctl -u ssh -p warning -b
+      
+      
+          systemctl
+          systemd service manager. status show state; --no-pager avoid pager.
+          systemctl status nginx --no-pager
+      
+      
+          sar
+          Historic stats (sysstat). -u CPU; 1 3 interval/count.
+          sar -u 1 3
+      
+  
+
+
+User and Permission Management Commands
+
+  
+      
+          Command
+          Description (incl. flags)
+          Example Command
+      
+  
+  
+      
+          id
+          Show user/group IDs. -u user ID; -n name instead of number.
+          id -un
+      
+      
+          who
+          Show logged-in users. -a all details.
+          who -a
+      
+      
+          groups
+          Show groups for a user (no flags).
+          groups alice
+      
+      
+          useradd
+          Create user. -m create home; -s login shell.
+          sudo useradd -m -s /bin/bash devuser
+      
+      
+          usermod
+          Modify user. -aG append to supplementary groups (don’t replace).
+          sudo usermod -aG sudo devuser
+      
+      
+          userdel
+          Delete user. -r remove home and mail spool.
+          sudo userdel -r devuser
+      
+      
+          passwd
+          Set/change password. -l lock; -u unlock.
+          sudo passwd -l devuser
+      
+      
+          chage
+          Password aging. -l list settings.
+          sudo chage -l devuser
+      
+      
+          groupadd
+          Create group (no flags).
+          sudo groupadd developers
+      
+      
+          groupmod
+          Modify group. -n rename group.
+          sudo groupmod -n devs developers
+      
+      
+          groupdel
+          Delete group (no flags).
+          sudo groupdel devs
+      
+      
+          gpasswd
+          Manage group membership. -a add user; -d delete user.
+          sudo gpasswd -a devuser docker
+      
+      
+          su
+          Switch user. - start a login shell (load target env).
+          su - root
+      
+      
+          sudo
+          Run as another user (usually root). -u specify user; -k invalidate cached credentials.
+          sudo -u postgres psql
+      
+      
+          visudo
+          Safely edit sudoers (syntax-checked).
+          sudo visudo
+      
+      
+          chmod
+          Change permissions. -R recursive. (Example uses numeric mode.)
+          chmod -R 750 /opt/app
+      
+      
+          chown
+          Change owner/group. -R recursive; user:group ownership spec.
+          sudo chown -R appuser:appgroup /opt/app
+      
+      
+          chgrp
+          Change group owner. -R recursive.
+          sudo chgrp -R developers /srv/repos
+      
+      
+          umask
+          Set default permission mask (no flags). (Example sets mask to 027.)
+          umask 027
+      
+      
+          getfacl
+          View ACLs (no flags).
+          getfacl /srv/shared
+      
+      
+          setfacl
+          Set ACLs. -m modify ACL; u:user:perms user entry.
+          sudo setfacl -m u:devuser:rwx /srv/shared
+      
+      
+          sudoers.d
+          Best practice: drop-in file for sudo rules (no flags).
+          echo &quot;devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl&quot; | sudo tee /etc/sudoers.d/devuser
+      
+      
+          ssh-keygen
+          Generate SSH keypair. -t type; -b bits; -C comment.
+          ssh-keygen -t ed25519 -C &quot;devuser@laptop&quot;
+      
+      
+          ssh-copy-id
+          Copy SSH public key. -i identity file to install.
+          ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server
+      
+  
+
+
+Notes
+
+Some commands (e.g., iptables, tcpdump, user management) typically require sudo.
+Flags can vary slightly between GNU/Linux distributions (especially sed -i behaviour); check man &lt;command&gt; for your system.
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Linux topics",
+      "item": "https://ankurs2494.github.io/techVeda/notes/linux/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Linux command list",
+      "item": "https://ankurs2494.github.io/techVeda/notes/linux/linux_command/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux command list",
+  "name": "Linux command list",
+  "description": "Linux Commands (Basic → Advanced) Format: Command | Description (including flags used) | Example Command\nFile and Directory Commands Command Description (incl. flags) Example Command pwd Print working directory (no flags). pwd ls List directory contents. -l long format; -a include hidden files. ls -la cd Change directory (no flags). .. = parent, ~ = home. cd /var/log mkdir Create directory. -p create parent dirs as needed (no error if exists). mkdir -p projects/app/logs rmdir Remove empty directory (no flags). rmdir old_empty_dir touch Create empty file or update timestamps. -a access time; -m modify time. touch -am notes.txt cp Copy files/dirs. -r recursive; -i prompt before overwrite. cp -ri src/ backup/ mv Move/rename. -i prompt before overwrite; -n no clobber (don’t overwrite). mv -i report.txt report-2026.txt rm Remove files/dirs. -r recursive; -f force (no prompts). Use carefully. rm -rf build/ find Search for files. -type f files only; -name pattern; -mtime -7 modified within 7 days. find . -type f -name \u0026quot;*.log\u0026quot; -mtime -7 locate Fast filename search via database. -i case-insensitive. locate -i ssh_config updatedb Update locate database (often requires sudo). sudo updatedb stat Show detailed file metadata (size, perms, times). stat /etc/hosts file Detect file type by content (no flags). file archive.tar.gz cat Print file contents. -n number lines. cat -n README.md tac Print file in reverse (last line first). tac /var/log/syslog less Page through text. -N show line numbers; -S chop long lines. less -NS large.log head Show first lines. -n 20 show 20 lines. head -n 20 access.log tail Show last lines. -n 50 show 50 lines; -f follow appended data. tail -n 50 -f app.log grep Search text. -n show line numbers; -i ignore case; -r recursive. grep -rin \u0026quot;error\u0026quot; /var/log sed Stream editor. -i edit in place (GNU sed); s/old/new/g substitute globally. sed -i 's/DEBUG/INFO/g' app.conf awk Field/column processing. -F, set delimiter to comma. awk -F, '{print $1,$3}' data.csv sort Sort lines. -n numeric; -r reverse. sort -nr scores.txt uniq Remove adjacent duplicates. -c prefix counts. (Often used after sort.) sort words.txt | uniq -c tar Archive. -c create; -z gzip; -v verbose; -f filename. tar -czvf logs.tar.gz /var/log Networking Commands Command Description (incl. flags) Example Command ip Modern network tool. addr show addresses; link show interfaces. ip addr show ip link Manage links. set change state; up enable. sudo ip link set eth0 up ip route Show routing table (no flags). ip route ping ICMP reachability. -c 4 send 4 packets. ping -c 4 8.8.8.8 traceroute Trace route hops. -n don’t resolve DNS (faster). traceroute -n example.com mtr Combined ping/traceroute. -r report mode; -c 20 20 cycles. mtr -r -c 20 example.com nslookup DNS lookup (no flags). nslookup example.com dig DNS query. +short compact output; @8.8.8.8 choose resolver. dig @8.8.8.8 example.com A +short host DNS lookup (simple). -t MX query MX records. host -t MX example.com curl HTTP client. -I headers only; -L follow redirects. curl -IL https://example.com wget Downloader. -O output file; -q quiet. wget -q -O index.html https://example.com ssh Secure remote shell. -p port; -i identity key file. ssh -p 2222 -i ~/.ssh/id_ed25519 user@server scp Secure copy. -P port; -r recursive. scp -P 2222 -r ./site user@server:/var/www/ sftp Interactive file transfer over SSH (no flags). sftp user@server ss Socket statistics (replacement for netstat). -t TCP; -u UDP; -l listening; -n numeric; -p process. ss -tulnp netstat Legacy sockets/routes. -tulnp similar meaning: TCP/UDP/listen/numeric/process. sudo netstat -tulnp lsof List open files. -i :80 show processes using TCP/UDP port 80. sudo lsof -i :80 nc Netcat for testing. -z zero-I/O scan; -v verbose; -w 2 timeout. nc -zvw 2 example.com 443 nmap Network scanner. -sS SYN scan; -p 1-1000 ports; -Pn no ping. sudo nmap -sS -p 1-1000 -Pn 10.0.0.5 tcpdump Packet capture. -i interface; -nn no name/port resolve; -c 50 packets. sudo tcpdump -i eth0 -nn -c 50 port 53 iptables Legacy firewall. -A append rule; -p protocol; --dport dest port; -j action. sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT ufw Uncomplicated firewall. allow 22/tcp allow SSH. sudo ufw allow 22/tcp nmcli NetworkManager CLI. dev status device status. nmcli dev status ethtool NIC details. (Example reads settings; some options require root.) sudo ethtool eth0 openssl s_client Inspect TLS connection. -connect host:port target; -servername SNI. openssl s_client -connect example.com:443 -servername example.com Process and System Monitoring Commands Command Description (incl. flags) Example Command uname Kernel/system info. -a all details. uname -a uptime System uptime and load averages (no flags). uptime date Show/set date. +FORMAT custom output format. date +\u0026quot;%Y-%m-%d %H:%M:%S\u0026quot; whoami Current username (no flags). whoami w Who is logged in + activity (no flags). w top Interactive process viewer (no flags). top htop Enhanced interactive process viewer (no flags; if installed). htop ps Process snapshot. aux = all users, user-oriented format, include processes without TTY. ps aux pgrep Find PID(s) by name. -a show full command line. pgrep -a nginx pkill Kill by name. -f match full command line (use carefully). pkill -f \u0026quot;python app.py\u0026quot; kill Send signal to PID. -9 SIGKILL (force); prefer -15 (default) when possible. kill -9 12345 killall Kill processes by name. -i interactive prompt. killall -i chrome nice Start process with priority. -n 10 set niceness +10 (lower priority). nice -n 10 make renice Change running process priority. -n new niceness; -p target PID. sudo renice -n -5 -p 12345 free Memory usage. -h human-readable. free -h vmstat Virtual memory \u0026amp; CPU stats. 1 5 every 1s, 5 times. vmstat 1 5 iostat CPU/disk I/O stats (sysstat). -x extended; 1 3 interval/count. iostat -x 1 3 df Disk free. -h human-readable; -T filesystem type. df -hT du Disk usage. -h human-readable; -s summary; --max-depth=1 one level. du -hs --max-depth=1 /var lsblk List block devices. -f include filesystem info. lsblk -f mount Show mounts (no flags). mount dmesg Kernel ring buffer. -T human timestamps; -l err,warn filter levels. dmesg -T -l err,warn journalctl systemd logs. -u unit; -p priority; -b current boot. journalctl -u ssh -p warning -b systemctl systemd service manager. status show state; --no-pager avoid pager. systemctl status nginx --no-pager sar Historic stats (sysstat). -u CPU; 1 3 interval/count. sar -u 1 3 User and Permission Management Commands Command Description (incl. flags) Example Command id Show user/group IDs. -u user ID; -n name instead of number. id -un who Show logged-in users. -a all details. who -a groups Show groups for a user (no flags). groups alice useradd Create user. -m create home; -s login shell. sudo useradd -m -s /bin/bash devuser usermod Modify user. -aG append to supplementary groups (don’t replace). sudo usermod -aG sudo devuser userdel Delete user. -r remove home and mail spool. sudo userdel -r devuser passwd Set/change password. -l lock; -u unlock. sudo passwd -l devuser chage Password aging. -l list settings. sudo chage -l devuser groupadd Create group (no flags). sudo groupadd developers groupmod Modify group. -n rename group. sudo groupmod -n devs developers groupdel Delete group (no flags). sudo groupdel devs gpasswd Manage group membership. -a add user; -d delete user. sudo gpasswd -a devuser docker su Switch user. - start a login shell (load target env). su - root sudo Run as another user (usually root). -u specify user; -k invalidate cached credentials. sudo -u postgres psql visudo Safely edit sudoers (syntax-checked). sudo visudo chmod Change permissions. -R recursive. (Example uses numeric mode.) chmod -R 750 /opt/app chown Change owner/group. -R recursive; user:group ownership spec. sudo chown -R appuser:appgroup /opt/app chgrp Change group owner. -R recursive. sudo chgrp -R developers /srv/repos umask Set default permission mask (no flags). (Example sets mask to 027.) umask 027 getfacl View ACLs (no flags). getfacl /srv/shared setfacl Set ACLs. -m modify ACL; u:user:perms user entry. sudo setfacl -m u:devuser:rwx /srv/shared sudoers.d Best practice: drop-in file for sudo rules (no flags). echo \u0026quot;devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl\u0026quot; | sudo tee /etc/sudoers.d/devuser ssh-keygen Generate SSH keypair. -t type; -b bits; -C comment. ssh-keygen -t ed25519 -C \u0026quot;devuser@laptop\u0026quot; ssh-copy-id Copy SSH public key. -i identity file to install. ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server Notes Some commands (e.g., iptables, tcpdump, user management) typically require sudo. Flags can vary slightly between GNU/Linux distributions (especially sed -i behaviour); check man \u0026lt;command\u0026gt; for your system. ",
+  "keywords": [
+    
+  ],
+  "articleBody": "Linux Commands (Basic → Advanced) Format: Command | Description (including flags used) | Example Command\nFile and Directory Commands Command Description (incl. flags) Example Command pwd Print working directory (no flags). pwd ls List directory contents. -l long format; -a include hidden files. ls -la cd Change directory (no flags). .. = parent, ~ = home. cd /var/log mkdir Create directory. -p create parent dirs as needed (no error if exists). mkdir -p projects/app/logs rmdir Remove empty directory (no flags). rmdir old_empty_dir touch Create empty file or update timestamps. -a access time; -m modify time. touch -am notes.txt cp Copy files/dirs. -r recursive; -i prompt before overwrite. cp -ri src/ backup/ mv Move/rename. -i prompt before overwrite; -n no clobber (don’t overwrite). mv -i report.txt report-2026.txt rm Remove files/dirs. -r recursive; -f force (no prompts). Use carefully. rm -rf build/ find Search for files. -type f files only; -name pattern; -mtime -7 modified within 7 days. find . -type f -name \"*.log\" -mtime -7 locate Fast filename search via database. -i case-insensitive. locate -i ssh_config updatedb Update locate database (often requires sudo). sudo updatedb stat Show detailed file metadata (size, perms, times). stat /etc/hosts file Detect file type by content (no flags). file archive.tar.gz cat Print file contents. -n number lines. cat -n README.md tac Print file in reverse (last line first). tac /var/log/syslog less Page through text. -N show line numbers; -S chop long lines. less -NS large.log head Show first lines. -n 20 show 20 lines. head -n 20 access.log tail Show last lines. -n 50 show 50 lines; -f follow appended data. tail -n 50 -f app.log grep Search text. -n show line numbers; -i ignore case; -r recursive. grep -rin \"error\" /var/log sed Stream editor. -i edit in place (GNU sed); s/old/new/g substitute globally. sed -i 's/DEBUG/INFO/g' app.conf awk Field/column processing. -F, set delimiter to comma. awk -F, '{print $1,$3}' data.csv sort Sort lines. -n numeric; -r reverse. sort -nr scores.txt uniq Remove adjacent duplicates. -c prefix counts. (Often used after sort.) sort words.txt | uniq -c tar Archive. -c create; -z gzip; -v verbose; -f filename. tar -czvf logs.tar.gz /var/log Networking Commands Command Description (incl. flags) Example Command ip Modern network tool. addr show addresses; link show interfaces. ip addr show ip link Manage links. set change state; up enable. sudo ip link set eth0 up ip route Show routing table (no flags). ip route ping ICMP reachability. -c 4 send 4 packets. ping -c 4 8.8.8.8 traceroute Trace route hops. -n don’t resolve DNS (faster). traceroute -n example.com mtr Combined ping/traceroute. -r report mode; -c 20 20 cycles. mtr -r -c 20 example.com nslookup DNS lookup (no flags). nslookup example.com dig DNS query. +short compact output; @8.8.8.8 choose resolver. dig @8.8.8.8 example.com A +short host DNS lookup (simple). -t MX query MX records. host -t MX example.com curl HTTP client. -I headers only; -L follow redirects. curl -IL https://example.com wget Downloader. -O output file; -q quiet. wget -q -O index.html https://example.com ssh Secure remote shell. -p port; -i identity key file. ssh -p 2222 -i ~/.ssh/id_ed25519 user@server scp Secure copy. -P port; -r recursive. scp -P 2222 -r ./site user@server:/var/www/ sftp Interactive file transfer over SSH (no flags). sftp user@server ss Socket statistics (replacement for netstat). -t TCP; -u UDP; -l listening; -n numeric; -p process. ss -tulnp netstat Legacy sockets/routes. -tulnp similar meaning: TCP/UDP/listen/numeric/process. sudo netstat -tulnp lsof List open files. -i :80 show processes using TCP/UDP port 80. sudo lsof -i :80 nc Netcat for testing. -z zero-I/O scan; -v verbose; -w 2 timeout. nc -zvw 2 example.com 443 nmap Network scanner. -sS SYN scan; -p 1-1000 ports; -Pn no ping. sudo nmap -sS -p 1-1000 -Pn 10.0.0.5 tcpdump Packet capture. -i interface; -nn no name/port resolve; -c 50 packets. sudo tcpdump -i eth0 -nn -c 50 port 53 iptables Legacy firewall. -A append rule; -p protocol; --dport dest port; -j action. sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT ufw Uncomplicated firewall. allow 22/tcp allow SSH. sudo ufw allow 22/tcp nmcli NetworkManager CLI. dev status device status. nmcli dev status ethtool NIC details. (Example reads settings; some options require root.) sudo ethtool eth0 openssl s_client Inspect TLS connection. -connect host:port target; -servername SNI. openssl s_client -connect example.com:443 -servername example.com Process and System Monitoring Commands Command Description (incl. flags) Example Command uname Kernel/system info. -a all details. uname -a uptime System uptime and load averages (no flags). uptime date Show/set date. +FORMAT custom output format. date +\"%Y-%m-%d %H:%M:%S\" whoami Current username (no flags). whoami w Who is logged in + activity (no flags). w top Interactive process viewer (no flags). top htop Enhanced interactive process viewer (no flags; if installed). htop ps Process snapshot. aux = all users, user-oriented format, include processes without TTY. ps aux pgrep Find PID(s) by name. -a show full command line. pgrep -a nginx pkill Kill by name. -f match full command line (use carefully). pkill -f \"python app.py\" kill Send signal to PID. -9 SIGKILL (force); prefer -15 (default) when possible. kill -9 12345 killall Kill processes by name. -i interactive prompt. killall -i chrome nice Start process with priority. -n 10 set niceness +10 (lower priority). nice -n 10 make renice Change running process priority. -n new niceness; -p target PID. sudo renice -n -5 -p 12345 free Memory usage. -h human-readable. free -h vmstat Virtual memory \u0026 CPU stats. 1 5 every 1s, 5 times. vmstat 1 5 iostat CPU/disk I/O stats (sysstat). -x extended; 1 3 interval/count. iostat -x 1 3 df Disk free. -h human-readable; -T filesystem type. df -hT du Disk usage. -h human-readable; -s summary; --max-depth=1 one level. du -hs --max-depth=1 /var lsblk List block devices. -f include filesystem info. lsblk -f mount Show mounts (no flags). mount dmesg Kernel ring buffer. -T human timestamps; -l err,warn filter levels. dmesg -T -l err,warn journalctl systemd logs. -u unit; -p priority; -b current boot. journalctl -u ssh -p warning -b systemctl systemd service manager. status show state; --no-pager avoid pager. systemctl status nginx --no-pager sar Historic stats (sysstat). -u CPU; 1 3 interval/count. sar -u 1 3 User and Permission Management Commands Command Description (incl. flags) Example Command id Show user/group IDs. -u user ID; -n name instead of number. id -un who Show logged-in users. -a all details. who -a groups Show groups for a user (no flags). groups alice useradd Create user. -m create home; -s login shell. sudo useradd -m -s /bin/bash devuser usermod Modify user. -aG append to supplementary groups (don’t replace). sudo usermod -aG sudo devuser userdel Delete user. -r remove home and mail spool. sudo userdel -r devuser passwd Set/change password. -l lock; -u unlock. sudo passwd -l devuser chage Password aging. -l list settings. sudo chage -l devuser groupadd Create group (no flags). sudo groupadd developers groupmod Modify group. -n rename group. sudo groupmod -n devs developers groupdel Delete group (no flags). sudo groupdel devs gpasswd Manage group membership. -a add user; -d delete user. sudo gpasswd -a devuser docker su Switch user. - start a login shell (load target env). su - root sudo Run as another user (usually root). -u specify user; -k invalidate cached credentials. sudo -u postgres psql visudo Safely edit sudoers (syntax-checked). sudo visudo chmod Change permissions. -R recursive. (Example uses numeric mode.) chmod -R 750 /opt/app chown Change owner/group. -R recursive; user:group ownership spec. sudo chown -R appuser:appgroup /opt/app chgrp Change group owner. -R recursive. sudo chgrp -R developers /srv/repos umask Set default permission mask (no flags). (Example sets mask to 027.) umask 027 getfacl View ACLs (no flags). getfacl /srv/shared setfacl Set ACLs. -m modify ACL; u:user:perms user entry. sudo setfacl -m u:devuser:rwx /srv/shared sudoers.d Best practice: drop-in file for sudo rules (no flags). echo \"devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl\" | sudo tee /etc/sudoers.d/devuser ssh-keygen Generate SSH keypair. -t type; -b bits; -C comment. ssh-keygen -t ed25519 -C \"devuser@laptop\" ssh-copy-id Copy SSH public key. -i identity file to install. ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server Notes Some commands (e.g., iptables, tcpdump, user management) typically require sudo. Flags can vary slightly between GNU/Linux distributions (especially sed -i behaviour); check man for your system. ",
+  "wordCount" : "1354",
+  "inLanguage": "en",
+  "datePublished": "2026-02-28T00:00:00Z",
+  "dateModified": "2026-02-28T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/linux/linux_command/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/linux/">Linux topics</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Linux command list
+    </h1>
+    <div class="post-meta"><span title='2026-02-28 00:00:00 +0000 UTC'>February 28, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="linux-commands-basic--advanced">Linux Commands (Basic → Advanced)<a hidden class="anchor" aria-hidden="true" href="#linux-commands-basic--advanced">#</a></h1>
+<p>Format: <strong>Command | Description (including flags used) | Example Command</strong></p>
+<hr>
+<h2 id="file-and-directory-commands">File and Directory Commands<a hidden class="anchor" aria-hidden="true" href="#file-and-directory-commands">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description (incl. flags)</th>
+          <th>Example Command</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>pwd</code></td>
+          <td>Print working directory (no flags).</td>
+          <td><code>pwd</code></td>
+      </tr>
+      <tr>
+          <td><code>ls</code></td>
+          <td>List directory contents. <code>-l</code> long format; <code>-a</code> include hidden files.</td>
+          <td><code>ls -la</code></td>
+      </tr>
+      <tr>
+          <td><code>cd</code></td>
+          <td>Change directory (no flags). <code>..</code> = parent, <code>~</code> = home.</td>
+          <td><code>cd /var/log</code></td>
+      </tr>
+      <tr>
+          <td><code>mkdir</code></td>
+          <td>Create directory. <code>-p</code> create parent dirs as needed (no error if exists).</td>
+          <td><code>mkdir -p projects/app/logs</code></td>
+      </tr>
+      <tr>
+          <td><code>rmdir</code></td>
+          <td>Remove <strong>empty</strong> directory (no flags).</td>
+          <td><code>rmdir old_empty_dir</code></td>
+      </tr>
+      <tr>
+          <td><code>touch</code></td>
+          <td>Create empty file or update timestamps. <code>-a</code> access time; <code>-m</code> modify time.</td>
+          <td><code>touch -am notes.txt</code></td>
+      </tr>
+      <tr>
+          <td><code>cp</code></td>
+          <td>Copy files/dirs. <code>-r</code> recursive; <code>-i</code> prompt before overwrite.</td>
+          <td><code>cp -ri src/ backup/</code></td>
+      </tr>
+      <tr>
+          <td><code>mv</code></td>
+          <td>Move/rename. <code>-i</code> prompt before overwrite; <code>-n</code> no clobber (don’t overwrite).</td>
+          <td><code>mv -i report.txt report-2026.txt</code></td>
+      </tr>
+      <tr>
+          <td><code>rm</code></td>
+          <td>Remove files/dirs. <code>-r</code> recursive; <code>-f</code> force (no prompts). <strong>Use carefully.</strong></td>
+          <td><code>rm -rf build/</code></td>
+      </tr>
+      <tr>
+          <td><code>find</code></td>
+          <td>Search for files. <code>-type f</code> files only; <code>-name</code> pattern; <code>-mtime -7</code> modified within 7 days.</td>
+          <td><code>find . -type f -name &quot;*.log&quot; -mtime -7</code></td>
+      </tr>
+      <tr>
+          <td><code>locate</code></td>
+          <td>Fast filename search via database. <code>-i</code> case-insensitive.</td>
+          <td><code>locate -i ssh_config</code></td>
+      </tr>
+      <tr>
+          <td><code>updatedb</code></td>
+          <td>Update <code>locate</code> database (often requires sudo).</td>
+          <td><code>sudo updatedb</code></td>
+      </tr>
+      <tr>
+          <td><code>stat</code></td>
+          <td>Show detailed file metadata (size, perms, times).</td>
+          <td><code>stat /etc/hosts</code></td>
+      </tr>
+      <tr>
+          <td><code>file</code></td>
+          <td>Detect file type by content (no flags).</td>
+          <td><code>file archive.tar.gz</code></td>
+      </tr>
+      <tr>
+          <td><code>cat</code></td>
+          <td>Print file contents. <code>-n</code> number lines.</td>
+          <td><code>cat -n README.md</code></td>
+      </tr>
+      <tr>
+          <td><code>tac</code></td>
+          <td>Print file in reverse (last line first).</td>
+          <td><code>tac /var/log/syslog</code></td>
+      </tr>
+      <tr>
+          <td><code>less</code></td>
+          <td>Page through text. <code>-N</code> show line numbers; <code>-S</code> chop long lines.</td>
+          <td><code>less -NS large.log</code></td>
+      </tr>
+      <tr>
+          <td><code>head</code></td>
+          <td>Show first lines. <code>-n 20</code> show 20 lines.</td>
+          <td><code>head -n 20 access.log</code></td>
+      </tr>
+      <tr>
+          <td><code>tail</code></td>
+          <td>Show last lines. <code>-n 50</code> show 50 lines; <code>-f</code> follow appended data.</td>
+          <td><code>tail -n 50 -f app.log</code></td>
+      </tr>
+      <tr>
+          <td><code>grep</code></td>
+          <td>Search text. <code>-n</code> show line numbers; <code>-i</code> ignore case; <code>-r</code> recursive.</td>
+          <td><code>grep -rin &quot;error&quot; /var/log</code></td>
+      </tr>
+      <tr>
+          <td><code>sed</code></td>
+          <td>Stream editor. <code>-i</code> edit in place (GNU sed); <code>s/old/new/g</code> substitute globally.</td>
+          <td><code>sed -i 's/DEBUG/INFO/g' app.conf</code></td>
+      </tr>
+      <tr>
+          <td><code>awk</code></td>
+          <td>Field/column processing. <code>-F,</code> set delimiter to comma.</td>
+          <td><code>awk -F, '{print $1,$3}' data.csv</code></td>
+      </tr>
+      <tr>
+          <td><code>sort</code></td>
+          <td>Sort lines. <code>-n</code> numeric; <code>-r</code> reverse.</td>
+          <td><code>sort -nr scores.txt</code></td>
+      </tr>
+      <tr>
+          <td><code>uniq</code></td>
+          <td>Remove adjacent duplicates. <code>-c</code> prefix counts. (Often used after <code>sort</code>.)</td>
+          <td><code>sort words.txt | uniq -c</code></td>
+      </tr>
+      <tr>
+          <td><code>tar</code></td>
+          <td>Archive. <code>-c</code> create; <code>-z</code> gzip; <code>-v</code> verbose; <code>-f</code> filename.</td>
+          <td><code>tar -czvf logs.tar.gz /var/log</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="networking-commands">Networking Commands<a hidden class="anchor" aria-hidden="true" href="#networking-commands">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description (incl. flags)</th>
+          <th>Example Command</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>ip</code></td>
+          <td>Modern network tool. <code>addr</code> show addresses; <code>link</code> show interfaces.</td>
+          <td><code>ip addr show</code></td>
+      </tr>
+      <tr>
+          <td><code>ip link</code></td>
+          <td>Manage links. <code>set</code> change state; <code>up</code> enable.</td>
+          <td><code>sudo ip link set eth0 up</code></td>
+      </tr>
+      <tr>
+          <td><code>ip route</code></td>
+          <td>Show routing table (no flags).</td>
+          <td><code>ip route</code></td>
+      </tr>
+      <tr>
+          <td><code>ping</code></td>
+          <td>ICMP reachability. <code>-c 4</code> send 4 packets.</td>
+          <td><code>ping -c 4 8.8.8.8</code></td>
+      </tr>
+      <tr>
+          <td><code>traceroute</code></td>
+          <td>Trace route hops. <code>-n</code> don’t resolve DNS (faster).</td>
+          <td><code>traceroute -n example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>mtr</code></td>
+          <td>Combined ping/traceroute. <code>-r</code> report mode; <code>-c 20</code> 20 cycles.</td>
+          <td><code>mtr -r -c 20 example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>nslookup</code></td>
+          <td>DNS lookup (no flags).</td>
+          <td><code>nslookup example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>dig</code></td>
+          <td>DNS query. <code>+short</code> compact output; <code>@8.8.8.8</code> choose resolver.</td>
+          <td><code>dig @8.8.8.8 example.com A +short</code></td>
+      </tr>
+      <tr>
+          <td><code>host</code></td>
+          <td>DNS lookup (simple). <code>-t MX</code> query MX records.</td>
+          <td><code>host -t MX example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>curl</code></td>
+          <td>HTTP client. <code>-I</code> headers only; <code>-L</code> follow redirects.</td>
+          <td><code>curl -IL https://example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>wget</code></td>
+          <td>Downloader. <code>-O</code> output file; <code>-q</code> quiet.</td>
+          <td><code>wget -q -O index.html https://example.com</code></td>
+      </tr>
+      <tr>
+          <td><code>ssh</code></td>
+          <td>Secure remote shell. <code>-p</code> port; <code>-i</code> identity key file.</td>
+          <td><code>ssh -p 2222 -i ~/.ssh/id_ed25519 user@server</code></td>
+      </tr>
+      <tr>
+          <td><code>scp</code></td>
+          <td>Secure copy. <code>-P</code> port; <code>-r</code> recursive.</td>
+          <td><code>scp -P 2222 -r ./site user@server:/var/www/</code></td>
+      </tr>
+      <tr>
+          <td><code>sftp</code></td>
+          <td>Interactive file transfer over SSH (no flags).</td>
+          <td><code>sftp user@server</code></td>
+      </tr>
+      <tr>
+          <td><code>ss</code></td>
+          <td>Socket statistics (replacement for <code>netstat</code>). <code>-t</code> TCP; <code>-u</code> UDP; <code>-l</code> listening; <code>-n</code> numeric; <code>-p</code> process.</td>
+          <td><code>ss -tulnp</code></td>
+      </tr>
+      <tr>
+          <td><code>netstat</code></td>
+          <td>Legacy sockets/routes. <code>-tulnp</code> similar meaning: TCP/UDP/listen/numeric/process.</td>
+          <td><code>sudo netstat -tulnp</code></td>
+      </tr>
+      <tr>
+          <td><code>lsof</code></td>
+          <td>List open files. <code>-i :80</code> show processes using TCP/UDP port 80.</td>
+          <td><code>sudo lsof -i :80</code></td>
+      </tr>
+      <tr>
+          <td><code>nc</code></td>
+          <td>Netcat for testing. <code>-z</code> zero-I/O scan; <code>-v</code> verbose; <code>-w 2</code> timeout.</td>
+          <td><code>nc -zvw 2 example.com 443</code></td>
+      </tr>
+      <tr>
+          <td><code>nmap</code></td>
+          <td>Network scanner. <code>-sS</code> SYN scan; <code>-p 1-1000</code> ports; <code>-Pn</code> no ping.</td>
+          <td><code>sudo nmap -sS -p 1-1000 -Pn 10.0.0.5</code></td>
+      </tr>
+      <tr>
+          <td><code>tcpdump</code></td>
+          <td>Packet capture. <code>-i</code> interface; <code>-nn</code> no name/port resolve; <code>-c 50</code> packets.</td>
+          <td><code>sudo tcpdump -i eth0 -nn -c 50 port 53</code></td>
+      </tr>
+      <tr>
+          <td><code>iptables</code></td>
+          <td>Legacy firewall. <code>-A</code> append rule; <code>-p</code> protocol; <code>--dport</code> dest port; <code>-j</code> action.</td>
+          <td><code>sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code></td>
+      </tr>
+      <tr>
+          <td><code>ufw</code></td>
+          <td>Uncomplicated firewall. <code>allow 22/tcp</code> allow SSH.</td>
+          <td><code>sudo ufw allow 22/tcp</code></td>
+      </tr>
+      <tr>
+          <td><code>nmcli</code></td>
+          <td>NetworkManager CLI. <code>dev status</code> device status.</td>
+          <td><code>nmcli dev status</code></td>
+      </tr>
+      <tr>
+          <td><code>ethtool</code></td>
+          <td>NIC details. (Example reads settings; some options require root.)</td>
+          <td><code>sudo ethtool eth0</code></td>
+      </tr>
+      <tr>
+          <td><code>openssl s_client</code></td>
+          <td>Inspect TLS connection. <code>-connect host:port</code> target; <code>-servername</code> SNI.</td>
+          <td><code>openssl s_client -connect example.com:443 -servername example.com</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="process-and-system-monitoring-commands">Process and System Monitoring Commands<a hidden class="anchor" aria-hidden="true" href="#process-and-system-monitoring-commands">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description (incl. flags)</th>
+          <th>Example Command</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>uname</code></td>
+          <td>Kernel/system info. <code>-a</code> all details.</td>
+          <td><code>uname -a</code></td>
+      </tr>
+      <tr>
+          <td><code>uptime</code></td>
+          <td>System uptime and load averages (no flags).</td>
+          <td><code>uptime</code></td>
+      </tr>
+      <tr>
+          <td><code>date</code></td>
+          <td>Show/set date. <code>+FORMAT</code> custom output format.</td>
+          <td><code>date +&quot;%Y-%m-%d %H:%M:%S&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>whoami</code></td>
+          <td>Current username (no flags).</td>
+          <td><code>whoami</code></td>
+      </tr>
+      <tr>
+          <td><code>w</code></td>
+          <td>Who is logged in + activity (no flags).</td>
+          <td><code>w</code></td>
+      </tr>
+      <tr>
+          <td><code>top</code></td>
+          <td>Interactive process viewer (no flags).</td>
+          <td><code>top</code></td>
+      </tr>
+      <tr>
+          <td><code>htop</code></td>
+          <td>Enhanced interactive process viewer (no flags; if installed).</td>
+          <td><code>htop</code></td>
+      </tr>
+      <tr>
+          <td><code>ps</code></td>
+          <td>Process snapshot. <code>aux</code> = all users, user-oriented format, include processes without TTY.</td>
+          <td><code>ps aux</code></td>
+      </tr>
+      <tr>
+          <td><code>pgrep</code></td>
+          <td>Find PID(s) by name. <code>-a</code> show full command line.</td>
+          <td><code>pgrep -a nginx</code></td>
+      </tr>
+      <tr>
+          <td><code>pkill</code></td>
+          <td>Kill by name. <code>-f</code> match full command line (use carefully).</td>
+          <td><code>pkill -f &quot;python app.py&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>kill</code></td>
+          <td>Send signal to PID. <code>-9</code> SIGKILL (force); prefer <code>-15</code> (default) when possible.</td>
+          <td><code>kill -9 12345</code></td>
+      </tr>
+      <tr>
+          <td><code>killall</code></td>
+          <td>Kill processes by name. <code>-i</code> interactive prompt.</td>
+          <td><code>killall -i chrome</code></td>
+      </tr>
+      <tr>
+          <td><code>nice</code></td>
+          <td>Start process with priority. <code>-n 10</code> set niceness +10 (lower priority).</td>
+          <td><code>nice -n 10 make</code></td>
+      </tr>
+      <tr>
+          <td><code>renice</code></td>
+          <td>Change running process priority. <code>-n</code> new niceness; <code>-p</code> target PID.</td>
+          <td><code>sudo renice -n -5 -p 12345</code></td>
+      </tr>
+      <tr>
+          <td><code>free</code></td>
+          <td>Memory usage. <code>-h</code> human-readable.</td>
+          <td><code>free -h</code></td>
+      </tr>
+      <tr>
+          <td><code>vmstat</code></td>
+          <td>Virtual memory &amp; CPU stats. <code>1 5</code> every 1s, 5 times.</td>
+          <td><code>vmstat 1 5</code></td>
+      </tr>
+      <tr>
+          <td><code>iostat</code></td>
+          <td>CPU/disk I/O stats (sysstat). <code>-x</code> extended; <code>1 3</code> interval/count.</td>
+          <td><code>iostat -x 1 3</code></td>
+      </tr>
+      <tr>
+          <td><code>df</code></td>
+          <td>Disk free. <code>-h</code> human-readable; <code>-T</code> filesystem type.</td>
+          <td><code>df -hT</code></td>
+      </tr>
+      <tr>
+          <td><code>du</code></td>
+          <td>Disk usage. <code>-h</code> human-readable; <code>-s</code> summary; <code>--max-depth=1</code> one level.</td>
+          <td><code>du -hs --max-depth=1 /var</code></td>
+      </tr>
+      <tr>
+          <td><code>lsblk</code></td>
+          <td>List block devices. <code>-f</code> include filesystem info.</td>
+          <td><code>lsblk -f</code></td>
+      </tr>
+      <tr>
+          <td><code>mount</code></td>
+          <td>Show mounts (no flags).</td>
+          <td><code>mount</code></td>
+      </tr>
+      <tr>
+          <td><code>dmesg</code></td>
+          <td>Kernel ring buffer. <code>-T</code> human timestamps; <code>-l err,warn</code> filter levels.</td>
+          <td><code>dmesg -T -l err,warn</code></td>
+      </tr>
+      <tr>
+          <td><code>journalctl</code></td>
+          <td>systemd logs. <code>-u</code> unit; <code>-p</code> priority; <code>-b</code> current boot.</td>
+          <td><code>journalctl -u ssh -p warning -b</code></td>
+      </tr>
+      <tr>
+          <td><code>systemctl</code></td>
+          <td>systemd service manager. <code>status</code> show state; <code>--no-pager</code> avoid pager.</td>
+          <td><code>systemctl status nginx --no-pager</code></td>
+      </tr>
+      <tr>
+          <td><code>sar</code></td>
+          <td>Historic stats (sysstat). <code>-u</code> CPU; <code>1 3</code> interval/count.</td>
+          <td><code>sar -u 1 3</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="user-and-permission-management-commands">User and Permission Management Commands<a hidden class="anchor" aria-hidden="true" href="#user-and-permission-management-commands">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Command</th>
+          <th>Description (incl. flags)</th>
+          <th>Example Command</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>id</code></td>
+          <td>Show user/group IDs. <code>-u</code> user ID; <code>-n</code> name instead of number.</td>
+          <td><code>id -un</code></td>
+      </tr>
+      <tr>
+          <td><code>who</code></td>
+          <td>Show logged-in users. <code>-a</code> all details.</td>
+          <td><code>who -a</code></td>
+      </tr>
+      <tr>
+          <td><code>groups</code></td>
+          <td>Show groups for a user (no flags).</td>
+          <td><code>groups alice</code></td>
+      </tr>
+      <tr>
+          <td><code>useradd</code></td>
+          <td>Create user. <code>-m</code> create home; <code>-s</code> login shell.</td>
+          <td><code>sudo useradd -m -s /bin/bash devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>usermod</code></td>
+          <td>Modify user. <code>-aG</code> append to supplementary groups (don’t replace).</td>
+          <td><code>sudo usermod -aG sudo devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>userdel</code></td>
+          <td>Delete user. <code>-r</code> remove home and mail spool.</td>
+          <td><code>sudo userdel -r devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>passwd</code></td>
+          <td>Set/change password. <code>-l</code> lock; <code>-u</code> unlock.</td>
+          <td><code>sudo passwd -l devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>chage</code></td>
+          <td>Password aging. <code>-l</code> list settings.</td>
+          <td><code>sudo chage -l devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>groupadd</code></td>
+          <td>Create group (no flags).</td>
+          <td><code>sudo groupadd developers</code></td>
+      </tr>
+      <tr>
+          <td><code>groupmod</code></td>
+          <td>Modify group. <code>-n</code> rename group.</td>
+          <td><code>sudo groupmod -n devs developers</code></td>
+      </tr>
+      <tr>
+          <td><code>groupdel</code></td>
+          <td>Delete group (no flags).</td>
+          <td><code>sudo groupdel devs</code></td>
+      </tr>
+      <tr>
+          <td><code>gpasswd</code></td>
+          <td>Manage group membership. <code>-a</code> add user; <code>-d</code> delete user.</td>
+          <td><code>sudo gpasswd -a devuser docker</code></td>
+      </tr>
+      <tr>
+          <td><code>su</code></td>
+          <td>Switch user. <code>-</code> start a login shell (load target env).</td>
+          <td><code>su - root</code></td>
+      </tr>
+      <tr>
+          <td><code>sudo</code></td>
+          <td>Run as another user (usually root). <code>-u</code> specify user; <code>-k</code> invalidate cached credentials.</td>
+          <td><code>sudo -u postgres psql</code></td>
+      </tr>
+      <tr>
+          <td><code>visudo</code></td>
+          <td>Safely edit sudoers (syntax-checked).</td>
+          <td><code>sudo visudo</code></td>
+      </tr>
+      <tr>
+          <td><code>chmod</code></td>
+          <td>Change permissions. <code>-R</code> recursive. (Example uses numeric mode.)</td>
+          <td><code>chmod -R 750 /opt/app</code></td>
+      </tr>
+      <tr>
+          <td><code>chown</code></td>
+          <td>Change owner/group. <code>-R</code> recursive; <code>user:group</code> ownership spec.</td>
+          <td><code>sudo chown -R appuser:appgroup /opt/app</code></td>
+      </tr>
+      <tr>
+          <td><code>chgrp</code></td>
+          <td>Change group owner. <code>-R</code> recursive.</td>
+          <td><code>sudo chgrp -R developers /srv/repos</code></td>
+      </tr>
+      <tr>
+          <td><code>umask</code></td>
+          <td>Set default permission mask (no flags). (Example sets mask to 027.)</td>
+          <td><code>umask 027</code></td>
+      </tr>
+      <tr>
+          <td><code>getfacl</code></td>
+          <td>View ACLs (no flags).</td>
+          <td><code>getfacl /srv/shared</code></td>
+      </tr>
+      <tr>
+          <td><code>setfacl</code></td>
+          <td>Set ACLs. <code>-m</code> modify ACL; <code>u:user:perms</code> user entry.</td>
+          <td><code>sudo setfacl -m u:devuser:rwx /srv/shared</code></td>
+      </tr>
+      <tr>
+          <td><code>sudoers.d</code></td>
+          <td>Best practice: drop-in file for sudo rules (no flags).</td>
+          <td><code>echo &quot;devuser ALL=(ALL) NOPASSWD:/usr/bin/systemctl&quot; | sudo tee /etc/sudoers.d/devuser</code></td>
+      </tr>
+      <tr>
+          <td><code>ssh-keygen</code></td>
+          <td>Generate SSH keypair. <code>-t</code> type; <code>-b</code> bits; <code>-C</code> comment.</td>
+          <td><code>ssh-keygen -t ed25519 -C &quot;devuser@laptop&quot;</code></td>
+      </tr>
+      <tr>
+          <td><code>ssh-copy-id</code></td>
+          <td>Copy SSH public key. <code>-i</code> identity file to install.</td>
+          <td><code>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h3 id="notes">Notes<a hidden class="anchor" aria-hidden="true" href="#notes">#</a></h3>
+<ul>
+<li>Some commands (e.g., <code>iptables</code>, <code>tcpdump</code>, user management) typically require <code>sudo</code>.</li>
+<li>Flags can vary slightly between GNU/Linux distributions (especially <code>sed -i</code> behaviour); check <code>man &lt;command&gt;</code> for your system.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
