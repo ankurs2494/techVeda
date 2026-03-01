@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Transformer attention | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="🧠 Transformer Attention Explained (Beginner → Advanced)
+📌 What Is Attention?
+Attention is the mechanism that allows a model to focus on the most relevant parts of input text when understanding or generating language.
+👉 Instead of reading text left to right like humans, transformers look at all words at once and decide:
+
+“Which words matter most to each other?”
+
+
+🧒 Beginner Level: Intuition Behind Attention
+Simple Example
+Sentence:
+&#34;The animal didn&#39;t cross the street because it was tired.&#34;
+Question:
+👉 What does &ldquo;it&rdquo; refer to?">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Transformer attention">
+  <meta property="og:description" content="🧠 Transformer Attention Explained (Beginner → Advanced) 📌 What Is Attention? Attention is the mechanism that allows a model to focus on the most relevant parts of input text when understanding or generating language.
+👉 Instead of reading text left to right like humans, transformers look at all words at once and decide:
+“Which words matter most to each other?”
+🧒 Beginner Level: Intuition Behind Attention Simple Example Sentence:
+&#34;The animal didn&#39;t cross the street because it was tired.&#34; Question: 👉 What does “it” refer to?">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Transformer attention">
+<meta name="twitter:description" content="🧠 Transformer Attention Explained (Beginner → Advanced)
+📌 What Is Attention?
+Attention is the mechanism that allows a model to focus on the most relevant parts of input text when understanding or generating language.
+👉 Instead of reading text left to right like humans, transformers look at all words at once and decide:
+
+“Which words matter most to each other?”
+
+
+🧒 Beginner Level: Intuition Behind Attention
+Simple Example
+Sentence:
+&#34;The animal didn&#39;t cross the street because it was tired.&#34;
+Question:
+👉 What does &ldquo;it&rdquo; refer to?">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Transformer attention",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Transformer attention",
+  "name": "Transformer attention",
+  "description": "🧠 Transformer Attention Explained (Beginner → Advanced) 📌 What Is Attention? Attention is the mechanism that allows a model to focus on the most relevant parts of input text when understanding or generating language.\n👉 Instead of reading text left to right like humans, transformers look at all words at once and decide:\n“Which words matter most to each other?”\n🧒 Beginner Level: Intuition Behind Attention Simple Example Sentence:\n\u0026#34;The animal didn\u0026#39;t cross the street because it was tired.\u0026#34; Question: 👉 What does \u0026ldquo;it\u0026rdquo; refer to?\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "🧠 Transformer Attention Explained (Beginner → Advanced) 📌 What Is Attention? Attention is the mechanism that allows a model to focus on the most relevant parts of input text when understanding or generating language.\n👉 Instead of reading text left to right like humans, transformers look at all words at once and decide:\n“Which words matter most to each other?”\n🧒 Beginner Level: Intuition Behind Attention Simple Example Sentence:\n\"The animal didn't cross the street because it was tired.\" Question: 👉 What does “it” refer to?\nAnswer:\n“animal”, not “street” 💡 Attention helps the model link “it” → “animal”.\n🎯 Why Attention Is Needed Traditional models:\nForget long context Struggle with long sentences Transformers + attention:\nLook at entire sentence at once Capture long-range dependencies Understand context and meaning 🧩 Core Idea of Attention Each word asks:\n“Which other words should I pay attention to?”\nEvery word:\nLooks at all other words Assigns importance (weights) Builds understanding from context 🧱 Intermediate Level: How Attention Works Step 1: Token Embeddings Input:\n\"I love AI\" Tokens → embeddings:\n[I] [love] [AI] Step 2: Query, Key, Value (QKV) Each token embedding is converted into:\nQuery (Q) → What I am looking for Key (K) → What I offer Value (V) → Actual information Embedding → Q, K, V Step 3: Attention Score Calculation For each token:\nAttention Score = Q · Kᵀ Higher score = more relevance\nThen apply:\nScaling Softmax (to convert into probabilities) Step 4: Weighted Sum Final attention output:\nAttention Output = Softmax(QKᵀ) × V This produces a context-aware representation of each token.\n🔁 Visual Flow (Text Diagram) Input Tokens ↓ Token Embeddings ↓ Q K V \\ | / Attention ↓ Contextual Embeddings 🧠 Self-Attention Explained Self-attention means:\nTokens attend to other tokens within the same sentence\nExample:\n\"She poured water into the glass because it was empty.\" Attention links:\n“it” → “glass” 🚀 Advanced Level: Multi-Head Attention Instead of ONE attention mechanism, Transformers use multiple attention heads.\nWhy? Each head learns something different:\nGrammar Meaning Relationships Syntax Multi-Head Attention ├─ Head 1 → Grammar ├─ Head 2 → Subject-Verb ├─ Head 3 → Coreference └─ Head N → Semantics Outputs are:\nConcatenated Linearly transformed 🧠 Positional Awareness Attention alone does NOT know order.\nSolution:\nPositional Embeddings Added to token embeddings This lets the model know:\n\"dog bites man\" ≠ \"man bites dog\" ⚡ Types of Attention in Transformers 1️⃣ Encoder Self-Attention Used in:\nBERT Document understanding Looks at:\nFull input sequence 2️⃣ Decoder Masked Self-Attention Used in:\nGPT Text generation Prevents seeing:\nFuture tokens Example:\n\"I am going to\" Model can’t see next word yet.\n3️⃣ Cross-Attention Used in:\nTranslation RAG Multimodal models Example:\nDecoder attends to encoder outputs 🧪 Example: Attention in Action Sentence:\n\"The chef cooked pasta and served it hot.\" Attention links:\n“it” → “pasta” Without attention → ambiguous With attention → correct understanding\n🗂️ Real-World Use Cases 1️⃣ Chatbots (ChatGPT) Maintains context Understands follow-up questions 2️⃣ Machine Translation English → French Words align using attention:\nSubject ↔ verb Gender agreement 3️⃣ Search \u0026 RAG Systems Attention ranks relevant context Improves factual accuracy 4️⃣ Code Understanding Variable references Function scope Dependency tracking ⚙️ Pseudocode (Conceptual) attention_scores = softmax(Q @ K.T / sqrt(d_k)) output = attention_scores @ V ⚠️ Limitations of Attention O(n²) complexity for long sequences Memory intensive Optimizations needed (Flash Attention, Sparse Attention) 📝 One-Line Summary Transformer attention allows each token to dynamically focus on relevant tokens, enabling context-aware understanding and generation of language.\n🧠 Memory Tip Q = What am I looking for? K = What do I have? V = Actual information Attention = Weighted relevance 📌 Next Topics You Should Learn Transformer Architecture (Encoder–Decoder) Self-Attention vs Cross-Attention Flash Attention RAG Attention Patterns ⭐ End of Notes\n",
+  "wordCount" : "625",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Transformer attention
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-transformer-attention-explained-beginner--advanced">🧠 Transformer Attention Explained (Beginner → Advanced)<a hidden class="anchor" aria-hidden="true" href="#-transformer-attention-explained-beginner--advanced">#</a></h1>
+<h2 id="-what-is-attention">📌 What Is Attention?<a hidden class="anchor" aria-hidden="true" href="#-what-is-attention">#</a></h2>
+<p><strong>Attention</strong> is the mechanism that allows a model to <strong>focus on the most relevant parts of input text</strong> when understanding or generating language.</p>
+<p>👉 Instead of reading text left to right like humans, transformers look at <strong>all words at once</strong> and decide:</p>
+<blockquote>
+<p>“Which words matter most to each other?”</p>
+</blockquote>
+<hr>
+<h2 id="-beginner-level-intuition-behind-attention">🧒 Beginner Level: Intuition Behind Attention<a hidden class="anchor" aria-hidden="true" href="#-beginner-level-intuition-behind-attention">#</a></h2>
+<h3 id="simple-example">Simple Example<a hidden class="anchor" aria-hidden="true" href="#simple-example">#</a></h3>
+<p>Sentence:</p>
+<pre tabindex="0"><code>&#34;The animal didn&#39;t cross the street because it was tired.&#34;
+</code></pre><p>Question:
+👉 What does <strong>&ldquo;it&rdquo;</strong> refer to?</p>
+<p>Answer:</p>
+<ul>
+<li>&ldquo;animal&rdquo;, not &ldquo;street&rdquo;</li>
+</ul>
+<p>💡 Attention helps the model link <strong>&ldquo;it&rdquo; → &ldquo;animal&rdquo;</strong>.</p>
+<hr>
+<h2 id="-why-attention-is-needed">🎯 Why Attention Is Needed<a hidden class="anchor" aria-hidden="true" href="#-why-attention-is-needed">#</a></h2>
+<p>Traditional models:</p>
+<ul>
+<li>Forget long context</li>
+<li>Struggle with long sentences</li>
+</ul>
+<p>Transformers + attention:</p>
+<ul>
+<li>Look at <strong>entire sentence at once</strong></li>
+<li>Capture <strong>long-range dependencies</strong></li>
+<li>Understand <strong>context and meaning</strong></li>
+</ul>
+<hr>
+<h2 id="-core-idea-of-attention">🧩 Core Idea of Attention<a hidden class="anchor" aria-hidden="true" href="#-core-idea-of-attention">#</a></h2>
+<p>Each word asks:</p>
+<blockquote>
+<p>“Which other words should I pay attention to?”</p>
+</blockquote>
+<p>Every word:</p>
+<ul>
+<li>Looks at all other words</li>
+<li>Assigns importance (weights)</li>
+<li>Builds understanding from context</li>
+</ul>
+<hr>
+<h2 id="-intermediate-level-how-attention-works">🧱 Intermediate Level: How Attention Works<a hidden class="anchor" aria-hidden="true" href="#-intermediate-level-how-attention-works">#</a></h2>
+<h3 id="step-1-token-embeddings">Step 1: Token Embeddings<a hidden class="anchor" aria-hidden="true" href="#step-1-token-embeddings">#</a></h3>
+<p>Input:</p>
+<pre tabindex="0"><code>&#34;I love AI&#34;
+</code></pre><p>Tokens → embeddings:</p>
+<pre tabindex="0"><code>[I] [love] [AI]
+</code></pre><hr>
+<h3 id="step-2-query-key-value-qkv">Step 2: Query, Key, Value (QKV)<a hidden class="anchor" aria-hidden="true" href="#step-2-query-key-value-qkv">#</a></h3>
+<p>Each token embedding is converted into:</p>
+<ul>
+<li><strong>Query (Q)</strong> → What I am looking for</li>
+<li><strong>Key (K)</strong> → What I offer</li>
+<li><strong>Value (V)</strong> → Actual information</li>
+</ul>
+<pre tabindex="0"><code>Embedding → Q, K, V
+</code></pre><hr>
+<h3 id="step-3-attention-score-calculation">Step 3: Attention Score Calculation<a hidden class="anchor" aria-hidden="true" href="#step-3-attention-score-calculation">#</a></h3>
+<p>For each token:</p>
+<pre tabindex="0"><code>Attention Score = Q · Kᵀ
+</code></pre><p>Higher score = more relevance</p>
+<p>Then apply:</p>
+<ul>
+<li><strong>Scaling</strong></li>
+<li><strong>Softmax</strong> (to convert into probabilities)</li>
+</ul>
+<hr>
+<h3 id="step-4-weighted-sum">Step 4: Weighted Sum<a hidden class="anchor" aria-hidden="true" href="#step-4-weighted-sum">#</a></h3>
+<p>Final attention output:</p>
+<pre tabindex="0"><code>Attention Output = Softmax(QKᵀ) × V
+</code></pre><p>This produces a <strong>context-aware representation</strong> of each token.</p>
+<hr>
+<h2 id="-visual-flow-text-diagram">🔁 Visual Flow (Text Diagram)<a hidden class="anchor" aria-hidden="true" href="#-visual-flow-text-diagram">#</a></h2>
+<pre tabindex="0"><code>Input Tokens
+     ↓
+Token Embeddings
+     ↓
+Q   K   V
+ \  |  /
+  Attention
+     ↓
+Contextual Embeddings
+</code></pre><hr>
+<h2 id="-self-attention-explained">🧠 Self-Attention Explained<a hidden class="anchor" aria-hidden="true" href="#-self-attention-explained">#</a></h2>
+<p><strong>Self-attention</strong> means:</p>
+<blockquote>
+<p>Tokens attend to other tokens <strong>within the same sentence</strong></p>
+</blockquote>
+<p>Example:</p>
+<pre tabindex="0"><code>&#34;She poured water into the glass because it was empty.&#34;
+</code></pre><p>Attention links:</p>
+<ul>
+<li>&ldquo;it&rdquo; → &ldquo;glass&rdquo;</li>
+</ul>
+<hr>
+<h2 id="-advanced-level-multi-head-attention">🚀 Advanced Level: Multi-Head Attention<a hidden class="anchor" aria-hidden="true" href="#-advanced-level-multi-head-attention">#</a></h2>
+<p>Instead of ONE attention mechanism,
+Transformers use <strong>multiple attention heads</strong>.</p>
+<h3 id="why">Why?<a hidden class="anchor" aria-hidden="true" href="#why">#</a></h3>
+<p>Each head learns something different:</p>
+<ul>
+<li>Grammar</li>
+<li>Meaning</li>
+<li>Relationships</li>
+<li>Syntax</li>
+</ul>
+<pre tabindex="0"><code>Multi-Head Attention
+ ├─ Head 1 → Grammar
+ ├─ Head 2 → Subject-Verb
+ ├─ Head 3 → Coreference
+ └─ Head N → Semantics
+</code></pre><p>Outputs are:</p>
+<ul>
+<li>Concatenated</li>
+<li>Linearly transformed</li>
+</ul>
+<hr>
+<h2 id="-positional-awareness">🧠 Positional Awareness<a hidden class="anchor" aria-hidden="true" href="#-positional-awareness">#</a></h2>
+<p>Attention alone does NOT know order.</p>
+<p>Solution:</p>
+<ul>
+<li><strong>Positional Embeddings</strong></li>
+<li>Added to token embeddings</li>
+</ul>
+<p>This lets the model know:</p>
+<pre tabindex="0"><code>&#34;dog bites man&#34; ≠ &#34;man bites dog&#34;
+</code></pre><hr>
+<h2 id="-types-of-attention-in-transformers">⚡ Types of Attention in Transformers<a hidden class="anchor" aria-hidden="true" href="#-types-of-attention-in-transformers">#</a></h2>
+<h3 id="1-encoder-self-attention">1️⃣ Encoder Self-Attention<a hidden class="anchor" aria-hidden="true" href="#1-encoder-self-attention">#</a></h3>
+<p>Used in:</p>
+<ul>
+<li>BERT</li>
+<li>Document understanding</li>
+</ul>
+<p>Looks at:</p>
+<ul>
+<li>Full input sequence</li>
+</ul>
+<hr>
+<h3 id="2-decoder-masked-self-attention">2️⃣ Decoder Masked Self-Attention<a hidden class="anchor" aria-hidden="true" href="#2-decoder-masked-self-attention">#</a></h3>
+<p>Used in:</p>
+<ul>
+<li>GPT</li>
+<li>Text generation</li>
+</ul>
+<p>Prevents seeing:</p>
+<ul>
+<li>Future tokens</li>
+</ul>
+<p>Example:</p>
+<pre tabindex="0"><code>&#34;I am going to&#34;
+</code></pre><p>Model can’t see next word yet.</p>
+<hr>
+<h3 id="3-cross-attention">3️⃣ Cross-Attention<a hidden class="anchor" aria-hidden="true" href="#3-cross-attention">#</a></h3>
+<p>Used in:</p>
+<ul>
+<li>Translation</li>
+<li>RAG</li>
+<li>Multimodal models</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>Decoder attends to encoder outputs</li>
+</ul>
+<hr>
+<h2 id="-example-attention-in-action">🧪 Example: Attention in Action<a hidden class="anchor" aria-hidden="true" href="#-example-attention-in-action">#</a></h2>
+<p>Sentence:</p>
+<pre tabindex="0"><code>&#34;The chef cooked pasta and served it hot.&#34;
+</code></pre><p>Attention links:</p>
+<ul>
+<li>&ldquo;it&rdquo; → &ldquo;pasta&rdquo;</li>
+</ul>
+<p>Without attention → ambiguous
+With attention → correct understanding</p>
+<hr>
+<h2 id="-real-world-use-cases">🗂️ Real-World Use Cases<a hidden class="anchor" aria-hidden="true" href="#-real-world-use-cases">#</a></h2>
+<h3 id="1-chatbots-chatgpt">1️⃣ Chatbots (ChatGPT)<a hidden class="anchor" aria-hidden="true" href="#1-chatbots-chatgpt">#</a></h3>
+<ul>
+<li>Maintains context</li>
+<li>Understands follow-up questions</li>
+</ul>
+<hr>
+<h3 id="2-machine-translation">2️⃣ Machine Translation<a hidden class="anchor" aria-hidden="true" href="#2-machine-translation">#</a></h3>
+<pre tabindex="0"><code>English → French
+</code></pre><p>Words align using attention:</p>
+<ul>
+<li>Subject ↔ verb</li>
+<li>Gender agreement</li>
+</ul>
+<hr>
+<h3 id="3-search--rag-systems">3️⃣ Search &amp; RAG Systems<a hidden class="anchor" aria-hidden="true" href="#3-search--rag-systems">#</a></h3>
+<ul>
+<li>Attention ranks relevant context</li>
+<li>Improves factual accuracy</li>
+</ul>
+<hr>
+<h3 id="4-code-understanding">4️⃣ Code Understanding<a hidden class="anchor" aria-hidden="true" href="#4-code-understanding">#</a></h3>
+<ul>
+<li>Variable references</li>
+<li>Function scope</li>
+<li>Dependency tracking</li>
+</ul>
+<hr>
+<h2 id="-pseudocode-conceptual">⚙️ Pseudocode (Conceptual)<a hidden class="anchor" aria-hidden="true" href="#-pseudocode-conceptual">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>attention_scores <span style="color:#f92672">=</span> softmax(Q <span style="color:#f92672">@</span> K<span style="color:#f92672">.</span>T <span style="color:#f92672">/</span> sqrt(d_k))
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> attention_scores <span style="color:#f92672">@</span> V
+</span></span></code></pre></div><hr>
+<h2 id="-limitations-of-attention">⚠️ Limitations of Attention<a hidden class="anchor" aria-hidden="true" href="#-limitations-of-attention">#</a></h2>
+<ul>
+<li>O(n²) complexity for long sequences</li>
+<li>Memory intensive</li>
+<li>Optimizations needed (Flash Attention, Sparse Attention)</li>
+</ul>
+<hr>
+<h2 id="-one-line-summary">📝 One-Line Summary<a hidden class="anchor" aria-hidden="true" href="#-one-line-summary">#</a></h2>
+<blockquote>
+<p><strong>Transformer attention allows each token to dynamically focus on relevant tokens, enabling context-aware understanding and generation of language.</strong></p>
+</blockquote>
+<hr>
+<h2 id="-memory-tip">🧠 Memory Tip<a hidden class="anchor" aria-hidden="true" href="#-memory-tip">#</a></h2>
+<ul>
+<li>Q = What am I looking for?</li>
+<li>K = What do I have?</li>
+<li>V = Actual information</li>
+<li>Attention = Weighted relevance</li>
+</ul>
+<hr>
+<h2 id="-next-topics-you-should-learn">📌 Next Topics You Should Learn<a hidden class="anchor" aria-hidden="true" href="#-next-topics-you-should-learn">#</a></h2>
+<ul>
+<li>Transformer Architecture (Encoder–Decoder)</li>
+<li>Self-Attention vs Cross-Attention</li>
+<li>Flash Attention</li>
+<li>RAG Attention Patterns</li>
+</ul>
+<hr>
+<p>⭐ End of Notes</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

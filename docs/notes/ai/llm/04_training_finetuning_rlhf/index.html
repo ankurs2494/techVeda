@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Training finetuning rlhf | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="🧠 Training, Fine-Tuning, and RLHF in LLMs
+(Beginner → Intermediate → Advanced)
+
+📌 Big Picture: How LLMs Are Made Smarter
+Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in three major stages:
+1️⃣ Pretraining  →  2️⃣ Fine-Tuning  →  3️⃣ RLHF
+Each stage adds new capabilities and alignment.
+
+🧒 Beginner Level: Core Concepts
+1️⃣ Pretraining (Foundation Training)
+What Is Pretraining?
+Pretraining is when a model learns language basics by reading massive amounts of text.">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Training finetuning rlhf">
+  <meta property="og:description" content="🧠 Training, Fine-Tuning, and RLHF in LLMs (Beginner → Intermediate → Advanced)
+📌 Big Picture: How LLMs Are Made Smarter Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in three major stages:
+1️⃣ Pretraining → 2️⃣ Fine-Tuning → 3️⃣ RLHF Each stage adds new capabilities and alignment.
+🧒 Beginner Level: Core Concepts 1️⃣ Pretraining (Foundation Training) What Is Pretraining? Pretraining is when a model learns language basics by reading massive amounts of text.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Training finetuning rlhf">
+<meta name="twitter:description" content="🧠 Training, Fine-Tuning, and RLHF in LLMs
+(Beginner → Intermediate → Advanced)
+
+📌 Big Picture: How LLMs Are Made Smarter
+Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in three major stages:
+1️⃣ Pretraining  →  2️⃣ Fine-Tuning  →  3️⃣ RLHF
+Each stage adds new capabilities and alignment.
+
+🧒 Beginner Level: Core Concepts
+1️⃣ Pretraining (Foundation Training)
+What Is Pretraining?
+Pretraining is when a model learns language basics by reading massive amounts of text.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Training finetuning rlhf",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Training finetuning rlhf",
+  "name": "Training finetuning rlhf",
+  "description": "🧠 Training, Fine-Tuning, and RLHF in LLMs (Beginner → Intermediate → Advanced)\n📌 Big Picture: How LLMs Are Made Smarter Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in three major stages:\n1️⃣ Pretraining → 2️⃣ Fine-Tuning → 3️⃣ RLHF Each stage adds new capabilities and alignment.\n🧒 Beginner Level: Core Concepts 1️⃣ Pretraining (Foundation Training) What Is Pretraining? Pretraining is when a model learns language basics by reading massive amounts of text.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "🧠 Training, Fine-Tuning, and RLHF in LLMs (Beginner → Intermediate → Advanced)\n📌 Big Picture: How LLMs Are Made Smarter Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in three major stages:\n1️⃣ Pretraining → 2️⃣ Fine-Tuning → 3️⃣ RLHF Each stage adds new capabilities and alignment.\n🧒 Beginner Level: Core Concepts 1️⃣ Pretraining (Foundation Training) What Is Pretraining? Pretraining is when a model learns language basics by reading massive amounts of text.\nThe model learns:\nGrammar Vocabulary Facts Patterns Reasoning structures How It Learns The model predicts the next token.\nExample:\nInput: \"The sky is\" Target: \"blue\" This is called: 👉 Self-supervised learning\nData Used Books Websites Articles Code Documentation 💡 No humans label the data manually.\nExample Use Case ChatGPT understanding language Code completion Question answering 2️⃣ Fine-Tuning (Teaching Behavior) What Is Fine-Tuning? Fine-tuning teaches the model how to behave for a specific task.\nInstead of random text, the model is trained on:\nPrompt → Ideal Answer Example:\nPrompt: \"Explain HTTP\" Answer: \"HTTP is a protocol used for...\" This is called: 👉 Supervised Fine-Tuning (SFT)\nWhat Improves During Fine-Tuning? Answer quality Task specialization Tone and format Domain knowledge Example Use Case Customer support bots Medical Q\u0026A Legal assistants DevOps copilots 3️⃣ RLHF (Human Alignment) What Is RLHF? RLHF = Reinforcement Learning from Human Feedback\nIt teaches the model:\n“Which answers humans prefer”\nSimple Explanation Humans rank model answers.\nExample:\nQuestion: \"How to reset password?\" Answer A: Long, unclear Answer B: Clear, step-by-step Human feedback:\nB \u003e A The model learns to prefer B-like responses.\nWhy RLHF Is Needed Without RLHF:\nModel may be correct but rude Unsafe Overconfident Hallucinating Example Use Case Safer AI responses Polite chatbots Policy-aligned assistants 🧩 Intermediate Level: How It Actually Works 🔁 Training Pipeline (Simplified) Raw Text ↓ Pretraining (Next-token prediction) ↓ Supervised Fine-Tuning (Prompt → Answer) ↓ Reward Model Training ↓ RLHF Optimization 🔧 Supervised Fine-Tuning (SFT) Uses labeled datasets Trains model to follow instructions Loss function: Cross-Entropy Example dataset:\n{\"prompt\": \"Summarize this text\", \"answer\": \"...\"} ⭐ Reward Model (Key RLHF Component) A reward model scores responses.\nInput:\nPrompt + Response Output:\nScore (good or bad) Human-labeled rankings train this reward model.\n🎮 Reinforcement Learning Step Using algorithms like:\nPPO (Proximal Policy Optimization) The model:\nGenerates responses Gets reward scores Adjusts weights to maximize reward 🧠 Intermediate Example Chatbot learning tone:\nBefore RLHF:\n“That’s a stupid question.”\nAfter RLHF:\n“That’s a great question! Here’s how it works.”\n🚀 Advanced Level: System-Level Understanding 🧬 Why Not Only Fine-Tuning? Fine-tuning alone:\nCopies dataset behavior Can overfit Doesn’t optimize for human preference RLHF:\nOptimizes policy Aligns model with human values Reduces unsafe outputs ⚙️ Mathematical View (High Level) RL Objective:\nMaximize Expected Reward Where reward comes from:\nHuman preference model ⚠️ Challenges in RLHF Challenge Explanation Expensive Requires human labeling Bias Human preferences vary Reward hacking Model exploits reward Scalability Hard at large scale 🧪 Real-World Applications 🔹 Chat Assistants ChatGPT Claude Gemini 🔹 Enterprise Agents ITSM copilots DevOps assistants Knowledge bots 🔹 Safety-Critical AI Healthcare Finance Legal 🧠 Comparison Summary Stage Purpose Data Type Pretraining Learn language Raw text Fine-Tuning Learn tasks Prompt–Answer RLHF Align with humans Ranked responses 📝 One-Line Summary Pretraining teaches language, fine-tuning teaches tasks, and RLHF teaches human-aligned behavior.\n🧠 Memory Trick Pretraining = Read everything Fine-tuning = Practice with examples RLHF = Learn from feedback 📌 Next Topics to Learn Instruction tuning vs RLHF Constitutional AI DPO (Direct Preference Optimization) Safety \u0026 alignment techniques ⭐ End of Notes\n",
+  "wordCount" : "583",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Training finetuning rlhf
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-training-fine-tuning-and-rlhf-in-llms">🧠 Training, Fine-Tuning, and RLHF in LLMs<a hidden class="anchor" aria-hidden="true" href="#-training-fine-tuning-and-rlhf-in-llms">#</a></h1>
+<p><em>(Beginner → Intermediate → Advanced)</em></p>
+<hr>
+<h2 id="-big-picture-how-llms-are-made-smarter">📌 Big Picture: How LLMs Are Made Smarter<a hidden class="anchor" aria-hidden="true" href="#-big-picture-how-llms-are-made-smarter">#</a></h2>
+<p>Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in <strong>three major stages</strong>:</p>
+<pre tabindex="0"><code>1️⃣ Pretraining  →  2️⃣ Fine-Tuning  →  3️⃣ RLHF
+</code></pre><p>Each stage adds <strong>new capabilities and alignment</strong>.</p>
+<hr>
+<h1 id="-beginner-level-core-concepts">🧒 Beginner Level: Core Concepts<a hidden class="anchor" aria-hidden="true" href="#-beginner-level-core-concepts">#</a></h1>
+<h2 id="1-pretraining-foundation-training">1️⃣ Pretraining (Foundation Training)<a hidden class="anchor" aria-hidden="true" href="#1-pretraining-foundation-training">#</a></h2>
+<h3 id="what-is-pretraining">What Is Pretraining?<a hidden class="anchor" aria-hidden="true" href="#what-is-pretraining">#</a></h3>
+<p>Pretraining is when a model learns <strong>language basics</strong> by reading <strong>massive amounts of text</strong>.</p>
+<p>The model learns:</p>
+<ul>
+<li>Grammar</li>
+<li>Vocabulary</li>
+<li>Facts</li>
+<li>Patterns</li>
+<li>Reasoning structures</li>
+</ul>
+<h3 id="how-it-learns">How It Learns<a hidden class="anchor" aria-hidden="true" href="#how-it-learns">#</a></h3>
+<p>The model predicts the <strong>next token</strong>.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>Input: &#34;The sky is&#34;
+Target: &#34;blue&#34;
+</code></pre><p>This is called:
+👉 <strong>Self-supervised learning</strong></p>
+<h3 id="data-used">Data Used<a hidden class="anchor" aria-hidden="true" href="#data-used">#</a></h3>
+<ul>
+<li>Books</li>
+<li>Websites</li>
+<li>Articles</li>
+<li>Code</li>
+<li>Documentation</li>
+</ul>
+<p>💡 No humans label the data manually.</p>
+<hr>
+<h3 id="example-use-case">Example Use Case<a hidden class="anchor" aria-hidden="true" href="#example-use-case">#</a></h3>
+<ul>
+<li>ChatGPT understanding language</li>
+<li>Code completion</li>
+<li>Question answering</li>
+</ul>
+<hr>
+<h2 id="2-fine-tuning-teaching-behavior">2️⃣ Fine-Tuning (Teaching Behavior)<a hidden class="anchor" aria-hidden="true" href="#2-fine-tuning-teaching-behavior">#</a></h2>
+<h3 id="what-is-fine-tuning">What Is Fine-Tuning?<a hidden class="anchor" aria-hidden="true" href="#what-is-fine-tuning">#</a></h3>
+<p>Fine-tuning teaches the model <strong>how to behave</strong> for a specific task.</p>
+<p>Instead of random text, the model is trained on:</p>
+<pre tabindex="0"><code>Prompt → Ideal Answer
+</code></pre><p>Example:</p>
+<pre tabindex="0"><code>Prompt: &#34;Explain HTTP&#34;
+Answer: &#34;HTTP is a protocol used for...&#34;
+</code></pre><p>This is called:
+👉 <strong>Supervised Fine-Tuning (SFT)</strong></p>
+<hr>
+<h3 id="what-improves-during-fine-tuning">What Improves During Fine-Tuning?<a hidden class="anchor" aria-hidden="true" href="#what-improves-during-fine-tuning">#</a></h3>
+<ul>
+<li>Answer quality</li>
+<li>Task specialization</li>
+<li>Tone and format</li>
+<li>Domain knowledge</li>
+</ul>
+<hr>
+<h3 id="example-use-case-1">Example Use Case<a hidden class="anchor" aria-hidden="true" href="#example-use-case-1">#</a></h3>
+<ul>
+<li>Customer support bots</li>
+<li>Medical Q&amp;A</li>
+<li>Legal assistants</li>
+<li>DevOps copilots</li>
+</ul>
+<hr>
+<h2 id="3-rlhf-human-alignment">3️⃣ RLHF (Human Alignment)<a hidden class="anchor" aria-hidden="true" href="#3-rlhf-human-alignment">#</a></h2>
+<h3 id="what-is-rlhf">What Is RLHF?<a hidden class="anchor" aria-hidden="true" href="#what-is-rlhf">#</a></h3>
+<p>RLHF = <strong>Reinforcement Learning from Human Feedback</strong></p>
+<p>It teaches the model:</p>
+<blockquote>
+<p>&ldquo;Which answers humans prefer&rdquo;</p>
+</blockquote>
+<hr>
+<h3 id="simple-explanation">Simple Explanation<a hidden class="anchor" aria-hidden="true" href="#simple-explanation">#</a></h3>
+<p>Humans rank model answers.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>Question: &#34;How to reset password?&#34;
+
+Answer A: Long, unclear
+Answer B: Clear, step-by-step
+</code></pre><p>Human feedback:</p>
+<pre tabindex="0"><code>B &gt; A
+</code></pre><p>The model learns to prefer <strong>B-like responses</strong>.</p>
+<hr>
+<h3 id="why-rlhf-is-needed">Why RLHF Is Needed<a hidden class="anchor" aria-hidden="true" href="#why-rlhf-is-needed">#</a></h3>
+<p>Without RLHF:</p>
+<ul>
+<li>Model may be correct but rude</li>
+<li>Unsafe</li>
+<li>Overconfident</li>
+<li>Hallucinating</li>
+</ul>
+<hr>
+<h3 id="example-use-case-2">Example Use Case<a hidden class="anchor" aria-hidden="true" href="#example-use-case-2">#</a></h3>
+<ul>
+<li>Safer AI responses</li>
+<li>Polite chatbots</li>
+<li>Policy-aligned assistants</li>
+</ul>
+<hr>
+<h1 id="-intermediate-level-how-it-actually-works">🧩 Intermediate Level: How It Actually Works<a hidden class="anchor" aria-hidden="true" href="#-intermediate-level-how-it-actually-works">#</a></h1>
+<h2 id="-training-pipeline-simplified">🔁 Training Pipeline (Simplified)<a hidden class="anchor" aria-hidden="true" href="#-training-pipeline-simplified">#</a></h2>
+<pre tabindex="0"><code>Raw Text
+   ↓
+Pretraining (Next-token prediction)
+   ↓
+Supervised Fine-Tuning (Prompt → Answer)
+   ↓
+Reward Model Training
+   ↓
+RLHF Optimization
+</code></pre><hr>
+<h2 id="-supervised-fine-tuning-sft">🔧 Supervised Fine-Tuning (SFT)<a hidden class="anchor" aria-hidden="true" href="#-supervised-fine-tuning-sft">#</a></h2>
+<ul>
+<li>Uses labeled datasets</li>
+<li>Trains model to follow instructions</li>
+<li>Loss function: Cross-Entropy</li>
+</ul>
+<p>Example dataset:</p>
+<pre tabindex="0"><code>{&#34;prompt&#34;: &#34;Summarize this text&#34;, &#34;answer&#34;: &#34;...&#34;}
+</code></pre><hr>
+<h2 id="-reward-model-key-rlhf-component">⭐ Reward Model (Key RLHF Component)<a hidden class="anchor" aria-hidden="true" href="#-reward-model-key-rlhf-component">#</a></h2>
+<p>A <strong>reward model</strong> scores responses.</p>
+<p>Input:</p>
+<pre tabindex="0"><code>Prompt + Response
+</code></pre><p>Output:</p>
+<pre tabindex="0"><code>Score (good or bad)
+</code></pre><p>Human-labeled rankings train this reward model.</p>
+<hr>
+<h2 id="-reinforcement-learning-step">🎮 Reinforcement Learning Step<a hidden class="anchor" aria-hidden="true" href="#-reinforcement-learning-step">#</a></h2>
+<p>Using algorithms like:</p>
+<ul>
+<li><strong>PPO (Proximal Policy Optimization)</strong></li>
+</ul>
+<p>The model:</p>
+<ul>
+<li>Generates responses</li>
+<li>Gets reward scores</li>
+<li>Adjusts weights to maximize reward</li>
+</ul>
+<hr>
+<h2 id="-intermediate-example">🧠 Intermediate Example<a hidden class="anchor" aria-hidden="true" href="#-intermediate-example">#</a></h2>
+<p>Chatbot learning tone:</p>
+<p>Before RLHF:</p>
+<blockquote>
+<p>&ldquo;That’s a stupid question.&rdquo;</p>
+</blockquote>
+<p>After RLHF:</p>
+<blockquote>
+<p>&ldquo;That’s a great question! Here’s how it works.&rdquo;</p>
+</blockquote>
+<hr>
+<h1 id="-advanced-level-system-level-understanding">🚀 Advanced Level: System-Level Understanding<a hidden class="anchor" aria-hidden="true" href="#-advanced-level-system-level-understanding">#</a></h1>
+<h2 id="-why-not-only-fine-tuning">🧬 Why Not Only Fine-Tuning?<a hidden class="anchor" aria-hidden="true" href="#-why-not-only-fine-tuning">#</a></h2>
+<p>Fine-tuning alone:</p>
+<ul>
+<li>Copies dataset behavior</li>
+<li>Can overfit</li>
+<li>Doesn’t optimize for human preference</li>
+</ul>
+<p>RLHF:</p>
+<ul>
+<li>Optimizes <strong>policy</strong></li>
+<li>Aligns model with human values</li>
+<li>Reduces unsafe outputs</li>
+</ul>
+<hr>
+<h2 id="-mathematical-view-high-level">⚙️ Mathematical View (High Level)<a hidden class="anchor" aria-hidden="true" href="#-mathematical-view-high-level">#</a></h2>
+<p>RL Objective:</p>
+<pre tabindex="0"><code>Maximize Expected Reward
+</code></pre><p>Where reward comes from:</p>
+<ul>
+<li>Human preference model</li>
+</ul>
+<hr>
+<h2 id="-challenges-in-rlhf">⚠️ Challenges in RLHF<a hidden class="anchor" aria-hidden="true" href="#-challenges-in-rlhf">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Challenge</th>
+          <th>Explanation</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Expensive</td>
+          <td>Requires human labeling</td>
+      </tr>
+      <tr>
+          <td>Bias</td>
+          <td>Human preferences vary</td>
+      </tr>
+      <tr>
+          <td>Reward hacking</td>
+          <td>Model exploits reward</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>Hard at large scale</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-real-world-applications">🧪 Real-World Applications<a hidden class="anchor" aria-hidden="true" href="#-real-world-applications">#</a></h2>
+<h3 id="-chat-assistants">🔹 Chat Assistants<a hidden class="anchor" aria-hidden="true" href="#-chat-assistants">#</a></h3>
+<ul>
+<li>ChatGPT</li>
+<li>Claude</li>
+<li>Gemini</li>
+</ul>
+<h3 id="-enterprise-agents">🔹 Enterprise Agents<a hidden class="anchor" aria-hidden="true" href="#-enterprise-agents">#</a></h3>
+<ul>
+<li>ITSM copilots</li>
+<li>DevOps assistants</li>
+<li>Knowledge bots</li>
+</ul>
+<h3 id="-safety-critical-ai">🔹 Safety-Critical AI<a hidden class="anchor" aria-hidden="true" href="#-safety-critical-ai">#</a></h3>
+<ul>
+<li>Healthcare</li>
+<li>Finance</li>
+<li>Legal</li>
+</ul>
+<hr>
+<h2 id="-comparison-summary">🧠 Comparison Summary<a hidden class="anchor" aria-hidden="true" href="#-comparison-summary">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Stage</th>
+          <th>Purpose</th>
+          <th>Data Type</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Pretraining</td>
+          <td>Learn language</td>
+          <td>Raw text</td>
+      </tr>
+      <tr>
+          <td>Fine-Tuning</td>
+          <td>Learn tasks</td>
+          <td>Prompt–Answer</td>
+      </tr>
+      <tr>
+          <td>RLHF</td>
+          <td>Align with humans</td>
+          <td>Ranked responses</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-one-line-summary">📝 One-Line Summary<a hidden class="anchor" aria-hidden="true" href="#-one-line-summary">#</a></h2>
+<blockquote>
+<p><strong>Pretraining teaches language, fine-tuning teaches tasks, and RLHF teaches human-aligned behavior.</strong></p>
+</blockquote>
+<hr>
+<h2 id="-memory-trick">🧠 Memory Trick<a hidden class="anchor" aria-hidden="true" href="#-memory-trick">#</a></h2>
+<ul>
+<li><strong>Pretraining</strong> = Read everything</li>
+<li><strong>Fine-tuning</strong> = Practice with examples</li>
+<li><strong>RLHF</strong> = Learn from feedback</li>
+</ul>
+<hr>
+<h2 id="-next-topics-to-learn">📌 Next Topics to Learn<a hidden class="anchor" aria-hidden="true" href="#-next-topics-to-learn">#</a></h2>
+<ul>
+<li>Instruction tuning vs RLHF</li>
+<li>Constitutional AI</li>
+<li>DPO (Direct Preference Optimization)</li>
+<li>Safety &amp; alignment techniques</li>
+</ul>
+<hr>
+<p>⭐ End of Notes</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

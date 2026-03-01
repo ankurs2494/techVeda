@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Inference sampling | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="🎯 Inference &amp; Sampling in Large Language Models (LLMs)
+(Beginner → Intermediate → Advanced)
+
+📌 What Is Inference?
+Inference is the phase where a trained LLM is used to generate output.
+
+Training = learning
+Inference = answering
+
+When you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing inference.
+
+🧒 Beginner Level: The Basics
+🧠 What Happens During Inference?
+
+You provide a prompt
+The model converts text into tokens
+It predicts the next token
+The token is added to output
+Steps 3–4 repeat until stopping
+
+Example:">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Inference sampling">
+  <meta property="og:description" content="🎯 Inference &amp; Sampling in Large Language Models (LLMs) (Beginner → Intermediate → Advanced)
+📌 What Is Inference? Inference is the phase where a trained LLM is used to generate output.
+Training = learning Inference = answering
+When you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing inference.
+🧒 Beginner Level: The Basics 🧠 What Happens During Inference? You provide a prompt The model converts text into tokens It predicts the next token The token is added to output Steps 3–4 repeat until stopping Example:">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Inference sampling">
+<meta name="twitter:description" content="🎯 Inference &amp; Sampling in Large Language Models (LLMs)
+(Beginner → Intermediate → Advanced)
+
+📌 What Is Inference?
+Inference is the phase where a trained LLM is used to generate output.
+
+Training = learning
+Inference = answering
+
+When you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing inference.
+
+🧒 Beginner Level: The Basics
+🧠 What Happens During Inference?
+
+You provide a prompt
+The model converts text into tokens
+It predicts the next token
+The token is added to output
+Steps 3–4 repeat until stopping
+
+Example:">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Inference sampling",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Inference sampling",
+  "name": "Inference sampling",
+  "description": "🎯 Inference \u0026amp; Sampling in Large Language Models (LLMs) (Beginner → Intermediate → Advanced)\n📌 What Is Inference? Inference is the phase where a trained LLM is used to generate output.\nTraining = learning Inference = answering\nWhen you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing inference.\n🧒 Beginner Level: The Basics 🧠 What Happens During Inference? You provide a prompt The model converts text into tokens It predicts the next token The token is added to output Steps 3–4 repeat until stopping Example:\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "🎯 Inference \u0026 Sampling in Large Language Models (LLMs) (Beginner → Intermediate → Advanced)\n📌 What Is Inference? Inference is the phase where a trained LLM is used to generate output.\nTraining = learning Inference = answering\nWhen you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing inference.\n🧒 Beginner Level: The Basics 🧠 What Happens During Inference? You provide a prompt The model converts text into tokens It predicts the next token The token is added to output Steps 3–4 repeat until stopping Example:\nPrompt: \"AI is\" Model predicts → \"transforming\" Then → \"the\" Then → \"world\" 🎲 What Is Sampling? Sampling decides how the next token is chosen.\nThe model does not always pick the highest-probability token. Instead, sampling adds controlled randomness.\nWhy?\nPrevent boring outputs Enable creativity Avoid repetitive text 🧠 Beginner Example Without sampling:\nAI is very very very very very... With sampling:\nAI is transforming industries in unexpected ways. 🧩 Intermediate Level: Sampling Techniques The model produces probabilities for next tokens:\nToken Probability “good” 0.45 “great” 0.30 “bad” 0.05 others 0.20 Sampling controls how we choose from this list.\n🔧 Key Sampling Parameters 1️⃣ Greedy Decoding Always pick the highest probability token Deterministic Example:\nOutput is always the same ✔ Fast ❌ Repetitive, boring\n2️⃣ Temperature 🌡️ Controls randomness.\nTemperature Behavior 0.0 Deterministic 0.3 Conservative 0.7 Balanced 1.0+ Creative Example:\nLow temp → factual answer High temp → creative story 3️⃣ Top-K Sampling Only consider top K tokens Ignore the rest Example:\nTop-K = 5 Only top 5 probable tokens are sampled ✔ Limits nonsense ❌ Fixed cutoff\n4️⃣ Top-P (Nucleus Sampling) Select smallest set of tokens whose probability sum ≥ P Example:\nTop-P = 0.9 Use tokens until total probability reaches 90% ✔ Adaptive ✔ Most commonly used\n🔁 Typical Production Settings Use Case Temp Top-P Chatbot 0.7 0.9 Code 0.1 0.95 Creative writing 1.0 0.95 Summarization 0.3 0.9 🧠 Intermediate Example (Python-like) response = model.generate( prompt=\"Explain caching\", temperature=0.4, top_p=0.9 ) 🚀 Advanced Level: System \u0026 Optimization View 🔬 Why Sampling Matters Without sampling:\nModel collapses into repetitive loops No creativity Poor user experience With sampling:\nBetter diversity Natural language flow Human-like responses ⚠️ Sampling Trade-offs Too Low Too High Boring Hallucinations Repetitive Inconsistent Safe Risky 🧠 Advanced Sampling Techniques 🔹 Repetition Penalty Penalizes previously used tokens to avoid loops.\n🔹 Presence Penalty Encourages new topics.\n🔹 Frequency Penalty Reduces repeated phrases.\n🧪 Real-World Use Cases 🔹 Chatbots Balanced creativity + accuracy\n🔹 Code Generation Low temperature, high precision\n🔹 Story Writing High temperature, rich diversity\n🔹 Agents (DevOps / ITSM) Low randomness for reliability\n🧠 Sampling vs Training Aspect Training Inference Weights change? Yes No Speed Slow Fast Cost High Pay-per-use Control Data Sampling params 📝 One-Line Summary Inference generates answers, sampling controls how creative, safe, or deterministic those answers are.\n🧠 Memory Trick Inference = Answering Sampling = Decision style Temperature = Creativity dial Top-P = Smart cutoff 📌 Next Topics to Learn Beam search Logit bias Streaming inference Token limits \u0026 truncation Cost optimization in inference ⭐ End of Notes\n",
+  "wordCount" : "515",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Inference sampling
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-inference--sampling-in-large-language-models-llms">🎯 Inference &amp; Sampling in Large Language Models (LLMs)<a hidden class="anchor" aria-hidden="true" href="#-inference--sampling-in-large-language-models-llms">#</a></h1>
+<p><em>(Beginner → Intermediate → Advanced)</em></p>
+<hr>
+<h2 id="-what-is-inference">📌 What Is Inference?<a hidden class="anchor" aria-hidden="true" href="#-what-is-inference">#</a></h2>
+<p><strong>Inference</strong> is the phase where a trained LLM is <strong>used to generate output</strong>.</p>
+<blockquote>
+<p>Training = learning
+Inference = answering</p>
+</blockquote>
+<p>When you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing <strong>inference</strong>.</p>
+<hr>
+<h2 id="-beginner-level-the-basics">🧒 Beginner Level: The Basics<a hidden class="anchor" aria-hidden="true" href="#-beginner-level-the-basics">#</a></h2>
+<h3 id="-what-happens-during-inference">🧠 What Happens During Inference?<a hidden class="anchor" aria-hidden="true" href="#-what-happens-during-inference">#</a></h3>
+<ol>
+<li>You provide a prompt</li>
+<li>The model converts text into tokens</li>
+<li>It predicts the <strong>next token</strong></li>
+<li>The token is added to output</li>
+<li>Steps 3–4 repeat until stopping</li>
+</ol>
+<p>Example:</p>
+<pre tabindex="0"><code>Prompt: &#34;AI is&#34;
+Model predicts → &#34;transforming&#34;
+Then → &#34;the&#34;
+Then → &#34;world&#34;
+</code></pre><hr>
+<h2 id="-what-is-sampling">🎲 What Is Sampling?<a hidden class="anchor" aria-hidden="true" href="#-what-is-sampling">#</a></h2>
+<p><strong>Sampling</strong> decides <em>how</em> the next token is chosen.</p>
+<p>The model does <strong>not always pick the highest-probability token</strong>.
+Instead, sampling adds <strong>controlled randomness</strong>.</p>
+<p>Why?</p>
+<ul>
+<li>Prevent boring outputs</li>
+<li>Enable creativity</li>
+<li>Avoid repetitive text</li>
+</ul>
+<hr>
+<h2 id="-beginner-example">🧠 Beginner Example<a hidden class="anchor" aria-hidden="true" href="#-beginner-example">#</a></h2>
+<p>Without sampling:</p>
+<pre tabindex="0"><code>AI is very very very very very...
+</code></pre><p>With sampling:</p>
+<pre tabindex="0"><code>AI is transforming industries in unexpected ways.
+</code></pre><hr>
+<h2 id="-intermediate-level-sampling-techniques">🧩 Intermediate Level: Sampling Techniques<a hidden class="anchor" aria-hidden="true" href="#-intermediate-level-sampling-techniques">#</a></h2>
+<p>The model produces <strong>probabilities</strong> for next tokens:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Token</th>
+          <th>Probability</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>&ldquo;good&rdquo;</td>
+          <td>0.45</td>
+      </tr>
+      <tr>
+          <td>&ldquo;great&rdquo;</td>
+          <td>0.30</td>
+      </tr>
+      <tr>
+          <td>&ldquo;bad&rdquo;</td>
+          <td>0.05</td>
+      </tr>
+      <tr>
+          <td>others</td>
+          <td>0.20</td>
+      </tr>
+  </tbody>
+</table>
+<p>Sampling controls <strong>how we choose</strong> from this list.</p>
+<hr>
+<h2 id="-key-sampling-parameters">🔧 Key Sampling Parameters<a hidden class="anchor" aria-hidden="true" href="#-key-sampling-parameters">#</a></h2>
+<h3 id="1-greedy-decoding">1️⃣ Greedy Decoding<a hidden class="anchor" aria-hidden="true" href="#1-greedy-decoding">#</a></h3>
+<ul>
+<li>Always pick the highest probability token</li>
+<li>Deterministic</li>
+</ul>
+<p>Example:</p>
+<pre tabindex="0"><code>Output is always the same
+</code></pre><p>✔ Fast
+❌ Repetitive, boring</p>
+<hr>
+<h3 id="2-temperature-">2️⃣ Temperature 🌡️<a hidden class="anchor" aria-hidden="true" href="#2-temperature-">#</a></h3>
+<p>Controls randomness.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Temperature</th>
+          <th>Behavior</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0.0</td>
+          <td>Deterministic</td>
+      </tr>
+      <tr>
+          <td>0.3</td>
+          <td>Conservative</td>
+      </tr>
+      <tr>
+          <td>0.7</td>
+          <td>Balanced</td>
+      </tr>
+      <tr>
+          <td>1.0+</td>
+          <td>Creative</td>
+      </tr>
+  </tbody>
+</table>
+<p>Example:</p>
+<pre tabindex="0"><code>Low temp → factual answer
+High temp → creative story
+</code></pre><hr>
+<h3 id="3-top-k-sampling">3️⃣ Top-K Sampling<a hidden class="anchor" aria-hidden="true" href="#3-top-k-sampling">#</a></h3>
+<ul>
+<li>Only consider top <strong>K</strong> tokens</li>
+<li>Ignore the rest</li>
+</ul>
+<p>Example:</p>
+<pre tabindex="0"><code>Top-K = 5
+Only top 5 probable tokens are sampled
+</code></pre><p>✔ Limits nonsense
+❌ Fixed cutoff</p>
+<hr>
+<h3 id="4-top-p-nucleus-sampling">4️⃣ Top-P (Nucleus Sampling)<a hidden class="anchor" aria-hidden="true" href="#4-top-p-nucleus-sampling">#</a></h3>
+<ul>
+<li>Select smallest set of tokens whose probability sum ≥ P</li>
+</ul>
+<p>Example:</p>
+<pre tabindex="0"><code>Top-P = 0.9
+Use tokens until total probability reaches 90%
+</code></pre><p>✔ Adaptive
+✔ Most commonly used</p>
+<hr>
+<h2 id="-typical-production-settings">🔁 Typical Production Settings<a hidden class="anchor" aria-hidden="true" href="#-typical-production-settings">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Use Case</th>
+          <th>Temp</th>
+          <th>Top-P</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Chatbot</td>
+          <td>0.7</td>
+          <td>0.9</td>
+      </tr>
+      <tr>
+          <td>Code</td>
+          <td>0.1</td>
+          <td>0.95</td>
+      </tr>
+      <tr>
+          <td>Creative writing</td>
+          <td>1.0</td>
+          <td>0.95</td>
+      </tr>
+      <tr>
+          <td>Summarization</td>
+          <td>0.3</td>
+          <td>0.9</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-intermediate-example-python-like">🧠 Intermediate Example (Python-like)<a hidden class="anchor" aria-hidden="true" href="#-intermediate-example-python-like">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>response <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>generate(
+</span></span><span style="display:flex;"><span>    prompt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Explain caching&#34;</span>,
+</span></span><span style="display:flex;"><span>    temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>,
+</span></span><span style="display:flex;"><span>    top_p<span style="color:#f92672">=</span><span style="color:#ae81ff">0.9</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><hr>
+<h2 id="-advanced-level-system--optimization-view">🚀 Advanced Level: System &amp; Optimization View<a hidden class="anchor" aria-hidden="true" href="#-advanced-level-system--optimization-view">#</a></h2>
+<h3 id="-why-sampling-matters">🔬 Why Sampling Matters<a hidden class="anchor" aria-hidden="true" href="#-why-sampling-matters">#</a></h3>
+<p>Without sampling:</p>
+<ul>
+<li>Model collapses into repetitive loops</li>
+<li>No creativity</li>
+<li>Poor user experience</li>
+</ul>
+<p>With sampling:</p>
+<ul>
+<li>Better diversity</li>
+<li>Natural language flow</li>
+<li>Human-like responses</li>
+</ul>
+<hr>
+<h2 id="-sampling-trade-offs">⚠️ Sampling Trade-offs<a hidden class="anchor" aria-hidden="true" href="#-sampling-trade-offs">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Too Low</th>
+          <th>Too High</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Boring</td>
+          <td>Hallucinations</td>
+      </tr>
+      <tr>
+          <td>Repetitive</td>
+          <td>Inconsistent</td>
+      </tr>
+      <tr>
+          <td>Safe</td>
+          <td>Risky</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-advanced-sampling-techniques">🧠 Advanced Sampling Techniques<a hidden class="anchor" aria-hidden="true" href="#-advanced-sampling-techniques">#</a></h2>
+<h3 id="-repetition-penalty">🔹 Repetition Penalty<a hidden class="anchor" aria-hidden="true" href="#-repetition-penalty">#</a></h3>
+<p>Penalizes previously used tokens to avoid loops.</p>
+<h3 id="-presence-penalty">🔹 Presence Penalty<a hidden class="anchor" aria-hidden="true" href="#-presence-penalty">#</a></h3>
+<p>Encourages new topics.</p>
+<h3 id="-frequency-penalty">🔹 Frequency Penalty<a hidden class="anchor" aria-hidden="true" href="#-frequency-penalty">#</a></h3>
+<p>Reduces repeated phrases.</p>
+<hr>
+<h2 id="-real-world-use-cases">🧪 Real-World Use Cases<a hidden class="anchor" aria-hidden="true" href="#-real-world-use-cases">#</a></h2>
+<h3 id="-chatbots">🔹 Chatbots<a hidden class="anchor" aria-hidden="true" href="#-chatbots">#</a></h3>
+<p>Balanced creativity + accuracy</p>
+<h3 id="-code-generation">🔹 Code Generation<a hidden class="anchor" aria-hidden="true" href="#-code-generation">#</a></h3>
+<p>Low temperature, high precision</p>
+<h3 id="-story-writing">🔹 Story Writing<a hidden class="anchor" aria-hidden="true" href="#-story-writing">#</a></h3>
+<p>High temperature, rich diversity</p>
+<h3 id="-agents-devops--itsm">🔹 Agents (DevOps / ITSM)<a hidden class="anchor" aria-hidden="true" href="#-agents-devops--itsm">#</a></h3>
+<p>Low randomness for reliability</p>
+<hr>
+<h2 id="-sampling-vs-training">🧠 Sampling vs Training<a hidden class="anchor" aria-hidden="true" href="#-sampling-vs-training">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Aspect</th>
+          <th>Training</th>
+          <th>Inference</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Weights change?</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>Speed</td>
+          <td>Slow</td>
+          <td>Fast</td>
+      </tr>
+      <tr>
+          <td>Cost</td>
+          <td>High</td>
+          <td>Pay-per-use</td>
+      </tr>
+      <tr>
+          <td>Control</td>
+          <td>Data</td>
+          <td>Sampling params</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-one-line-summary">📝 One-Line Summary<a hidden class="anchor" aria-hidden="true" href="#-one-line-summary">#</a></h2>
+<blockquote>
+<p><strong>Inference generates answers, sampling controls how creative, safe, or deterministic those answers are.</strong></p>
+</blockquote>
+<hr>
+<h2 id="-memory-trick">🧠 Memory Trick<a hidden class="anchor" aria-hidden="true" href="#-memory-trick">#</a></h2>
+<ul>
+<li><strong>Inference</strong> = Answering</li>
+<li><strong>Sampling</strong> = Decision style</li>
+<li><strong>Temperature</strong> = Creativity dial</li>
+<li><strong>Top-P</strong> = Smart cutoff</li>
+</ul>
+<hr>
+<h2 id="-next-topics-to-learn">📌 Next Topics to Learn<a hidden class="anchor" aria-hidden="true" href="#-next-topics-to-learn">#</a></h2>
+<ul>
+<li>Beam search</li>
+<li>Logit bias</li>
+<li>Streaming inference</li>
+<li>Token limits &amp; truncation</li>
+<li>Cost optimization in inference</li>
+</ul>
+<hr>
+<p>⭐ End of Notes</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

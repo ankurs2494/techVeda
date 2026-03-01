@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Hallucinations rag | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="Understanding Hallucination in RAG (Retrieval-Augmented Generation)
+Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of information from external sources with language model generation. While powerful, RAG systems can sometimes produce hallucinations, meaning the model generates information that is plausible but false.
+This guide explains hallucination in RAG at beginner, intermediate, and advanced levels, with examples and use cases.
+
+1. Beginner Level
+What is RAG?
+RAG is a model architecture that works in two steps:">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Hallucinations rag">
+  <meta property="og:description" content="Understanding Hallucination in RAG (Retrieval-Augmented Generation) Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of information from external sources with language model generation. While powerful, RAG systems can sometimes produce hallucinations, meaning the model generates information that is plausible but false.
+This guide explains hallucination in RAG at beginner, intermediate, and advanced levels, with examples and use cases.
+1. Beginner Level What is RAG? RAG is a model architecture that works in two steps:">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hallucinations rag">
+<meta name="twitter:description" content="Understanding Hallucination in RAG (Retrieval-Augmented Generation)
+Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of information from external sources with language model generation. While powerful, RAG systems can sometimes produce hallucinations, meaning the model generates information that is plausible but false.
+This guide explains hallucination in RAG at beginner, intermediate, and advanced levels, with examples and use cases.
+
+1. Beginner Level
+What is RAG?
+RAG is a model architecture that works in two steps:">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Hallucinations rag",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hallucinations rag",
+  "name": "Hallucinations rag",
+  "description": "Understanding Hallucination in RAG (Retrieval-Augmented Generation) Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of information from external sources with language model generation. While powerful, RAG systems can sometimes produce hallucinations, meaning the model generates information that is plausible but false.\nThis guide explains hallucination in RAG at beginner, intermediate, and advanced levels, with examples and use cases.\n1. Beginner Level What is RAG? RAG is a model architecture that works in two steps:\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Understanding Hallucination in RAG (Retrieval-Augmented Generation) Retrieval-Augmented Generation (RAG) is a framework that combines retrieval of information from external sources with language model generation. While powerful, RAG systems can sometimes produce hallucinations, meaning the model generates information that is plausible but false.\nThis guide explains hallucination in RAG at beginner, intermediate, and advanced levels, with examples and use cases.\n1. Beginner Level What is RAG? RAG is a model architecture that works in two steps:\nRetrieval: Fetch relevant documents from a database, knowledge base, or the internet. Generation: Generate an answer using the retrieved documents along with the model’s internal knowledge. Example:\nQuery: “Who won the Nobel Prize in Physics in 2020?” Retrieved Document: Article mentioning Roger Penrose, Reinhard Genzel, and Andrea Ghez. Generated Answer: “The Nobel Prize in Physics 2020 was awarded to Roger Penrose, Reinhard Genzel, and Andrea Ghez.” What is Hallucination? Hallucination occurs when the model generates information not supported by the retrieved documents. This happens because the model tries to “fill in gaps” based on its internal knowledge or patterns, even when the retrieved data does not support it. Simple Example:\nQuery: “What is the capital of Atlantis?” Retrieved Document: None (Atlantis is fictional) Hallucinated Answer: “The capital of Atlantis is Poseidon City.” ✅ False! 2. Intermediate Level Why Does Hallucination Happen in RAG? Insufficient Retrieval: The retrieved documents may not contain the needed information. Over-reliance on LM Knowledge: The model may ignore the retrieval and generate plausible-sounding but incorrect facts. Ambiguous Queries: The question may be vague, leading the model to guess. Conflicting Sources: Retrieved documents may contain inconsistent information. Example Query: “Who invented the Internet?” Retrieved Docs: Doc1: Mentions Tim Berners-Lee (invented the World Wide Web) Doc2: Mentions Vint Cerf (worked on TCP/IP) Hallucinated Answer: “Tim Berners-Lee invented the Internet.” ❌ Incorrect (he invented the Web, not the Internet). Use Cases Where Hallucination is Critical Medical Advice Systems: Hallucinations can lead to dangerous misinformation. Legal Document Generation: False citations could be legally problematic. Customer Support: Hallucinated instructions may confuse users. 3. Advanced Level Hallucination Detection and Mitigation 3.1 Methods to Reduce Hallucination Better Retrieval\nUse dense retrieval models (e.g., FAISS, Milvus) to get more relevant documents. Use query expansion to improve retrieval coverage. Fact-checking\nCross-check generated answers with retrieved sources. Implement RAG with verification: compare LM output with retrieved facts. Prompt Engineering\nExplicitly instruct the model:\n\"Answer only based on the retrieved documents. Do not make up information.\" Confidence Estimation\nUse models that provide a likelihood score or uncertainty estimate. Flag low-confidence outputs for human review. 3.2 Advanced Example Query: “Explain how CRISPR works.” Retrieved Docs: Scientific articles on CRISPR-Cas9 mechanism. Hallucination Risk: The LM might say: “CRISPR can edit RNA directly,” which is false in the retrieved context (it edits DNA). Mitigation: Compare output against the retrieved scientific articles. Correct the output using RAG with grounding. Applications Enterprise Knowledge Management: Answer employee questions using internal docs without hallucination. Scientific Research Assistance: Generate literature summaries that are factually grounded. Conversational AI: Reduce false statements in chatbots by grounding answers in trusted sources. Summary Table Level Focus Key Idea Example Query Beginner Basic RAG and hallucination Model can invent facts “Capital of Atlantis?” Intermediate Causes \u0026 examples Retrieval gaps, ambiguity, conflicts “Who invented the Internet?” Advanced Mitigation \u0026 applications Fact-checking, better retrieval, prompting “Explain CRISPR mechanism” References Lewis et al., 2020 - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks Thoppilan et al., 2022 - LaMDA: Language Models for Dialog Applications Google AI Blog: Reducing Hallucinations in Language Models ",
+  "wordCount" : "582",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Hallucinations rag
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="understanding-hallucination-in-rag-retrieval-augmented-generation">Understanding Hallucination in RAG (Retrieval-Augmented Generation)<a hidden class="anchor" aria-hidden="true" href="#understanding-hallucination-in-rag-retrieval-augmented-generation">#</a></h1>
+<p>Retrieval-Augmented Generation (RAG) is a framework that combines <strong>retrieval of information</strong> from external sources with <strong>language model generation</strong>. While powerful, RAG systems can sometimes produce <strong>hallucinations</strong>, meaning the model generates information that is <strong>plausible but false</strong>.</p>
+<p>This guide explains hallucination in RAG at <strong>beginner</strong>, <strong>intermediate</strong>, and <strong>advanced</strong> levels, with examples and use cases.</p>
+<hr>
+<h2 id="1-beginner-level">1. Beginner Level<a hidden class="anchor" aria-hidden="true" href="#1-beginner-level">#</a></h2>
+<h3 id="what-is-rag">What is RAG?<a hidden class="anchor" aria-hidden="true" href="#what-is-rag">#</a></h3>
+<p>RAG is a model architecture that works in two steps:</p>
+<ol>
+<li><strong>Retrieval:</strong> Fetch relevant documents from a database, knowledge base, or the internet.</li>
+<li><strong>Generation:</strong> Generate an answer using the retrieved documents along with the model&rsquo;s internal knowledge.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<ul>
+<li><strong>Query:</strong> &ldquo;Who won the Nobel Prize in Physics in 2020?&rdquo;</li>
+<li><strong>Retrieved Document:</strong> Article mentioning Roger Penrose, Reinhard Genzel, and Andrea Ghez.</li>
+<li><strong>Generated Answer:</strong> &ldquo;The Nobel Prize in Physics 2020 was awarded to Roger Penrose, Reinhard Genzel, and Andrea Ghez.&rdquo;</li>
+</ul>
+<h3 id="what-is-hallucination">What is Hallucination?<a hidden class="anchor" aria-hidden="true" href="#what-is-hallucination">#</a></h3>
+<ul>
+<li><strong>Hallucination</strong> occurs when the model generates information <strong>not supported by the retrieved documents</strong>.</li>
+<li>This happens because the model tries to &ldquo;fill in gaps&rdquo; based on its internal knowledge or patterns, even when the retrieved data does not support it.</li>
+</ul>
+<p><strong>Simple Example:</strong></p>
+<ul>
+<li><strong>Query:</strong> &ldquo;What is the capital of Atlantis?&rdquo;</li>
+<li><strong>Retrieved Document:</strong> None (Atlantis is fictional)</li>
+<li><strong>Hallucinated Answer:</strong> &ldquo;The capital of Atlantis is Poseidon City.&rdquo; ✅ False!</li>
+</ul>
+<hr>
+<h2 id="2-intermediate-level">2. Intermediate Level<a hidden class="anchor" aria-hidden="true" href="#2-intermediate-level">#</a></h2>
+<h3 id="why-does-hallucination-happen-in-rag">Why Does Hallucination Happen in RAG?<a hidden class="anchor" aria-hidden="true" href="#why-does-hallucination-happen-in-rag">#</a></h3>
+<ol>
+<li><strong>Insufficient Retrieval:</strong> The retrieved documents may not contain the needed information.</li>
+<li><strong>Over-reliance on LM Knowledge:</strong> The model may ignore the retrieval and generate plausible-sounding but incorrect facts.</li>
+<li><strong>Ambiguous Queries:</strong> The question may be vague, leading the model to guess.</li>
+<li><strong>Conflicting Sources:</strong> Retrieved documents may contain inconsistent information.</li>
+</ol>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<ul>
+<li><strong>Query:</strong> &ldquo;Who invented the Internet?&rdquo;</li>
+<li><strong>Retrieved Docs:</strong>
+<ul>
+<li>Doc1: Mentions Tim Berners-Lee (invented the World Wide Web)</li>
+<li>Doc2: Mentions Vint Cerf (worked on TCP/IP)</li>
+</ul>
+</li>
+<li><strong>Hallucinated Answer:</strong> &ldquo;Tim Berners-Lee invented the Internet.&rdquo; ❌ Incorrect (he invented the Web, not the Internet).</li>
+</ul>
+<h3 id="use-cases-where-hallucination-is-critical">Use Cases Where Hallucination is Critical<a hidden class="anchor" aria-hidden="true" href="#use-cases-where-hallucination-is-critical">#</a></h3>
+<ul>
+<li><strong>Medical Advice Systems:</strong> Hallucinations can lead to dangerous misinformation.</li>
+<li><strong>Legal Document Generation:</strong> False citations could be legally problematic.</li>
+<li><strong>Customer Support:</strong> Hallucinated instructions may confuse users.</li>
+</ul>
+<hr>
+<h2 id="3-advanced-level">3. Advanced Level<a hidden class="anchor" aria-hidden="true" href="#3-advanced-level">#</a></h2>
+<h3 id="hallucination-detection-and-mitigation">Hallucination Detection and Mitigation<a hidden class="anchor" aria-hidden="true" href="#hallucination-detection-and-mitigation">#</a></h3>
+<h4 id="31-methods-to-reduce-hallucination">3.1 Methods to Reduce Hallucination<a hidden class="anchor" aria-hidden="true" href="#31-methods-to-reduce-hallucination">#</a></h4>
+<ol>
+<li>
+<p><strong>Better Retrieval</strong></p>
+<ul>
+<li>Use <strong>dense retrieval models</strong> (e.g., <strong>FAISS, Milvus</strong>) to get more relevant documents.</li>
+<li>Use <strong>query expansion</strong> to improve retrieval coverage.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fact-checking</strong></p>
+<ul>
+<li>Cross-check generated answers with retrieved sources.</li>
+<li>Implement <strong>RAG with verification</strong>: compare LM output with retrieved facts.</li>
+</ul>
+</li>
+<li>
+<p><strong>Prompt Engineering</strong></p>
+<ul>
+<li>Explicitly instruct the model:<br>
+<code>&quot;Answer only based on the retrieved documents. Do not make up information.&quot;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Confidence Estimation</strong></p>
+<ul>
+<li>Use models that provide a <strong>likelihood score</strong> or <strong>uncertainty estimate</strong>.</li>
+<li>Flag low-confidence outputs for human review.</li>
+</ul>
+</li>
+</ol>
+<h4 id="32-advanced-example">3.2 Advanced Example<a hidden class="anchor" aria-hidden="true" href="#32-advanced-example">#</a></h4>
+<ul>
+<li><strong>Query:</strong> &ldquo;Explain how CRISPR works.&rdquo;</li>
+<li><strong>Retrieved Docs:</strong> Scientific articles on CRISPR-Cas9 mechanism.</li>
+<li><strong>Hallucination Risk:</strong> The LM might say: &ldquo;CRISPR can edit RNA directly,&rdquo; which is false in the retrieved context (it edits DNA).</li>
+<li><strong>Mitigation:</strong>
+<ul>
+<li>Compare output against the retrieved scientific articles.</li>
+<li>Correct the output using <strong>RAG with grounding</strong>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="applications">Applications<a hidden class="anchor" aria-hidden="true" href="#applications">#</a></h3>
+<ul>
+<li><strong>Enterprise Knowledge Management:</strong> Answer employee questions using internal docs without hallucination.</li>
+<li><strong>Scientific Research Assistance:</strong> Generate literature summaries that are factually grounded.</li>
+<li><strong>Conversational AI:</strong> Reduce false statements in chatbots by grounding answers in trusted sources.</li>
+</ul>
+<hr>
+<h2 id="summary-table">Summary Table<a hidden class="anchor" aria-hidden="true" href="#summary-table">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Level</th>
+          <th>Focus</th>
+          <th>Key Idea</th>
+          <th>Example Query</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Beginner</td>
+          <td>Basic RAG and hallucination</td>
+          <td>Model can invent facts</td>
+          <td>&ldquo;Capital of Atlantis?&rdquo;</td>
+      </tr>
+      <tr>
+          <td>Intermediate</td>
+          <td>Causes &amp; examples</td>
+          <td>Retrieval gaps, ambiguity, conflicts</td>
+          <td>&ldquo;Who invented the Internet?&rdquo;</td>
+      </tr>
+      <tr>
+          <td>Advanced</td>
+          <td>Mitigation &amp; applications</td>
+          <td>Fact-checking, better retrieval, prompting</td>
+          <td>&ldquo;Explain CRISPR mechanism&rdquo;</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<ol>
+<li><a href="https://arxiv.org/abs/2005.11401">Lewis et al., 2020 - Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a></li>
+<li><a href="https://arxiv.org/abs/2201.08239">Thoppilan et al., 2022 - LaMDA: Language Models for Dialog Applications</a></li>
+<li><a href="https://ai.googleblog.com/2023/01/reducing-hallucinations.html">Google AI Blog: Reducing Hallucinations in Language Models</a></li>
+</ol>
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

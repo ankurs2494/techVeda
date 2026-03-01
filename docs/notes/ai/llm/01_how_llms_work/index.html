@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>How llms work | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="🧠 How Large Language Models (LLMs) Work Internally
+
+Beginner → Intermediate → Advanced
+With examples, concepts, and real-world use cases
+
+
+🟢 Beginner Level — Core Idea
+What is an LLM?
+A Large Language Model (LLM) is a system that predicts the next token based on previous tokens.
+📌 It does not think or know facts like humans.
+📌 It learns patterns from massive text data.
+Example
+Input: &ldquo;The capital of France is&rdquo;
+Output: &ldquo;Paris&rdquo;">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="How llms work">
+  <meta property="og:description" content="🧠 How Large Language Models (LLMs) Work Internally Beginner → Intermediate → Advanced
+With examples, concepts, and real-world use cases
+🟢 Beginner Level — Core Idea What is an LLM? A Large Language Model (LLM) is a system that predicts the next token based on previous tokens.
+📌 It does not think or know facts like humans.
+📌 It learns patterns from massive text data.
+Example Input: “The capital of France is” Output: “Paris”">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How llms work">
+<meta name="twitter:description" content="🧠 How Large Language Models (LLMs) Work Internally
+
+Beginner → Intermediate → Advanced
+With examples, concepts, and real-world use cases
+
+
+🟢 Beginner Level — Core Idea
+What is an LLM?
+A Large Language Model (LLM) is a system that predicts the next token based on previous tokens.
+📌 It does not think or know facts like humans.
+📌 It learns patterns from massive text data.
+Example
+Input: &ldquo;The capital of France is&rdquo;
+Output: &ldquo;Paris&rdquo;">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "How llms work",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How llms work",
+  "name": "How llms work",
+  "description": "🧠 How Large Language Models (LLMs) Work Internally Beginner → Intermediate → Advanced\nWith examples, concepts, and real-world use cases\n🟢 Beginner Level — Core Idea What is an LLM? A Large Language Model (LLM) is a system that predicts the next token based on previous tokens.\n📌 It does not think or know facts like humans.\n📌 It learns patterns from massive text data.\nExample Input: \u0026ldquo;The capital of France is\u0026rdquo; Output: \u0026ldquo;Paris\u0026rdquo;\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "🧠 How Large Language Models (LLMs) Work Internally Beginner → Intermediate → Advanced\nWith examples, concepts, and real-world use cases\n🟢 Beginner Level — Core Idea What is an LLM? A Large Language Model (LLM) is a system that predicts the next token based on previous tokens.\n📌 It does not think or know facts like humans.\n📌 It learns patterns from massive text data.\nExample Input: “The capital of France is” Output: “Paris”\n🔹 Tokens (Not Words) LLMs process tokens, not words.\nExample “ChatGPT is amazing” → [“Chat”, “G”, “PT”, \" is\", \" amazing\"]\nTokens can be:\nFull words Word parts Punctuation 📌 Tokens matter because:\nCost is calculated per token Context window is measured in tokens 🔁 How Prediction Works (Simple Loop) Input text → tokens Model predicts next token Token is added to input Repeat until completion Example\nUser: “Hello, how are” Model: predicts \" you\"\n🧩 Beginner Use Cases Chatbots Auto-complete Text summarization FAQ assistants 🟡 Intermediate Level — How LLMs Understand Context 🔹 Embeddings (Meaning as Numbers) LLMs convert tokens into vectors (numbers) called embeddings.\nExample “King” → [0.21, 0.88, -0.15, …] “Queen” → [0.22, 0.87, -0.14, …]\n✔ Similar meanings → closer vectors\n✔ Enables semantic search \u0026 similarity\n🔹 Transformer Architecture LLMs are built using Transformers.\nA transformer consists of:\nMultiple layers Self-attention Feed-forward networks Each layer improves understanding step by step.\n🔹 Attention (Most Important Concept) Attention helps the model decide:\nWhich words matter most in a sentence\nExample “The trophy doesn’t fit in the suitcase because it is too small.” “it” refers to suitcase, not trophy. This is solved using self-attention.\n🔹 Self-Attention Example Sentence: “I love programming because it is creative” “it” attends to programming, not “love”.\n🔹 Training (Simplified) During training:\nHide a word Model predicts it Compare with actual word Adjust weights This happens trillions of times.\n🧩 Intermediate Use Cases Code generation Search engines Chat with documents Sentiment analysis 🔵 Advanced Level — Production \u0026 Internals 🔹 Pretraining vs Fine-Tuning Pretraining Learns language from large datasets Objective: predict next token Fine-Tuning Teaches behavior and alignment Instruction following Safety rules 🔹 RLHF (Reinforcement Learning from Human Feedback) Humans rank model outputs Model learns preferred responses Reward helpful \u0026 safe answers This is why ChatGPT feels human-like.\n🔹 Inference (When You Use the Model) Pipeline:\nPrompt → Tokens → Embeddings → Transformer Layers → Token Probabilities → Sampling → Output\nExample probabilities: Paris: 0.92 London: 0.04 Berlin: 0.02\n🔹 Sampling Controls Temperature 0.0 → deterministic 1.0+ → creative Top-K Choose from top K tokens Top-P (Nucleus Sampling) Choose smallest token set whose probability ≥ P 🔹 Context Window (Memory Limit) LLMs have no long-term memory.\nThey only remember:\nWhat fits inside the context window Example:\nGPT-4 → up to ~128k tokens LLaMA 3 → 8k–128k (variant) 🔹 Hallucinations (Why They Happen) LLMs:\nPredict likely text Do NOT verify truth If knowledge is missing → model guesses confidently.\nSolutions RAG (Retrieval-Augmented Generation) Tool calling Validation layers 🧩 Advanced Use Cases Agentic AI systems DevOps automation ITSM assistants Code review bots Autonomous workflows 🔄 Real-World Architecture Example (RAG) Chat with PDF\nSplit PDF into chunks Convert chunks to embeddings Store in vector database Embed user query Retrieve similar chunks Inject into prompt LLM generates response 🧠 Key Takeaways LLMs predict text, not facts Tokens ≠ words Embeddings represent meaning Attention provides context understanding RAG reduces hallucinations Agents combine reasoning + actions 🚀 What to Learn Next Transformers (visual explanations) Embeddings \u0026 vector databases RAG pipelines Agent frameworks (LangGraph, CrewAI) Model serving (FastAPI, Docker) 📌 One-line Summary\nLLMs are transformer-based systems that predict tokens using attention and embeddings, and become powerful when com\n",
+  "wordCount" : "611",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      How llms work
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-how-large-language-models-llms-work-internally">🧠 How Large Language Models (LLMs) Work Internally<a hidden class="anchor" aria-hidden="true" href="#-how-large-language-models-llms-work-internally">#</a></h1>
+<blockquote>
+<p>Beginner → Intermediate → Advanced<br>
+With examples, concepts, and real-world use cases</p>
+</blockquote>
+<hr>
+<h2 id="-beginner-level--core-idea">🟢 Beginner Level — Core Idea<a hidden class="anchor" aria-hidden="true" href="#-beginner-level--core-idea">#</a></h2>
+<h3 id="what-is-an-llm">What is an LLM?<a hidden class="anchor" aria-hidden="true" href="#what-is-an-llm">#</a></h3>
+<p>A <strong>Large Language Model (LLM)</strong> is a system that predicts the <strong>next token</strong> based on previous tokens.</p>
+<p>📌 It does <strong>not think or know facts</strong> like humans.<br>
+📌 It learns <strong>patterns from massive text data</strong>.</p>
+<p><strong>Example</strong>
+Input: &ldquo;The capital of France is&rdquo;
+Output: &ldquo;Paris&rdquo;</p>
+<hr>
+<h2 id="-tokens-not-words">🔹 Tokens (Not Words)<a hidden class="anchor" aria-hidden="true" href="#-tokens-not-words">#</a></h2>
+<p>LLMs process <strong>tokens</strong>, not words.</p>
+<p><strong>Example</strong>
+&ldquo;ChatGPT is amazing&rdquo;
+→ [&ldquo;Chat&rdquo;, &ldquo;G&rdquo;, &ldquo;PT&rdquo;, &quot; is&quot;, &quot; amazing&quot;]</p>
+<p>Tokens can be:</p>
+<ul>
+<li>Full words</li>
+<li>Word parts</li>
+<li>Punctuation</li>
+</ul>
+<p>📌 Tokens matter because:</p>
+<ul>
+<li>Cost is calculated per token</li>
+<li>Context window is measured in tokens</li>
+</ul>
+<hr>
+<h2 id="-how-prediction-works-simple-loop">🔁 How Prediction Works (Simple Loop)<a hidden class="anchor" aria-hidden="true" href="#-how-prediction-works-simple-loop">#</a></h2>
+<ol>
+<li>Input text → tokens</li>
+<li>Model predicts next token</li>
+<li>Token is added to input</li>
+<li>Repeat until completion</li>
+</ol>
+<p><strong>Example</strong></p>
+<p>User: &ldquo;Hello, how are&rdquo;
+Model: predicts &quot; you&quot;</p>
+<hr>
+<h2 id="-beginner-use-cases">🧩 Beginner Use Cases<a hidden class="anchor" aria-hidden="true" href="#-beginner-use-cases">#</a></h2>
+<ul>
+<li>Chatbots</li>
+<li>Auto-complete</li>
+<li>Text summarization</li>
+<li>FAQ assistants</li>
+</ul>
+<hr>
+<h2 id="-intermediate-level--how-llms-understand-context">🟡 Intermediate Level — How LLMs Understand Context<a hidden class="anchor" aria-hidden="true" href="#-intermediate-level--how-llms-understand-context">#</a></h2>
+<hr>
+<h2 id="-embeddings-meaning-as-numbers">🔹 Embeddings (Meaning as Numbers)<a hidden class="anchor" aria-hidden="true" href="#-embeddings-meaning-as-numbers">#</a></h2>
+<p>LLMs convert tokens into <strong>vectors (numbers)</strong> called embeddings.</p>
+<p><strong>Example</strong>
+&ldquo;King&rdquo; → [0.21, 0.88, -0.15, &hellip;]
+&ldquo;Queen&rdquo; → [0.22, 0.87, -0.14, &hellip;]</p>
+<p>✔ Similar meanings → closer vectors<br>
+✔ Enables semantic search &amp; similarity</p>
+<hr>
+<h2 id="-transformer-architecture">🔹 Transformer Architecture<a hidden class="anchor" aria-hidden="true" href="#-transformer-architecture">#</a></h2>
+<p>LLMs are built using <strong>Transformers</strong>.</p>
+<p>A transformer consists of:</p>
+<ul>
+<li>Multiple layers</li>
+<li>Self-attention</li>
+<li>Feed-forward networks</li>
+</ul>
+<p>Each layer improves understanding step by step.</p>
+<hr>
+<h2 id="-attention-most-important-concept">🔹 Attention (Most Important Concept)<a hidden class="anchor" aria-hidden="true" href="#-attention-most-important-concept">#</a></h2>
+<p>Attention helps the model decide:</p>
+<blockquote>
+<p><strong>Which words matter most</strong> in a sentence</p>
+</blockquote>
+<p><strong>Example</strong>
+&ldquo;The trophy doesn&rsquo;t fit in the suitcase because it is too small.&rdquo;
+&ldquo;it&rdquo; refers to <strong>suitcase</strong>, not trophy.
+This is solved using <strong>self-attention</strong>.</p>
+<hr>
+<h2 id="-self-attention-example">🔹 Self-Attention Example<a hidden class="anchor" aria-hidden="true" href="#-self-attention-example">#</a></h2>
+<p>Sentence:
+&ldquo;I love programming because it is creative&rdquo;
+&ldquo;it&rdquo; attends to <strong>programming</strong>, not &ldquo;love&rdquo;.</p>
+<hr>
+<h2 id="-training-simplified">🔹 Training (Simplified)<a hidden class="anchor" aria-hidden="true" href="#-training-simplified">#</a></h2>
+<p>During training:</p>
+<ol>
+<li>Hide a word</li>
+<li>Model predicts it</li>
+<li>Compare with actual word</li>
+<li>Adjust weights</li>
+</ol>
+<p>This happens <strong>trillions of times</strong>.</p>
+<hr>
+<h2 id="-intermediate-use-cases">🧩 Intermediate Use Cases<a hidden class="anchor" aria-hidden="true" href="#-intermediate-use-cases">#</a></h2>
+<ul>
+<li>Code generation</li>
+<li>Search engines</li>
+<li>Chat with documents</li>
+<li>Sentiment analysis</li>
+</ul>
+<hr>
+<h2 id="-advanced-level--production--internals">🔵 Advanced Level — Production &amp; Internals<a hidden class="anchor" aria-hidden="true" href="#-advanced-level--production--internals">#</a></h2>
+<hr>
+<h2 id="-pretraining-vs-fine-tuning">🔹 Pretraining vs Fine-Tuning<a hidden class="anchor" aria-hidden="true" href="#-pretraining-vs-fine-tuning">#</a></h2>
+<h3 id="pretraining">Pretraining<a hidden class="anchor" aria-hidden="true" href="#pretraining">#</a></h3>
+<ul>
+<li>Learns language from large datasets</li>
+<li>Objective: predict next token</li>
+</ul>
+<h3 id="fine-tuning">Fine-Tuning<a hidden class="anchor" aria-hidden="true" href="#fine-tuning">#</a></h3>
+<ul>
+<li>Teaches behavior and alignment</li>
+<li>Instruction following</li>
+<li>Safety rules</li>
+</ul>
+<hr>
+<h2 id="-rlhf-reinforcement-learning-from-human-feedback">🔹 RLHF (Reinforcement Learning from Human Feedback)<a hidden class="anchor" aria-hidden="true" href="#-rlhf-reinforcement-learning-from-human-feedback">#</a></h2>
+<ol>
+<li>Humans rank model outputs</li>
+<li>Model learns preferred responses</li>
+<li>Reward helpful &amp; safe answers</li>
+</ol>
+<p>This is why ChatGPT feels <strong>human-like</strong>.</p>
+<hr>
+<h2 id="-inference-when-you-use-the-model">🔹 Inference (When You Use the Model)<a hidden class="anchor" aria-hidden="true" href="#-inference-when-you-use-the-model">#</a></h2>
+<p>Pipeline:</p>
+<p>Prompt
+→ Tokens
+→ Embeddings
+→ Transformer Layers
+→ Token Probabilities
+→ Sampling
+→ Output</p>
+<p><strong>Example probabilities:</strong>
+Paris: 0.92
+London: 0.04
+Berlin: 0.02</p>
+<hr>
+<h2 id="-sampling-controls">🔹 Sampling Controls<a hidden class="anchor" aria-hidden="true" href="#-sampling-controls">#</a></h2>
+<h3 id="temperature">Temperature<a hidden class="anchor" aria-hidden="true" href="#temperature">#</a></h3>
+<ul>
+<li><code>0.0</code> → deterministic</li>
+<li><code>1.0+</code> → creative</li>
+</ul>
+<h3 id="top-k">Top-K<a hidden class="anchor" aria-hidden="true" href="#top-k">#</a></h3>
+<ul>
+<li>Choose from top K tokens</li>
+</ul>
+<h3 id="top-p-nucleus-sampling">Top-P (Nucleus Sampling)<a hidden class="anchor" aria-hidden="true" href="#top-p-nucleus-sampling">#</a></h3>
+<ul>
+<li>Choose smallest token set whose probability ≥ P</li>
+</ul>
+<hr>
+<h2 id="-context-window-memory-limit">🔹 Context Window (Memory Limit)<a hidden class="anchor" aria-hidden="true" href="#-context-window-memory-limit">#</a></h2>
+<p>LLMs have <strong>no long-term memory</strong>.</p>
+<p>They only remember:</p>
+<ul>
+<li>What fits inside the context window</li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>GPT-4 → up to ~128k tokens</li>
+<li>LLaMA 3 → 8k–128k (variant)</li>
+</ul>
+<hr>
+<h2 id="-hallucinations-why-they-happen">🔹 Hallucinations (Why They Happen)<a hidden class="anchor" aria-hidden="true" href="#-hallucinations-why-they-happen">#</a></h2>
+<p>LLMs:</p>
+<ul>
+<li>Predict likely text</li>
+<li>Do NOT verify truth</li>
+</ul>
+<p>If knowledge is missing → model guesses confidently.</p>
+<h3 id="solutions">Solutions<a hidden class="anchor" aria-hidden="true" href="#solutions">#</a></h3>
+<ul>
+<li>RAG (Retrieval-Augmented Generation)</li>
+<li>Tool calling</li>
+<li>Validation layers</li>
+</ul>
+<hr>
+<h2 id="-advanced-use-cases">🧩 Advanced Use Cases<a hidden class="anchor" aria-hidden="true" href="#-advanced-use-cases">#</a></h2>
+<ul>
+<li>Agentic AI systems</li>
+<li>DevOps automation</li>
+<li>ITSM assistants</li>
+<li>Code review bots</li>
+<li>Autonomous workflows</li>
+</ul>
+<hr>
+<h2 id="-real-world-architecture-example-rag">🔄 Real-World Architecture Example (RAG)<a hidden class="anchor" aria-hidden="true" href="#-real-world-architecture-example-rag">#</a></h2>
+<p><strong>Chat with PDF</strong></p>
+<ol>
+<li>Split PDF into chunks</li>
+<li>Convert chunks to embeddings</li>
+<li>Store in vector database</li>
+<li>Embed user query</li>
+<li>Retrieve similar chunks</li>
+<li>Inject into prompt</li>
+<li>LLM generates response</li>
+</ol>
+<hr>
+<h2 id="-key-takeaways">🧠 Key Takeaways<a hidden class="anchor" aria-hidden="true" href="#-key-takeaways">#</a></h2>
+<ul>
+<li>LLMs predict text, not facts</li>
+<li>Tokens ≠ words</li>
+<li>Embeddings represent meaning</li>
+<li>Attention provides context understanding</li>
+<li>RAG reduces hallucinations</li>
+<li>Agents combine reasoning + actions</li>
+</ul>
+<hr>
+<h2 id="-what-to-learn-next">🚀 What to Learn Next<a hidden class="anchor" aria-hidden="true" href="#-what-to-learn-next">#</a></h2>
+<ol>
+<li>Transformers (visual explanations)</li>
+<li>Embeddings &amp; vector databases</li>
+<li>RAG pipelines</li>
+<li>Agent frameworks (LangGraph, CrewAI)</li>
+<li>Model serving (FastAPI, Docker)</li>
+</ol>
+<hr>
+<p>📌 <strong>One-line Summary</strong><br>
+LLMs are transformer-based systems that predict tokens using attention and embeddings, and become powerful when com</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

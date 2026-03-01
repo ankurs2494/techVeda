@@ -65,3 +65,10 @@ name = "Devops"
 url = "notes/devops/"
 identifier = "devops"
 weight = 10
+
+# AI
+[[menu.main]]
+name = "AI"
+url = "notes/ai/"
+identifier = "ai"
+weight = 10

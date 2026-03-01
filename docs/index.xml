@@ -6,8 +6,130 @@
     <description>Recent content on My Tech Knowledge Notes</description>
     <generator>Hugo -- 0.154.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ankurs2494.github.io/techVeda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hallucinations rag</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/</guid>
+      <description>&lt;h1 id=&#34;understanding-hallucination-in-rag-retrieval-augmented-generation&#34;&gt;Understanding Hallucination in RAG (Retrieval-Augmented Generation)&lt;/h1&gt;
+&lt;p&gt;Retrieval-Augmented Generation (RAG) is a framework that combines &lt;strong&gt;retrieval of information&lt;/strong&gt; from external sources with &lt;strong&gt;language model generation&lt;/strong&gt;. While powerful, RAG systems can sometimes produce &lt;strong&gt;hallucinations&lt;/strong&gt;, meaning the model generates information that is &lt;strong&gt;plausible but false&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;This guide explains hallucination in RAG at &lt;strong&gt;beginner&lt;/strong&gt;, &lt;strong&gt;intermediate&lt;/strong&gt;, and &lt;strong&gt;advanced&lt;/strong&gt; levels, with examples and use cases.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-beginner-level&#34;&gt;1. Beginner Level&lt;/h2&gt;
+&lt;h3 id=&#34;what-is-rag&#34;&gt;What is RAG?&lt;/h3&gt;
+&lt;p&gt;RAG is a model architecture that works in two steps:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How llms work</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/</guid>
+      <description>&lt;h1 id=&#34;-how-large-language-models-llms-work-internally&#34;&gt;🧠 How Large Language Models (LLMs) Work Internally&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Beginner → Intermediate → Advanced&lt;br&gt;
+With examples, concepts, and real-world use cases&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-beginner-level--core-idea&#34;&gt;🟢 Beginner Level — Core Idea&lt;/h2&gt;
+&lt;h3 id=&#34;what-is-an-llm&#34;&gt;What is an LLM?&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;Large Language Model (LLM)&lt;/strong&gt; is a system that predicts the &lt;strong&gt;next token&lt;/strong&gt; based on previous tokens.&lt;/p&gt;
+&lt;p&gt;📌 It does &lt;strong&gt;not think or know facts&lt;/strong&gt; like humans.&lt;br&gt;
+📌 It learns &lt;strong&gt;patterns from massive text data&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example&lt;/strong&gt;
+Input: &amp;ldquo;The capital of France is&amp;rdquo;
+Output: &amp;ldquo;Paris&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Inference sampling</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/</guid>
+      <description>&lt;h1 id=&#34;-inference--sampling-in-large-language-models-llms&#34;&gt;🎯 Inference &amp;amp; Sampling in Large Language Models (LLMs)&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;(Beginner → Intermediate → Advanced)&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-what-is-inference&#34;&gt;📌 What Is Inference?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Inference&lt;/strong&gt; is the phase where a trained LLM is &lt;strong&gt;used to generate output&lt;/strong&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Training = learning
+Inference = answering&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;When you type a prompt into ChatGPT, Copilot, or any AI assistant, the model is performing &lt;strong&gt;inference&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-beginner-level-the-basics&#34;&gt;🧒 Beginner Level: The Basics&lt;/h2&gt;
+&lt;h3 id=&#34;-what-happens-during-inference&#34;&gt;🧠 What Happens During Inference?&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;You provide a prompt&lt;/li&gt;
+&lt;li&gt;The model converts text into tokens&lt;/li&gt;
+&lt;li&gt;It predicts the &lt;strong&gt;next token&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;The token is added to output&lt;/li&gt;
+&lt;li&gt;Steps 3–4 repeat until stopping&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Example:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Tokens embeddings</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/</guid>
+      <description>&lt;h1 id=&#34;-token-embeddings-explained-beginner--advanced&#34;&gt;🔤 Token Embeddings Explained (Beginner → Advanced)&lt;/h1&gt;
+&lt;h2 id=&#34;-what-are-tokens&#34;&gt;📌 What Are Tokens?&lt;/h2&gt;
+&lt;p&gt;In Large Language Models (LLMs), &lt;strong&gt;tokens&lt;/strong&gt; are the smallest units of text the model understands.&lt;/p&gt;
+&lt;p&gt;A token can be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A word → &lt;code&gt;&amp;quot;apple&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Part of a word → &lt;code&gt;&amp;quot;play&amp;quot; + &amp;quot;ing&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A number → &lt;code&gt;&amp;quot;2025&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A symbol → &lt;code&gt;&amp;quot;@&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;.&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;,&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Even a space → &lt;code&gt;&amp;quot; &amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+&lt;p&gt;Sentence:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;#34;I love AI&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Possible tokens:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[&amp;#34;I&amp;#34;, &amp;#34; love&amp;#34;, &amp;#34; AI&amp;#34;]
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;⚠️ LLMs do NOT understand words directly — they understand &lt;strong&gt;tokens&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Training finetuning rlhf</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/</guid>
+      <description>&lt;h1 id=&#34;-training-fine-tuning-and-rlhf-in-llms&#34;&gt;🧠 Training, Fine-Tuning, and RLHF in LLMs&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;(Beginner → Intermediate → Advanced)&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-big-picture-how-llms-are-made-smarter&#34;&gt;📌 Big Picture: How LLMs Are Made Smarter&lt;/h2&gt;
+&lt;p&gt;Modern Large Language Models (LLMs) like GPT, Claude, or LLaMA are trained in &lt;strong&gt;three major stages&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1️⃣ Pretraining  →  2️⃣ Fine-Tuning  →  3️⃣ RLHF
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Each stage adds &lt;strong&gt;new capabilities and alignment&lt;/strong&gt;.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;-beginner-level-core-concepts&#34;&gt;🧒 Beginner Level: Core Concepts&lt;/h1&gt;
+&lt;h2 id=&#34;1-pretraining-foundation-training&#34;&gt;1️⃣ Pretraining (Foundation Training)&lt;/h2&gt;
+&lt;h3 id=&#34;what-is-pretraining&#34;&gt;What Is Pretraining?&lt;/h3&gt;
+&lt;p&gt;Pretraining is when a model learns &lt;strong&gt;language basics&lt;/strong&gt; by reading &lt;strong&gt;massive amounts of text&lt;/strong&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Transformer attention</title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/</guid>
+      <description>&lt;h1 id=&#34;-transformer-attention-explained-beginner--advanced&#34;&gt;🧠 Transformer Attention Explained (Beginner → Advanced)&lt;/h1&gt;
+&lt;h2 id=&#34;-what-is-attention&#34;&gt;📌 What Is Attention?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Attention&lt;/strong&gt; is the mechanism that allows a model to &lt;strong&gt;focus on the most relevant parts of input text&lt;/strong&gt; when understanding or generating language.&lt;/p&gt;
+&lt;p&gt;👉 Instead of reading text left to right like humans, transformers look at &lt;strong&gt;all words at once&lt;/strong&gt; and decide:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Which words matter most to each other?”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;-beginner-level-intuition-behind-attention&#34;&gt;🧒 Beginner Level: Intuition Behind Attention&lt;/h2&gt;
+&lt;h3 id=&#34;simple-example&#34;&gt;Simple Example&lt;/h3&gt;
+&lt;p&gt;Sentence:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;#34;The animal didn&amp;#39;t cross the street because it was tired.&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Question:
+👉 What does &lt;strong&gt;&amp;ldquo;it&amp;rdquo;&lt;/strong&gt; refer to?&lt;/p&gt;</description>
+    </item>
     <item>
       <title>DevOps Technical Interview</title>
       <link>https://ankurs2494.github.io/techVeda/notes/devops/devops_interview/</link>
@@ -941,6 +1063,34 @@ Tells Terraform which cloud/service to talk to and how.&lt;/p&gt;</description>
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;“There are only two hard things in Computer Science: cache invalidation and naming things.”&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/01_embeddings_intro/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/01_embeddings_intro/</guid>
+      <description>&lt;p&gt;Vector embedding topics&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/02_vector_search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/02_vector_search/</guid>
+      <description>&lt;p&gt;Vector search topics&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/03_faiss_chroma_pinecone/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/03_faiss_chroma_pinecone/</guid>
+      <description>&lt;p&gt;Faiss chroma pinecone&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/04_rag_pipeline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/04_rag_pipeline/</guid>
+      <description>&lt;p&gt;Rag pipeline&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

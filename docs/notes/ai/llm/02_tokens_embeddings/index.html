@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Tokens embeddings | My Tech Knowledge Notes</title>
+<meta name="keywords" content="">
+<meta name="description" content="🔤 Token Embeddings Explained (Beginner → Advanced)
+📌 What Are Tokens?
+In Large Language Models (LLMs), tokens are the smallest units of text the model understands.
+A token can be:
+
+A word → &quot;apple&quot;
+Part of a word → &quot;play&quot; &#43; &quot;ing&quot;
+A number → &quot;2025&quot;
+A symbol → &quot;@&quot;, &quot;.&quot;, &quot;,&quot;
+Even a space → &quot; &quot;
+
+Example
+Sentence:
+&#34;I love AI&#34;
+Possible tokens:
+[&#34;I&#34;, &#34; love&#34;, &#34; AI&#34;]
+
+⚠️ LLMs do NOT understand words directly — they understand tokens.">
+<meta name="author" content="Ankur Singh">
+<link rel="canonical" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/">
+<link crossorigin="anonymous" href="/techVeda/assets/css/stylesheet.da3211e5ef867bf2b75fd5a6515cfed7195c011e8ab735694e203810a827097b.css" integrity="sha256-2jIR5e&#43;Ge/K3X9WmUVz&#43;1xlcAR6KtzVpTiA4EKgnCXs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ankurs2494.github.io/techVeda/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ankurs2494.github.io/techVeda/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ankurs2494.github.io/techVeda/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ankurs2494.github.io/techVeda/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ankurs2494.github.io/techVeda/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/">
+  <meta property="og:site_name" content="My Tech Knowledge Notes">
+  <meta property="og:title" content="Tokens embeddings">
+  <meta property="og:description" content="🔤 Token Embeddings Explained (Beginner → Advanced) 📌 What Are Tokens? In Large Language Models (LLMs), tokens are the smallest units of text the model understands.
+A token can be:
+A word → &#34;apple&#34; Part of a word → &#34;play&#34; &#43; &#34;ing&#34; A number → &#34;2025&#34; A symbol → &#34;@&#34;, &#34;.&#34;, &#34;,&#34; Even a space → &#34; &#34; Example Sentence:
+&#34;I love AI&#34; Possible tokens:
+[&#34;I&#34;, &#34; love&#34;, &#34; AI&#34;] ⚠️ LLMs do NOT understand words directly — they understand tokens.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="notes">
+    <meta property="article:published_time" content="2026-03-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-03-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tokens embeddings">
+<meta name="twitter:description" content="🔤 Token Embeddings Explained (Beginner → Advanced)
+📌 What Are Tokens?
+In Large Language Models (LLMs), tokens are the smallest units of text the model understands.
+A token can be:
+
+A word → &quot;apple&quot;
+Part of a word → &quot;play&quot; &#43; &quot;ing&quot;
+A number → &quot;2025&quot;
+A symbol → &quot;@&quot;, &quot;.&quot;, &quot;,&quot;
+Even a space → &quot; &quot;
+
+Example
+Sentence:
+&#34;I love AI&#34;
+Possible tokens:
+[&#34;I&#34;, &#34; love&#34;, &#34; AI&#34;]
+
+⚠️ LLMs do NOT understand words directly — they understand tokens.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Notes",
+      "item": "https://ankurs2494.github.io/techVeda/notes/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "AI, LLM and Vector DB",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Large language model",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Tokens embeddings",
+      "item": "https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Tokens embeddings",
+  "name": "Tokens embeddings",
+  "description": "🔤 Token Embeddings Explained (Beginner → Advanced) 📌 What Are Tokens? In Large Language Models (LLMs), tokens are the smallest units of text the model understands.\nA token can be:\nA word → \u0026quot;apple\u0026quot; Part of a word → \u0026quot;play\u0026quot; + \u0026quot;ing\u0026quot; A number → \u0026quot;2025\u0026quot; A symbol → \u0026quot;@\u0026quot;, \u0026quot;.\u0026quot;, \u0026quot;,\u0026quot; Even a space → \u0026quot; \u0026quot; Example Sentence:\n\u0026#34;I love AI\u0026#34; Possible tokens:\n[\u0026#34;I\u0026#34;, \u0026#34; love\u0026#34;, \u0026#34; AI\u0026#34;] ⚠️ LLMs do NOT understand words directly — they understand tokens.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "🔤 Token Embeddings Explained (Beginner → Advanced) 📌 What Are Tokens? In Large Language Models (LLMs), tokens are the smallest units of text the model understands.\nA token can be:\nA word → \"apple\" Part of a word → \"play\" + \"ing\" A number → \"2025\" A symbol → \"@\", \".\", \",\" Even a space → \" \" Example Sentence:\n\"I love AI\" Possible tokens:\n[\"I\", \" love\", \" AI\"] ⚠️ LLMs do NOT understand words directly — they understand tokens.\n🧠 What Is an Embedding? (Beginner Level) An embedding is a numerical representation of a token.\nThink of embeddings as:\n📍 A coordinate that places a word in a high-dimensional space based on meaning.\nSimple Analogy Imagine a map:\nParis 🇫🇷 and London 🇬🇧 are close Paris 🇫🇷 and Banana 🍌 are far apart LLMs do the same — but in hundreds or thousands of dimensions.\nExample Token → Vector:\n\"king\" → [0.21, -0.33, 0.98, ..., 0.44] These numbers capture meaning, not spelling.\n🧩 Why Do We Need Embeddings? Computers understand numbers, not text.\nEmbeddings allow models to:\nUnderstand similarity Capture context Perform semantic search Reason about meaning Example \"doctor\" ≈ \"physician\" \"king\" - \"man\" + \"woman\" ≈ \"queen\" This works because of embeddings.\n🔄 Token → Embedding Pipeline Text ↓ Tokenization ↓ Token IDs ↓ Embedding Lookup ↓ Vectors ↓ Transformer Model 🧪 Intermediate Level: How Embeddings Are Created 1️⃣ Tokenization Text is split using algorithms like:\nBPE (Byte Pair Encoding) WordPiece SentencePiece Example:\n\"unbelievable\" → [\"un\", \"believ\", \"able\"] 2️⃣ Embedding Matrix The model maintains a huge table:\nEmbedding Matrix: Token ID → Vector (size = 768 / 1024 / 4096) Example:\nToken ID 1023 → [0.12, 0.55, -0.91, ...] Every token has one learned vector.\n3️⃣ Positional Embeddings Since transformers don’t understand order naturally, position info is added.\nExample:\n\"I love AI\" The model adds:\nToken Embedding + Position Embedding So:\n\"AI\" at position 3 ≠ \"AI\" at position 1 🧠 Advanced Level: Contextual Embeddings Static vs Contextual Embeddings Type Example Meaning Static Word2Vec Same vector every time Contextual GPT, BERT Meaning changes with context Example \"I sat on the bank\" \"I deposited money in the bank\" ➡️ The word bank gets different embeddings depending on context.\nThis happens because:\nEmbeddings pass through self-attention layers Context reshapes meaning dynamically 🔍 Embeddings in Attention Mechanism In transformers:\nTokens interact via Query, Key, Value (QKV) Similar embeddings → stronger attention This enables:\nLong-range dependencies Context awareness Reasoning 🗂️ Real-World Use Cases 1️⃣ Semantic Search User query:\n\"How to reset password?\" Matches document:\n\"Account recovery steps\" Even without exact keywords.\nUsed in:\nHelpdesks Knowledge bases Search engines 2️⃣ Retrieval-Augmented Generation (RAG) Flow:\nQuery → Embedding Docs → Embeddings Similarity Search Relevant Docs → LLM Used in:\nChatbots Internal tools Compliance systems 3️⃣ Recommendation Systems Embeddings represent:\nUsers Products Content Close vectors → better recommendations.\n4️⃣ Clustering \u0026 Classification Group:\nSimilar tickets Similar incidents Similar customer issues ⚙️ Example: Python Embedding (Conceptual) from openai import OpenAI client = OpenAI() embedding = client.embeddings.create( model=\"text-embedding-3-large\", input=\"How to reset password?\" ) vector = embedding.data[0].embedding print(len(vector)) # e.g., 3072 ⚠️ Important Notes Tokens cost money 💰 in API usage Longer text → more tokens → higher cost Chunking text improves accuracy Embedding dimension ≠ model size 📝 One-Line Summary Token embeddings convert text into meaningful numerical vectors that allow LLMs to understand, compare, and reason about language.\n🧠 Memory Tip Tokens = text pieces Embeddings = meaning vectors Similar meaning = closer vectors Context reshapes embeddings 📌 Next Topics You Should Read Self-Attention Mechanism Transformer Architecture Vector Databases RAG Pipelines ⭐ End of Notes\n",
+  "wordCount" : "599",
+  "inLanguage": "en",
+  "datePublished": "2026-03-01T00:00:00Z",
+  "dateModified": "2026-03-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Ankur Singh"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Tech Knowledge Notes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ankurs2494.github.io/techVeda/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ankurs2494.github.io/techVeda/" accesskey="h" title="My Tech Knowledge Notes (Alt + H)">My Tech Knowledge Notes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/ai/" title="AI">
+                    <span>AI</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/systemdesign/" title="Architecture">
+                    <span>Architecture</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/devops/" title="Devops">
+                    <span>Devops</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/iac/" title="IaC">
+                    <span>IaC</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/linux/" title="Linux">
+                    <span>Linux</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/networking/" title="Networking">
+                    <span>Networking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ankurs2494.github.io/techVeda/notes/operations/" title="Operations">
+                    <span>Operations</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ankurs2494.github.io/techVeda/">Home</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/">Notes</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/">AI, LLM and Vector DB</a>&nbsp;»&nbsp;<a href="https://ankurs2494.github.io/techVeda/notes/ai/llm/">Large language model</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Tokens embeddings
+    </h1>
+    <div class="post-meta"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span>&nbsp;·&nbsp;<span>Ankur Singh</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-token-embeddings-explained-beginner--advanced">🔤 Token Embeddings Explained (Beginner → Advanced)<a hidden class="anchor" aria-hidden="true" href="#-token-embeddings-explained-beginner--advanced">#</a></h1>
+<h2 id="-what-are-tokens">📌 What Are Tokens?<a hidden class="anchor" aria-hidden="true" href="#-what-are-tokens">#</a></h2>
+<p>In Large Language Models (LLMs), <strong>tokens</strong> are the smallest units of text the model understands.</p>
+<p>A token can be:</p>
+<ul>
+<li>A word → <code>&quot;apple&quot;</code></li>
+<li>Part of a word → <code>&quot;play&quot; + &quot;ing&quot;</code></li>
+<li>A number → <code>&quot;2025&quot;</code></li>
+<li>A symbol → <code>&quot;@&quot;</code>, <code>&quot;.&quot;</code>, <code>&quot;,&quot;</code></li>
+<li>Even a space → <code>&quot; &quot;</code></li>
+</ul>
+<h3 id="example">Example<a hidden class="anchor" aria-hidden="true" href="#example">#</a></h3>
+<p>Sentence:</p>
+<pre tabindex="0"><code>&#34;I love AI&#34;
+</code></pre><p>Possible tokens:</p>
+<pre tabindex="0"><code>[&#34;I&#34;, &#34; love&#34;, &#34; AI&#34;]
+</code></pre><blockquote>
+<p>⚠️ LLMs do NOT understand words directly — they understand <strong>tokens</strong>.</p>
+</blockquote>
+<hr>
+<h2 id="-what-is-an-embedding-beginner-level">🧠 What Is an Embedding? (Beginner Level)<a hidden class="anchor" aria-hidden="true" href="#-what-is-an-embedding-beginner-level">#</a></h2>
+<p>An <strong>embedding</strong> is a <strong>numerical representation</strong> of a token.</p>
+<p>Think of embeddings as:</p>
+<blockquote>
+<p>📍 A coordinate that places a word in a high-dimensional space based on meaning.</p>
+</blockquote>
+<h3 id="simple-analogy">Simple Analogy<a hidden class="anchor" aria-hidden="true" href="#simple-analogy">#</a></h3>
+<p>Imagine a map:</p>
+<ul>
+<li>Paris 🇫🇷 and London 🇬🇧 are close</li>
+<li>Paris 🇫🇷 and Banana 🍌 are far apart</li>
+</ul>
+<p>LLMs do the same — but in <strong>hundreds or thousands of dimensions</strong>.</p>
+<h3 id="example-1">Example<a hidden class="anchor" aria-hidden="true" href="#example-1">#</a></h3>
+<p>Token → Vector:</p>
+<pre tabindex="0"><code>&#34;king&#34; → [0.21, -0.33, 0.98, ..., 0.44]
+</code></pre><p>These numbers <strong>capture meaning</strong>, not spelling.</p>
+<hr>
+<h2 id="-why-do-we-need-embeddings">🧩 Why Do We Need Embeddings?<a hidden class="anchor" aria-hidden="true" href="#-why-do-we-need-embeddings">#</a></h2>
+<p>Computers understand numbers, not text.</p>
+<p>Embeddings allow models to:</p>
+<ul>
+<li>Understand <strong>similarity</strong></li>
+<li>Capture <strong>context</strong></li>
+<li>Perform <strong>semantic search</strong></li>
+<li>Reason about meaning</li>
+</ul>
+<h3 id="example-2">Example<a hidden class="anchor" aria-hidden="true" href="#example-2">#</a></h3>
+<pre tabindex="0"><code>&#34;doctor&#34; ≈ &#34;physician&#34;
+&#34;king&#34; - &#34;man&#34; + &#34;woman&#34; ≈ &#34;queen&#34;
+</code></pre><p>This works because of embeddings.</p>
+<hr>
+<h2 id="-token--embedding-pipeline">🔄 Token → Embedding Pipeline<a hidden class="anchor" aria-hidden="true" href="#-token--embedding-pipeline">#</a></h2>
+<pre tabindex="0"><code>Text
+ ↓
+Tokenization
+ ↓
+Token IDs
+ ↓
+Embedding Lookup
+ ↓
+Vectors
+ ↓
+Transformer Model
+</code></pre><hr>
+<h2 id="-intermediate-level-how-embeddings-are-created">🧪 Intermediate Level: How Embeddings Are Created<a hidden class="anchor" aria-hidden="true" href="#-intermediate-level-how-embeddings-are-created">#</a></h2>
+<h3 id="1-tokenization">1️⃣ Tokenization<a hidden class="anchor" aria-hidden="true" href="#1-tokenization">#</a></h3>
+<p>Text is split using algorithms like:</p>
+<ul>
+<li>BPE (Byte Pair Encoding)</li>
+<li>WordPiece</li>
+<li>SentencePiece</li>
+</ul>
+<p>Example:</p>
+<pre tabindex="0"><code>&#34;unbelievable&#34; → [&#34;un&#34;, &#34;believ&#34;, &#34;able&#34;]
+</code></pre><hr>
+<h3 id="2-embedding-matrix">2️⃣ Embedding Matrix<a hidden class="anchor" aria-hidden="true" href="#2-embedding-matrix">#</a></h3>
+<p>The model maintains a huge table:</p>
+<pre tabindex="0"><code>Embedding Matrix:
+Token ID → Vector (size = 768 / 1024 / 4096)
+</code></pre><p>Example:</p>
+<pre tabindex="0"><code>Token ID 1023 → [0.12, 0.55, -0.91, ...]
+</code></pre><p>Every token has <strong>one learned vector</strong>.</p>
+<hr>
+<h3 id="3-positional-embeddings">3️⃣ Positional Embeddings<a hidden class="anchor" aria-hidden="true" href="#3-positional-embeddings">#</a></h3>
+<p>Since transformers don’t understand order naturally, <strong>position info</strong> is added.</p>
+<p>Example:</p>
+<pre tabindex="0"><code>&#34;I love AI&#34;
+</code></pre><p>The model adds:</p>
+<pre tabindex="0"><code>Token Embedding + Position Embedding
+</code></pre><p>So:</p>
+<ul>
+<li><code>&quot;AI&quot;</code> at position 3 ≠ <code>&quot;AI&quot;</code> at position 1</li>
+</ul>
+<hr>
+<h2 id="-advanced-level-contextual-embeddings">🧠 Advanced Level: Contextual Embeddings<a hidden class="anchor" aria-hidden="true" href="#-advanced-level-contextual-embeddings">#</a></h2>
+<h3 id="static-vs-contextual-embeddings">Static vs Contextual Embeddings<a hidden class="anchor" aria-hidden="true" href="#static-vs-contextual-embeddings">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Type</th>
+          <th>Example</th>
+          <th>Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Static</td>
+          <td>Word2Vec</td>
+          <td>Same vector every time</td>
+      </tr>
+      <tr>
+          <td>Contextual</td>
+          <td>GPT, BERT</td>
+          <td>Meaning changes with context</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="example-3">Example<a hidden class="anchor" aria-hidden="true" href="#example-3">#</a></h3>
+<pre tabindex="0"><code>&#34;I sat on the bank&#34;
+&#34;I deposited money in the bank&#34;
+</code></pre><p>➡️ The word <strong>bank</strong> gets different embeddings depending on context.</p>
+<p>This happens because:</p>
+<ul>
+<li>Embeddings pass through <strong>self-attention layers</strong></li>
+<li>Context reshapes meaning dynamically</li>
+</ul>
+<hr>
+<h2 id="-embeddings-in-attention-mechanism">🔍 Embeddings in Attention Mechanism<a hidden class="anchor" aria-hidden="true" href="#-embeddings-in-attention-mechanism">#</a></h2>
+<p>In transformers:</p>
+<ul>
+<li>Tokens interact via <strong>Query, Key, Value (QKV)</strong></li>
+<li>Similar embeddings → stronger attention</li>
+</ul>
+<p>This enables:</p>
+<ul>
+<li>Long-range dependencies</li>
+<li>Context awareness</li>
+<li>Reasoning</li>
+</ul>
+<hr>
+<h2 id="-real-world-use-cases">🗂️ Real-World Use Cases<a hidden class="anchor" aria-hidden="true" href="#-real-world-use-cases">#</a></h2>
+<h3 id="1-semantic-search">1️⃣ Semantic Search<a hidden class="anchor" aria-hidden="true" href="#1-semantic-search">#</a></h3>
+<p>User query:</p>
+<pre tabindex="0"><code>&#34;How to reset password?&#34;
+</code></pre><p>Matches document:</p>
+<pre tabindex="0"><code>&#34;Account recovery steps&#34;
+</code></pre><p>Even without exact keywords.</p>
+<p>Used in:</p>
+<ul>
+<li>Helpdesks</li>
+<li>Knowledge bases</li>
+<li>Search engines</li>
+</ul>
+<hr>
+<h3 id="2-retrieval-augmented-generation-rag">2️⃣ Retrieval-Augmented Generation (RAG)<a hidden class="anchor" aria-hidden="true" href="#2-retrieval-augmented-generation-rag">#</a></h3>
+<p>Flow:</p>
+<pre tabindex="0"><code>Query → Embedding
+Docs → Embeddings
+Similarity Search
+Relevant Docs → LLM
+</code></pre><p>Used in:</p>
+<ul>
+<li>Chatbots</li>
+<li>Internal tools</li>
+<li>Compliance systems</li>
+</ul>
+<hr>
+<h3 id="3-recommendation-systems">3️⃣ Recommendation Systems<a hidden class="anchor" aria-hidden="true" href="#3-recommendation-systems">#</a></h3>
+<p>Embeddings represent:</p>
+<ul>
+<li>Users</li>
+<li>Products</li>
+<li>Content</li>
+</ul>
+<p>Close vectors → better recommendations.</p>
+<hr>
+<h3 id="4-clustering--classification">4️⃣ Clustering &amp; Classification<a hidden class="anchor" aria-hidden="true" href="#4-clustering--classification">#</a></h3>
+<p>Group:</p>
+<ul>
+<li>Similar tickets</li>
+<li>Similar incidents</li>
+<li>Similar customer issues</li>
+</ul>
+<hr>
+<h2 id="-example-python-embedding-conceptual">⚙️ Example: Python Embedding (Conceptual)<a hidden class="anchor" aria-hidden="true" href="#-example-python-embedding-conceptual">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> openai <span style="color:#f92672">import</span> OpenAI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>client <span style="color:#f92672">=</span> OpenAI()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>embedding <span style="color:#f92672">=</span> client<span style="color:#f92672">.</span>embeddings<span style="color:#f92672">.</span>create(
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text-embedding-3-large&#34;</span>,
+</span></span><span style="display:flex;"><span>    input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;How to reset password?&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector <span style="color:#f92672">=</span> embedding<span style="color:#f92672">.</span>data[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>embedding
+</span></span><span style="display:flex;"><span>print(len(vector))  <span style="color:#75715e"># e.g., 3072</span>
+</span></span></code></pre></div><hr>
+<h2 id="-important-notes">⚠️ Important Notes<a hidden class="anchor" aria-hidden="true" href="#-important-notes">#</a></h2>
+<ul>
+<li>Tokens cost money 💰 in API usage</li>
+<li>Longer text → more tokens → higher cost</li>
+<li>Chunking text improves accuracy</li>
+<li>Embedding dimension ≠ model size</li>
+</ul>
+<hr>
+<h2 id="-one-line-summary">📝 One-Line Summary<a hidden class="anchor" aria-hidden="true" href="#-one-line-summary">#</a></h2>
+<blockquote>
+<p><strong>Token embeddings convert text into meaningful numerical vectors that allow LLMs to understand, compare, and reason about language.</strong></p>
+</blockquote>
+<hr>
+<h2 id="-memory-tip">🧠 Memory Tip<a hidden class="anchor" aria-hidden="true" href="#-memory-tip">#</a></h2>
+<ul>
+<li>Tokens = text pieces</li>
+<li>Embeddings = meaning vectors</li>
+<li>Similar meaning = closer vectors</li>
+<li>Context reshapes embeddings</li>
+</ul>
+<hr>
+<h2 id="-next-topics-you-should-read">📌 Next Topics You Should Read<a hidden class="anchor" aria-hidden="true" href="#-next-topics-you-should-read">#</a></h2>
+<ul>
+<li>Self-Attention Mechanism</li>
+<li>Transformer Architecture</li>
+<li>Vector Databases</li>
+<li>RAG Pipelines</li>
+</ul>
+<hr>
+<p>⭐ End of Notes</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://ankurs2494.github.io/techVeda/">My Tech Knowledge Notes</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

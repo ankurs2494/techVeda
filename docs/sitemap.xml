@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/06_hallucinations_rag/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/01_how_llms_work/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/05_inference_sampling/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/02_tokens_embeddings/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/04_training_finetuning_rlhf/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/llm/03_transformers_attention/</loc>
+    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ankurs2494.github.io/techVeda/notes/devops/</loc>
     <lastmod>2026-02-28T00:00:00+00:00</lastmod>
   </url><url>
@@ -12,12 +42,6 @@
     <lastmod>2026-02-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ankurs2494.github.io/techVeda/notes/linux/</loc>
-    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/</loc>
-    <lastmod>2026-02-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ankurs2494.github.io/techVeda/notes/</loc>
     <lastmod>2026-02-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ankurs2494.github.io/techVeda/notes/iac/</loc>
@@ -107,6 +131,16 @@
     <loc>https://ankurs2494.github.io/techVeda/notes/systemdesign/cache-invalidation/</loc>
     <lastmod>2026-01-03T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/01_embeddings_intro/</loc>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/02_vector_search/</loc>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/03_faiss_chroma_pinecone/</loc>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/04_rag_pipeline/</loc>
+  </url><url>
     <loc>https://ankurs2494.github.io/techVeda/categories/</loc>
+  </url><url>
+    <loc>https://ankurs2494.github.io/techVeda/notes/ai/vectordb/</loc>
   </url>
 </urlset>

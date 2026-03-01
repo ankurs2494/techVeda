@@ -1,0 +1,1 @@
+Faiss chroma pinecone
